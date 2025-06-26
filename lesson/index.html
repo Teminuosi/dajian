@@ -1,221 +1,411 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"/>
-<title>完美网络课程 · 小白 + 高级全套合集</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>完美网络课程 · 终端访问</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* --- 动画关键帧 --- */
+    @keyframes matrix-fall {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    @keyframes scanline {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 50px; }
+    }
+    @keyframes card-fade-in {
+      from { opacity: 0; transform: translateY(50px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes text-flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* --- 基本设置 --- */
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #a18cd1, #fbc2eb);
+      font-family: 'Fira Code', monospace;
+      background-color: #0d0d0d;
+      color: #0f0;
       margin: 0;
       padding: 40px 20px;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
+
+    /* --- 背景效果 --- */
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .matrix-column {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      font-size: 16px;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      white-space: nowrap;
+      user-select: none;
+      opacity: 0.3;
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+      animation: matrix-fall linear infinite;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+      animation: scanline 0.5s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* --- 整体布局 --- */
     .container {
       display: flex;
       flex-wrap: wrap;
-      max-width: 1280px;
+      max-width: 1600px;
       margin: auto;
       gap: 30px;
+      position: relative;
+      z-index: 1;
     }
     .column {
       flex: 1;
-      min-width: 360px;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      min-width: 380px;
+      background: rgba(10, 25, 10, 0.6);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1);
       padding: 30px;
       display: flex;
       flex-direction: column;
+      transition: all 0.4s ease;
+      opacity: 0;
+      animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+    .column:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2);
+      border-color: rgba(0, 255, 0, 0.6);
+    }
+    .container .column:nth-child(2) { animation-delay: 0.2s; }
+    .container .column:nth-child(3) { animation-delay: 0.4s; }
+
+    /* --- 标题和文本样式 --- */
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 8px #0f0;
+      animation: text-flicker 3s infinite;
     }
     h1 {
       font-size: 24px;
-      font-weight: 800;
-      color: #333;
+      color: #5f5;
       margin-bottom: 10px;
     }
     h2 {
       font-size: 20px;
-      color: #f60;
+      color: #ff9900; /* 橙色作为高亮 */
+      text-shadow: 0 0 8px #ff9900;
       margin-bottom: 20px;
     }
     h3 {
       font-size: 18px;
-      color: #222;
-      margin-top: 20px;
+      color: #3f3;
+      margin-top: 25px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(0, 255, 0, 0.3);
     }
     ul {
-      padding-left: 20px;
+      padding-left: 0;
+      list-style-type: none;
       margin: 10px 0;
     }
     ul li {
       line-height: 1.8;
+      padding-left: 25px;
+      position: relative;
     }
-    .qrcode {
+    ul li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: #0f0;
+      animation: text-flicker 2s infinite alternate;
+    }
+
+    /* --- 高级课程列表样式 --- */
+    .advanced-course-list {
+      counter-reset: lesson-counter;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 15px;
+    }
+    .advanced-course-list::-webkit-scrollbar { width: 4px; }
+    .advanced-course-list::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.1); }
+    .advanced-course-list::-webkit-scrollbar-thumb { background: #0f0; }
+
+    .advanced-course-list li {
+      padding-left: 45px;
+      font-size: 14px;
+    }
+    .advanced-course-list li::before {
+      counter-increment: lesson-counter;
+      content: '[' counter(lesson-counter, decimal-leading-zero) ']';
+      font-weight: 600;
+      color: #ff9900;
+    }
+
+    /* --- 右侧"安利"卡片样式 --- */
+    .pitch-card h2 { color: #f0f; text-shadow: 0 0 8px #f0f; }
+    .pitch-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .pitch-card p strong { color: #ff9900; font-weight: 600; }
+    .pitch-card .highlight-box {
+        background: rgba(0, 255, 0, 0.05);
+        border-left: 3px solid #0f0;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+    .pitch-card .highlight-box h3 {
+        margin-top: 0;
+        border: none;
+        font-size: 16px;
+    }
+    .pitch-card .highlight-box ul li::before { content: '🎁'; }
+    
+    /* --- QR码和付款信息 --- */
+    .payment-section {
       text-align: center;
-      margin-top: 20px;
+      margin-top: auto; /* Pushes to the bottom */
+      padding-top: 20px;
+      border-top: 1px dashed rgba(0, 255, 0, 0.3);
+    }
+    .payment-note {
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 4px;
+      color: #ff5555;
+      font-weight: 600;
+      margin-bottom: 15px;
     }
     .qrcode img {
       width: 180px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      height: 180px;
+      border-radius: 8px;
+      border: 2px solid #0f0;
+      box-shadow: 0 0 10px #0f0;
+      background: white; /* Keep QR code background white for scannability */
     }
     .status {
       margin-top: 20px;
       font-weight: 600;
-      color: #1a9f4b;
-      text-align: center;
+      color: #ff9900;
+      text-shadow: 0 0 5px #ff9900;
     }
-    p {
+
+    /* --- 页脚联系方式 --- */
+    .footer-contact {
+      margin-top: 50px;
       text-align: center;
       font-size: 14px;
+      color: #0c0;
+      position: relative;
+      z-index: 1;
     }
-    @media screen and (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
+    .footer-contact p {
+      margin-bottom: 8px;
+    }
+    .footer-contact strong {
+      color: #5f5;
     }
   </style>
 </head>
 <body>
-  <!-- ✅ 加的联系方式 -->
-<div style="margin-top: 40px; text-align: center; font-size: 14px; color: #555;">
-  <p>📬 联系方式：</p>
-  <p>微信：<strong style="color: #d6336c;">Teminos</strong></p>
-  <p>抖音：<strong style="color: #d6336c;">海外短剧汇 / 三月搭建手记</strong></p>
-</div>
-<div class="container" style="display: flex; gap: 20px; flex-wrap: wrap;"><div class="column">
+
+  <div class="matrix-bg" id="matrix-bg"></div>
   
-<h1>📚 VPS完美网络搭建 · 小白课程</h1>
-<h2>🧩 带搭/零基础课程（79.9元） </h2>
-<ul>
-<li><strong>【必学技能】解锁流媒体 + TikTok账号运营环境搭建</strong></li>
-<li><strong>【入门实战】SS / socket5 + 中转搭建</strong></li>
-<li><strong>【进阶必备】指纹浏览器实战</strong></li>
-<li><strong>【能力提升】Vmess/Vless + ws + reality多协议搭建</strong></li>
-</ul>
-<h3>🤔 你是否也有这些痛点？</h3>
-<ul>
-<li>花钱买机场，<strong>节点慢、易掉线</strong>？</li>
-<li>网上教程代码一堆，看不懂，<strong>连第一步都不会</strong>？</li>
-<li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li>
-<li>不想求人、又想拥有自己的稳定上网方案？</li>
-</ul>
-<h3>✅ 本课程能解决你90%的问题</h3>
-<ul>
-<li>📹 <strong>全流程实操视频，纯小白友好</strong></li>
-<li>🔐 覆盖 <strong>指纹浏览器 + 中转技术 + 多协议节点搭建</strong></li>
-<li>🆓 购买即送 <strong>终身更新权限 + 专属学习社群</strong></li>
-<li>👥 跟一群愿意折腾、搞钱的朋友一起成长</li>
-</ul>
-<p>扫码付款（79.9元），备注你的 <span style="color: red; font-weight: bold;">邮箱</span>，资料会发 <span style="color: red; font-weight: bold;">邮箱</span> 中</p>
+  <div class="container">
+    <div class="column">
+      <h1>[入门] VPS完美网络搭建</h1>
+      <h2>零基础课程 // 79.9元</h2>
+      
+      <h3>[痛点分析]</h3>
+      <ul>
+        <li>花钱买机场，<strong>节点慢、易掉线</strong>？</li>
+        <li>网上教程代码一堆，看不懂，<strong>连第一步都不会</strong>？</li>
+        <li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li>
+        <li>不想求人、又想拥有自己的稳定上网方案？</li>
+      </ul>
 
-<div class="qrcode">
-<img alt="微信支付二维码" src="qrcode.jpg"/>
-</div>
-</div><div class="column">
-<h1>📚 软路由美网络搭建 · 高级进阶</h1>
-<h2>🔥 高阶系统课，限时特惠仅需 499 元</h2>
-<h3>✅ 高级课程为你解决这些核心难题</h3>
-<ul>
-<li>🧠 进阶网络架构知识 + 核心协议原理讲透</li>
-<li>📶 全网最强 Clash + Nikki 配置策略教学</li>
-<li>🔄 支持多平台智能回家 + 高级订阅 + DDNS动态访问</li>
-<li>🆘 提供诊断 + 排障方法论</li>
-</ul>
-<h3>🚀 高级课程 · 完美网络搭建（共35节）</h3>
-<ul>
-<li>1：软路由+科学上网+完美翻墙+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li>
-<li>2：SSR翻墙+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li>
-<li>3：公网IP+DDNS+SSL+HTTPS反代配置</li>
-<li>4：电信+移动双线双拨+多线冗余配置</li>
-<li>5：mosDNS+双ADGuard彻底防DNS泄露</li>
-<li>6：手机翻墙+NAS访问：ZeroTier/TailScale/WireGuard</li>
-<li>7：晚高峰8K流畅播放：Hysteria2+IEPL+IPLC+Xray+HAProxy</li>
-<li>8：远程访问NAS/桌面，小火箭+NekoBox分流全搞定</li>
-<li>9：OpenClash终极优化+FakeIP+负载均衡配置模版</li>
-<li>10：openClash主路由+Sun-Pannel订阅转换+Docker部署</li>
-<li>11：OpenClash旁路由极速配置模版</li>
-<li>12：爱快+OpenWRT+OpenClash配置详解</li>
-<li>13：OpenClash+PassWall翻墙+远程桌面RDP</li>
-<li>14：IPv6主路由+公网IP+远程桌面+翻墙</li>
-<li>15：IPv6旁路由+公网访问NAS+手机翻墙</li>
-<li>16：爱快+OpenClash+IPv6配置+公网远程</li>
-<li>17：硬路由+旁路由+IPv6+远程访问</li>
-<li>18：OpenClash订阅转换100%成功+Play商店修复</li>
-<li>19：IPv6下Lucky配置+DDNS+HTTPS访问NAS</li>
-<li>20：全屋WIFI6 Mesh+精准测速+无缝漫游</li>
-<li>21：OpenClash+双ADGuard完美组合优化DNS</li>
-<li>22：优化双AdGuard/Docker固定IP维护</li>
-<li>23：旁路由+双AdGuard喂饭教程</li>
-<li>24：实战DNS污染/泄露分析与解决</li>
-<li>25：机场节点全红不断网+订阅聚合玩法</li>
-<li>26：Mihomo/Nikki配置+多机场+IPv6+防污染</li>
-<li>27：Nikki+双AdGuard更新订阅/IPv6/Play修复</li>
-<li>28：机场聚合配置+重命名+过滤节点</li>
-<li>29：PVE/ESXi一键恢复架构</li>
-<li>30：OpenClash/Nikki完美分流+图标导入</li>
-<li>31：完美YAML+多机场聚合+GPT维护</li>
-<li>32：Karing客户端吊打所有翻墙工具</li>
-<li>33：不跳IP/不封号YAML进化</li>
-<li>34：AI智能策略组+Smart节点优选</li>
-<li>35：LightGBM+智能故障转移优选</li>
-</ul>
-<h3>🎁 购买即送</h3>
-<ul>
-<li>📁 全套 YAML 模版、订阅转换配置、测速工具</li>
-<li>👥 私享进阶学习社群 + 每周更新</li>
-<li>🎬 35节高清视频永久观看 + 后续持续更新</li>
-</ul>
-<p><em>完整35节内容持续更新中，购课即享永久更新权限</em></p>
-<p>扫码付款（499元），资料会发 <span style="color: red; font-weight: bold;">邮箱</span> 中</p>
+      <h3>[课程核心]</h3>
+      <ul>
+        <li>【必学】解锁流媒体 + TikTok账号运营环境</li>
+        <li>【入门】SS / socket5 + 中转搭建</li>
+        <li>【进阶】指纹浏览器实战</li>
+        <li>【提升】Vmess/Vless + ws + reality多协议</li>
+      </ul>
+      
+      <h3>[课程价值]</h3>
+      <ul>
+        <li>📹 全流程实操视频，纯小白友好</li>
+        <li>🔐 覆盖指纹浏览器 + 中转技术 + 多协议</li>
+        <li>🆓 购课即送终身更新 + 专属学习社群</li>
+        <li>👥 跟一群愿意折腾、搞钱的朋友一起成长</li>
+      </ul>
+      
+      <div class="payment-section">
+        <div class="payment-note">扫码付款，备注你的 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
+        <div class="qrcode">
+          <img alt="微信支付二维码" src="qrcode.jpg"/>
+        </div>
+      </div>
+    </div>
 
-<div class="qrcode">
-<img alt="微信支付二维码" src="qrcode.jpg"/>
-</div>
-<p class="status" id="status">付款后系统将自动跳转发货页</p>
-</div><div class="column" style="">
-<h2 style="color:#d6336c;text-align:center;">🌟 讲真的，为啥我们要学这套课？</h2>
+    <div class="column">
+      <h1>[进阶] 软路由完美网络搭建</h1>
+      <h2>高阶系统课 // 499元</h2>
+      <h3>[课程目录] (共35节，持续更新)</h3>
+      <ul class="advanced-course-list">
+        <li>软路由+科学上网+完美翻墙+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li>
+        <li>SSR翻墙+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li>
+        <li>公网IP+DDNS+SSL+HTTPS反代配置</li>
+        <li>电信+移动双线双拨+多线冗余配置</li>
+        <li>mosDNS+双ADGuard彻底防DNS泄露</li>
+        <li>手机翻墙+NAS访问：ZeroTier/TailScale/WireGuard</li>
+        <li>晚高峰8K流畅播放：Hysteria2+IEPL+IPLC+Xray+HAProxy</li>
+        <li>远程访问NAS/桌面，小火箭+NekoBox分流全搞定</li>
+        <li>OpenClash终极优化+FakeIP+负载均衡配置模版</li>
+        <li>openClash主路由+Sun-Pannel订阅转换+Docker部署</li>
+        <li>OpenClash旁路由极速配置模版</li>
+        <li>爱快+OpenWRT+OpenClash配置详解</li>
+        <li>OpenClash+PassWall翻墙+远程桌面RDP</li>
+        <li>IPv6主路由+公网IP+远程桌面+翻墙</li>
+        <li>IPv6旁路由+公网访问NAS+手机翻墙</li>
+        <li>爱快+OpenClash+IPv6配置+公网远程</li>
+        <li>硬路由+旁路由+IPv6+远程访问</li>
+        <li>OpenClash订阅转换100%成功+Play商店修复</li>
+        <li>IPv6下Lucky配置+DDNS+HTTPS访问NAS</li>
+        <li>全屋WIFI6 Mesh+精准测速+无缝漫游</li>
+        <li>OpenClash+双ADGuard完美组合优化DNS</li>
+        <li>优化双AdGuard/Docker固定IP维护</li>
+        <li>旁路由+双AdGuard喂饭教程</li>
+        <li>实战DNS污染/泄露分析与解决</li>
+        <li>机场节点全红不断网+订阅聚合玩法</li>
+        <li>Mihomo/Nikki配置+多机场+IPv6+防污染</li>
+        <li>Nikki+双AdGuard更新订阅/IPv6/Play修复</li>
+        <li>机场聚合配置+重命名+过滤节点</li>
+        <li>PVE/ESXi一键恢复架构</li>
+        <li>OpenClash/Nikki完美分流+图标导入</li>
+        <li>完美YAML+多机场聚合+GPT维护</li>
+        <li>Karing客户端吊打所有翻墙工具</li>
+        <li>不跳IP/不封号YAML进化</li>
+        <li>AI智能策略组+Smart节点优选</li>
+        <li>LightGBM+智能故障转移优选</li>
+      </ul>
+      <div class="payment-section">
+        <p style="color:#0c0; margin-bottom: 15px;">完整35节内容持续更新，购课即享永久更新权限</p>
+        <div class="qrcode">
+          <img alt="微信支付二维码" src="qrcode.jpg"/>
+        </div>
+        <p class="status" id="status">STATUS: WAITING FOR PAYMENT...</p>
+      </div>
+    </div>
+    
+    <div class="column pitch-card">
+      <h2>// 为何选择本课程?</h2>
+      <p>🍲 说实话，这套内容也就一顿海底捞火锅的钱。你吃顿火锅爽一晚上，<strong>学会这个方法，可能能爽很多年。</strong></p>
+      <p>🙋‍♂️ 我不是搞培训的，也不是啥大佬，就是一路摸索出来，把自己踩过的坑、走过的路，整理成了这份教程。👨‍🔧 有兄弟学了之后，不但搭好了自己的网络环境，<strong>还顺手帮别人做配置，半天赚回成本，后面全是纯赚。</strong></p>
+      <p>❗ 外面那些上千块的课程，只要你想要我几十块都能搞到，那才是割韭菜。能来到这里也是缘分，<strong>说实话没有点实力，一般人真找不到我这些内容。</strong></p>
 
-<p style="line-height:1.8;font-size:15px;">
-        🍲 说实话，这套内容也就一顿海底捞火锅的钱，<br/>
-        你吃顿火锅爽一晚上，学会这个方法，可能能爽很多年。<br/><br/>
+      <div class="highlight-box">
+          <h3>[购课会员专属福利]</h3>
+          <ul>
+              <li>大模型的本地部署</li>
+              <li>数字人本地化运行</li>
+              <li>暗网/深网探索方法</li>
+              <li>主流AI工具合集</li>
+          </ul>
+          <p style="font-size: 14px; margin-top: 10px;">> 这些资源在外面，哪个不卖千八百？</p>
+      </div>
 
-        🙋‍♂️ 我不是搞培训的，也不是啥大佬，<br/>
-        就是一路摸索出来，把自己踩过的坑、走过的路，整理成了这份教程。<br/>
-        👨‍🔧 有兄弟学了之后，不但搭好了自己的网络环境，<br/>
-        还顺手帮别人做配置，半天赚回成本，后面全是纯赚。<br/><br/>
+      <p>🚀 这个时代，掌握 <strong>“找信息、用工具”</strong> 的能力，才是普通人逆袭的起点。⏱️ 比别人早接触一步信息差，你就能走得比别人更远。</p>
+    </div>
+  </div>
 
-        ❗ 外面那些上千块的课程，只要你想要我几十块都能搞到，这才是割韭菜。<br/>
-        能来到这里也是缘分，说实话没有点实力，一般人真找不到我这些内容。<br/><br/>
+  <div class="footer-contact">
+    <p>📬 [联系方式]</p>
+    <p>微信: <strong>Teminos</strong></p>
+    <p>抖音: <strong>海外短剧汇 / 三月搭建手记</strong></p>
+  </div>
+  
+  <script>
+    // Matrix Background Effect
+    const matrixContainer = document.getElementById('matrix-bg');
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモョロヲゴゾドボポヴッン';
+    const columns = Math.floor(window.innerWidth / 16);
 
-        🎁 我会定期免费分享一些好东西给购买的会员，比如：<br/>
-        🧠 大模型的部署🧑‍💻 数字人本地运行🌐 暗网、深网探索方法 🛠主流AI工具合集<br/>
-        这些资源在外面，哪个不卖千八百？<br/><br/>
+    for (let i = 0; i < columns; i++) {
+        const col = document.createElement('div');
+        col.className = 'matrix-column';
+        let text = '';
+        for (let j = 0; j < 50; j++) {
+            text += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        col.innerText = text;
+        col.style.left = `${i * 16}px`;
+        col.style.animationDuration = `${Math.random() * 8 + 4}s`;
+        col.style.animationDelay = `${Math.random() * 5}s`;
+        matrixContainer.appendChild(col);
+    }
 
-        🚀 这个时代，掌握“找信息、用工具”的能力，才是普通人逆袭的起点。<br/>
-        ⏱ 比别人早接触一步信息差，你就能走得比别人更远。
-        </p>
-
-</div></div>
-<script>
+    // Payment Check
     const checkPayment = () => {
       fetch('/check.php')
         .then(res => res.json())
         .then(data => {
           if (data.paid) {
-            document.getElementById('status').innerText = "付款成功，请联系卖家发货...";
+            const statusEl = document.getElementById('status');
+            statusEl.innerText = "PAYMENT_CONFIRMED. REDIRECTING...";
+            statusEl.style.color = "#00ff00";
             setTimeout(() => {
               window.location.href = data.url;
             }, 1500);
           }
+        })
+        .catch(err => {
+            // console.error("Payment check failed:", err);
+            // You can optionally update the status to show an error
+            // document.getElementById('status').innerText = "STATUS: CONNECTION_ERROR";
         });
     };
-    setInterval(checkPayment, 3000);
+    // Let's not spam the server, check every 5 seconds.
+    setInterval(checkPayment, 5000);
   </script>
 </body>
 </html>
