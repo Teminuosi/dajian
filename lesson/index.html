@@ -9,241 +9,113 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* --- 动画关键帧 --- */
-    @keyframes matrix-fall {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-    @keyframes scanline {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 50px; }
-    }
-    @keyframes card-fade-in {
-      from { opacity: 0; transform: translateY(50px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes text-flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-    }
+    @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+    @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
+    @keyframes card-fade-in { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes text-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes modal-content-pop-in { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
 
     /* --- 基本设置 --- */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Fira Code', monospace;
-      background-color: #0d0d0d;
-      color: #0f0;
-      margin: 0;
-      padding: 40px 20px;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Fira Code', monospace; background-color: #0d0d0d; color: #0f0; margin: 0; padding: 40px 20px; overflow-x: hidden; min-height: 100vh; }
 
     /* --- 背景效果 --- */
-    .matrix-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-    .matrix-column {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      font-size: 16px;
-      writing-mode: vertical-rl;
-      text-orientation: upright;
-      white-space: nowrap;
-      user-select: none;
-      opacity: 0.3;
-      text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
-      animation: matrix-fall linear infinite;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
-      animation: scanline 0.5s linear infinite;
-      pointer-events: none;
-      z-index: 0;
-    }
+    .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+    .matrix-column { position: absolute; top: 0; height: 100%; font-size: 16px; writing-mode: vertical-rl; text-orientation: upright; white-space: nowrap; user-select: none; opacity: 0.3; text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); animation: matrix-fall linear infinite; }
+    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px); animation: scanline 0.5s linear infinite; pointer-events: none; z-index: 1; }
 
-    /* --- 整体布局 --- */
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1600px;
-      margin: auto;
-      gap: 30px;
-      position: relative;
-      z-index: 1;
-    }
-    .column {
-      flex: 1;
-      min-width: 380px;
-      background: rgba(10, 25, 10, 0.6);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(0, 255, 0, 0.3);
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1);
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.4s ease;
-      opacity: 0;
-      animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-    }
-    .column:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2);
-      border-color: rgba(0, 255, 0, 0.6);
-    }
+    /* --- 布局 & 卡片 --- */
+    .container { display: flex; flex-wrap: wrap; max-width: 1600px; margin: auto; gap: 30px; position: relative; z-index: 2; }
+    .column { flex: 1; min-width: 380px; background: rgba(10, 25, 10, 0.6); backdrop-filter: blur(5px); border: 1px solid rgba(0, 255, 0, 0.3); border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1); padding: 30px; display: flex; flex-direction: column; transition: all 0.4s ease; opacity: 0; animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
+    .column:hover { transform: translateY(-10px); box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2); border-color: rgba(0, 255, 0, 0.6); }
     .container .column:nth-child(2) { animation-delay: 0.2s; }
     .container .column:nth-child(3) { animation-delay: 0.4s; }
 
-    /* --- 标题和文本样式 --- */
-    h1, h2, h3 {
-      font-family: 'Orbitron', sans-serif;
-      text-shadow: 0 0 8px #0f0;
-      animation: text-flicker 3s infinite;
-    }
-    h1 {
-      font-size: 24px;
-      color: #5f5;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-size: 20px;
-      color: #ff9900; /* 橙色作为高亮 */
-      text-shadow: 0 0 8px #ff9900;
-      margin-bottom: 20px;
-    }
-    h3 {
-      font-size: 18px;
-      color: #3f3;
-      margin-top: 25px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed rgba(0, 255, 0, 0.3);
-    }
-    ul {
-      padding-left: 0;
-      list-style-type: none;
-      margin: 10px 0;
-    }
-    ul li {
-      line-height: 1.8;
-      padding-left: 25px;
-      position: relative;
-    }
-    ul li::before {
-      content: '>';
-      position: absolute;
-      left: 0;
-      color: #0f0;
-      animation: text-flicker 2s infinite alternate;
-    }
-
-    /* --- 高级课程列表样式 --- */
-    .advanced-course-list {
-      counter-reset: lesson-counter;
-      max-height: 500px;
-      overflow-y: auto;
-      padding-right: 15px;
-    }
+    /* --- 文本样式 --- */
+    h1, h2, h3 { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px #0f0; animation: text-flicker 3s infinite; }
+    h1 { font-size: 24px; color: #5f5; margin-bottom: 10px; }
+    h2 { font-size: 20px; color: #ff9900; text-shadow: 0 0 8px #ff9900; margin-bottom: 20px; }
+    h3 { font-size: 18px; color: #3f3; margin-top: 25px; padding-bottom: 10px; border-bottom: 1px dashed rgba(0, 255, 0, 0.3); }
+    ul { padding-left: 0; list-style-type: none; margin: 10px 0; }
+    ul li { line-height: 1.8; padding-left: 25px; position: relative; }
+    ul li::before { content: '>'; position: absolute; left: 0; color: #0f0; animation: text-flicker 2s infinite alternate; }
+    .advanced-course-list { counter-reset: lesson-counter; max-height: 500px; overflow-y: auto; padding-right: 15px; }
     .advanced-course-list::-webkit-scrollbar { width: 4px; }
     .advanced-course-list::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.1); }
     .advanced-course-list::-webkit-scrollbar-thumb { background: #0f0; }
-
-    .advanced-course-list li {
-      padding-left: 45px;
-      font-size: 14px;
-    }
-    .advanced-course-list li::before {
-      counter-increment: lesson-counter;
-      content: '[' counter(lesson-counter, decimal-leading-zero) ']';
-      font-weight: 600;
-      color: #ff9900;
-    }
-
-    /* --- 右侧"安利"卡片样式 --- */
+    .advanced-course-list li { padding-left: 45px; font-size: 14px; }
+    .advanced-course-list li::before { counter-increment: lesson-counter; content: '[' counter(lesson-counter, decimal-leading-zero) ']'; font-weight: 600; color: #ff9900; }
     .pitch-card h2 { color: #f0f; text-shadow: 0 0 8px #f0f; }
-    .pitch-card p {
-      font-size: 15px;
-      line-height: 1.8;
-      margin-bottom: 20px;
-      text-align: left;
-    }
+    .pitch-card p { font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: left; }
     .pitch-card p strong { color: #ff9900; font-weight: 600; }
-    .pitch-card .highlight-box {
-        background: rgba(0, 255, 0, 0.05);
-        border-left: 3px solid #0f0;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 4px;
-    }
-    .pitch-card .highlight-box h3 {
-        margin-top: 0;
-        border: none;
-        font-size: 16px;
-    }
+    .pitch-card .highlight-box { background: rgba(0, 255, 0, 0.05); border-left: 3px solid #0f0; padding: 15px; margin: 20px 0; border-radius: 4px; }
+    .pitch-card .highlight-box h3 { margin-top: 0; border: none; font-size: 16px; }
     .pitch-card .highlight-box ul li::before { content: '🎁'; }
     
-    /* --- QR码和付款信息 --- */
-    .payment-section {
-      text-align: center;
-      margin-top: auto; /* Pushes to the bottom */
-      padding-top: 20px;
-      border-top: 1px dashed rgba(0, 255, 0, 0.3);
-    }
-    .payment-note {
-      background: rgba(255, 0, 0, 0.1);
-      border: 1px solid rgba(255, 0, 0, 0.5);
-      padding: 10px;
+    /* --- 付款区 --- */
+    .payment-section { text-align: center; margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(0, 255, 0, 0.3); }
+    .payment-note { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.5); padding: 10px; border-radius: 4px; color: #ff5555; font-weight: 600; margin-bottom: 15px; }
+    .payment-button {
+      background: #0a2a0a;
+      border: 1px solid #0f0;
+      color: #0f0;
+      padding: 12px 24px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
       border-radius: 4px;
-      color: #ff5555;
-      font-weight: 600;
-      margin-bottom: 15px;
+      cursor: pointer;
+      text-shadow: 0 0 8px #0f0;
+      transition: all 0.3s ease;
+      width: 100%;
     }
-    .qrcode img {
-      width: 180px;
-      height: 180px;
-      border-radius: 8px;
-      border: 2px solid #0f0;
-      box-shadow: 0 0 10px #0f0;
-      background: white; /* Keep QR code background white for scannability */
-    }
-    .status {
-      margin-top: 20px;
-      font-weight: 600;
-      color: #ff9900;
-      text-shadow: 0 0 5px #ff9900;
-    }
+    .payment-button:hover { background: #0f0; color: #000; box-shadow: 0 0 15px #0f0; text-shadow: none; }
+    .status { margin-top: 20px; font-weight: 600; color: #ff9900; text-shadow: 0 0 5px #ff9900; }
 
-    /* --- 页脚联系方式 --- */
-    .footer-contact {
-      margin-top: 50px;
+    /* --- ✅ 付款弹窗 (Modal) 样式 --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 20, 0, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none; /* 默认隐藏 */
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: modal-fade-in 0.3s ease;
+    }
+    .modal-overlay.active { display: flex; } /* 激活时显示 */
+    .modal-content {
+      background: #0a1a0a;
+      border: 1px solid #0f0;
+      border-radius: 8px;
+      padding: 30px;
       text-align: center;
-      font-size: 14px;
-      color: #0c0;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+      animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
-      z-index: 1;
     }
-    .footer-contact p {
-      margin-bottom: 8px;
+    .modal-close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 24px;
+      color: #0f0;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    .footer-contact strong {
-      color: #5f5;
-    }
+    .modal-close-btn:hover { transform: scale(1.2); }
+    .modal-title { font-family: 'Orbitron', sans-serif; font-size: 22px; color: #5f5; margin-bottom: 8px; }
+    .modal-price { font-size: 20px; color: #ff9900; margin-bottom: 20px; text-shadow: 0 0 5px #ff9900;}
+    .qr-wrapper { display: inline-block; background: #ffffff; padding: 15px; border-radius: 12px; }
+    .qr-wrapper img { width: 220px; height: 220px; display: block; border-radius: 4px; }
+    .modal-reminder { font-size: 14px; color: #0c0; margin-top: 15px; }
+
+    /* --- 页脚 --- */
+    .footer-contact { margin-top: 50px; text-align: center; font-size: 14px; color: #0c0; position: relative; z-index: 2; }
+    .footer-contact p { margin-bottom: 8px; }
+    .footer-contact strong { color: #5f5; }
   </style>
 </head>
 <body>
@@ -254,7 +126,6 @@
     <div class="column">
       <h1>[入门] VPS完美网络搭建</h1>
       <h2>零基础课程 // 79.9元</h2>
-      
       <h3>[痛点分析]</h3>
       <ul>
         <li>花钱买机场，<strong>节点慢、易掉线</strong>？</li>
@@ -262,7 +133,6 @@
         <li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li>
         <li>不想求人、又想拥有自己的稳定上网方案？</li>
       </ul>
-
       <h3>[课程核心]</h3>
       <ul>
         <li>【必学】解锁流媒体 + TikTok账号运营环境</li>
@@ -270,20 +140,10 @@
         <li>【进阶】指纹浏览器实战</li>
         <li>【提升】Vmess/Vless + ws + reality多协议</li>
       </ul>
-      
-      <h3>[课程价值]</h3>
-      <ul>
-        <li>📹 全流程实操视频，纯小白友好</li>
-        <li>🔐 覆盖指纹浏览器 + 中转技术 + 多协议</li>
-        <li>🆓 购课即送终身更新 + 专属学习社群</li>
-        <li>👥 跟一群愿意折腾、搞钱的朋友一起成长</li>
-      </ul>
-      
       <div class="payment-section">
-        <div class="payment-note">扫码付款，备注你的 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
-        <div class="qrcode">
-          <img alt="微信支付二维码" src="qrcode.jpg"/>
-        </div>
+        <div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
+        <!-- ✅ 付款按钮 -->
+        <button class="payment-button" data-price="79.9元">ACCESS PAYMENT TERMINAL</button>
       </div>
     </div>
 
@@ -329,10 +189,9 @@
         <li>LightGBM+智能故障转移优选</li>
       </ul>
       <div class="payment-section">
-        <p style="color:#0c0; margin-bottom: 15px;">完整35节内容持续更新，购课即享永久更新权限</p>
-        <div class="qrcode">
-          <img alt="微信支付二维码" src="qrcode.jpg"/>
-        </div>
+        <p style="color:#0c0; margin-bottom: 15px;">购课即享永久更新权限</p>
+        <!-- ✅ 付款按钮 -->
+        <button class="payment-button" data-price="499元">ACCESS PAYMENT TERMINAL</button>
         <p class="status" id="status">STATUS: WAITING FOR PAYMENT...</p>
       </div>
     </div>
@@ -342,7 +201,6 @@
       <p>🍲 说实话，这套内容也就一顿海底捞火锅的钱。你吃顿火锅爽一晚上，<strong>学会这个方法，可能能爽很多年。</strong></p>
       <p>🙋‍♂️ 我不是搞培训的，也不是啥大佬，就是一路摸索出来，把自己踩过的坑、走过的路，整理成了这份教程。👨‍🔧 有兄弟学了之后，不但搭好了自己的网络环境，<strong>还顺手帮别人做配置，半天赚回成本，后面全是纯赚。</strong></p>
       <p>❗ 外面那些上千块的课程，只要你想要我几十块都能搞到，那才是割韭菜。能来到这里也是缘分，<strong>说实话没有点实力，一般人真找不到我这些内容。</strong></p>
-
       <div class="highlight-box">
           <h3>[购课会员专属福利]</h3>
           <ul>
@@ -353,7 +211,6 @@
           </ul>
           <p style="font-size: 14px; margin-top: 10px;">> 这些资源在外面，哪个不卖千八百？</p>
       </div>
-
       <p>🚀 这个时代，掌握 <strong>“找信息、用工具”</strong> 的能力，才是普通人逆袭的起点。⏱️ 比别人早接触一步信息差，你就能走得比别人更远。</p>
     </div>
   </div>
@@ -364,25 +221,62 @@
     <p>抖音: <strong>海外短剧汇 / 三月搭建手记</strong></p>
   </div>
   
+  <!-- ✅ 付款弹窗的HTML结构 -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-content">
+      <span class="modal-close-btn" id="modalCloseBtn">×</span>
+      <h3 class="modal-title">扫码支付</h3>
+      <p class="modal-price" id="modalPrice">--</p>
+      <div class="qr-wrapper">
+        <img alt="微信支付二维码" src="qrcode.jpg"/>
+      </div>
+      <p class="modal-reminder">请务必备注您的邮箱地址</p>
+    </div>
+  </div>
+  
   <script>
     // Matrix Background Effect
     const matrixContainer = document.getElementById('matrix-bg');
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモョロヲゴゾドボポヴッン';
-    const columns = Math.floor(window.innerWidth / 16);
-
-    for (let i = 0; i < columns; i++) {
-        const col = document.createElement('div');
-        col.className = 'matrix-column';
-        let text = '';
-        for (let j = 0; j < 50; j++) {
-            text += chars.charAt(Math.floor(Math.random() * chars.length));
+    if (matrixContainer) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモョロヲゴゾドボポヴッン';
+        const columns = Math.floor(window.innerWidth / 16);
+        for (let i = 0; i < columns; i++) {
+            const col = document.createElement('div');
+            col.className = 'matrix-column';
+            let text = '';
+            for (let j = 0; j < 50; j++) { text += chars.charAt(Math.floor(Math.random() * chars.length)); }
+            col.innerText = text;
+            col.style.left = `${i * 16}px`;
+            col.style.animationDuration = `${Math.random() * 8 + 4}s`;
+            col.style.animationDelay = `${Math.random() * 5}s`;
+            matrixContainer.appendChild(col);
         }
-        col.innerText = text;
-        col.style.left = `${i * 16}px`;
-        col.style.animationDuration = `${Math.random() * 8 + 4}s`;
-        col.style.animationDelay = `${Math.random() * 5}s`;
-        matrixContainer.appendChild(col);
     }
+
+    // ✅ Modal (弹窗) 控制逻辑
+    const paymentButtons = document.querySelectorAll('.payment-button');
+    const modal = document.getElementById('paymentModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalPriceEl = document.getElementById('modalPrice');
+
+    paymentButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const price = button.getAttribute('data-price');
+            modalPriceEl.textContent = `金额: ${price}`;
+            modal.classList.add('active');
+        });
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+    };
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
 
     // Payment Check
     const checkPayment = () => {
@@ -391,20 +285,15 @@
         .then(data => {
           if (data.paid) {
             const statusEl = document.getElementById('status');
-            statusEl.innerText = "PAYMENT_CONFIRMED. REDIRECTING...";
-            statusEl.style.color = "#00ff00";
-            setTimeout(() => {
-              window.location.href = data.url;
-            }, 1500);
+            if (statusEl) {
+                statusEl.innerText = "PAYMENT_CONFIRMED. REDIRECTING...";
+                statusEl.style.color = "#00ff00";
+            }
+            setTimeout(() => { window.location.href = data.url; }, 1500);
           }
         })
-        .catch(err => {
-            // console.error("Payment check failed:", err);
-            // You can optionally update the status to show an error
-            // document.getElementById('status').innerText = "STATUS: CONNECTION_ERROR";
-        });
+        .catch(err => { /* console.error("Payment check failed:", err); */ });
     };
-    // Let's not spam the server, check every 5 seconds.
     setInterval(checkPayment, 5000);
   </script>
 </body>
