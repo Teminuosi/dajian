@@ -200,6 +200,27 @@
       box-shadow: 0 0 15px #00f6ff, 0 0 30px #00f6ff;
       transform: scale(1.05);
     }
+    /* --- 新增加赠模块样式 --- */
+    .bonus-offer {
+      border: 2px solid #ffff00;
+      background: rgba(255, 255, 0, 0.1);
+      padding: 15px;
+      margin: 25px 0;
+      border-radius: 8px;
+      color: #f0f0f0;
+      font-size: 16px;
+      line-height: 1.6;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);
+    }
+    .bonus-offer strong {
+      color: #ffff00;
+      font-weight: 700;
+    }
+    .bonus-offer span {
+      color: #00f6ff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
 
     /* --- 付款弹窗 (复用并调整风格) --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 13, 30, 0.8); backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
@@ -261,7 +282,15 @@
 
     <div class="cta-section">
       <div class="price">¥149 <span>/ 永久访问</span></div>
-      <p class="cta-description">一次性投入，永久更新。告别信息壁垒，为自己的未来投资。</p>
+      
+      <!-- 新增的加赠福利模块 -->
+      <div class="bonus-offer">
+        <strong>✨ 限时加赠福利 ✨</strong><br>
+        现在购买，即可免费获赠价值 <span>¥79</span> 的<br>
+        <strong>《[入门] VPS完美网络搭建》</strong>课程！
+      </div>
+      
+      <p class="cta-description">一份投资，双份收获。从入门到精通，彻底告别信息壁垒。</p>
       <button class="cta-button" id="buyButton">GET ACCESS PASS // 获取访问权限</button>
     </div>
 
