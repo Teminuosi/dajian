@@ -221,7 +221,6 @@
       font-family: 'Orbitron', sans-serif;
     }
 
-
     /* --- 付款弹窗 (复用并调整风格) --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 13, 30, 0.8); backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
     .modal-overlay.active { display: block; }
@@ -244,6 +243,26 @@
     .modal-reminder { font-family: 'Noto Sans SC', sans-serif; font-size: 16px; color: #555; margin-top: 20px; font-weight: 500;}
     .modal-reminder span { color: #c0392b; font-weight: bold;}
     
+    /* --- 新增页脚联系方式 --- */
+    .footer-contact {
+      text-align: center;
+      margin-top: 50px;
+      color: #ccc;
+      font-size: 15px;
+    }
+    .footer-contact p {
+      margin-bottom: 10px;
+    }
+    .footer-contact a {
+      color: #00f6ff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .footer-contact a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px #00f6ff;
+    }
   </style>
 </head>
 <body>
@@ -293,9 +312,15 @@
       <p class="cta-description">一份投资，双份收获。从入门到精通，彻底告别信息壁垒。</p>
       <button class="cta-button" id="buyButton">GET ACCESS PASS // 获取访问权限</button>
     </div>
-
   </div>
   
+  <!-- 新增的页脚联系方式 -->
+  <div class="footer-contact">
+    <p>遇到问题？通过以下方式联系我：</p>
+    <p>邮箱: <a href="mailto:terminos888@gmail.com">terminos888@gmail.com</a></p>
+    <p>Telegram: <a href="https://t.me/sanyuedaohang" target="_blank">@sanyuedaohang</a></p>
+  </div>
+
   <!-- 付款弹窗的HTML结构 -->
   <div class="modal-overlay" id="paymentModal">
     <div class="modal-content">
