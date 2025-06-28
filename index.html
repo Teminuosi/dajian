@@ -3,24 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>最新地址导航页</title>
+  <title>三月 · 晶体碎裂</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     /* --- 动画关键帧 --- */
-    @keyframes animate-bg {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    @keyframes section-fade-in-up {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse-glow {
-        0%, 100% { text-shadow: 0 0 8px #a5b4fc, 0 0 10px #a5b4fc; }
-        50% { text-shadow: 0 0 16px #c4b5fd, 0 0 20px #c4b5fd; }
+    @keyframes animate-bg { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes section-fade-in-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse-glow { 0%, 100% { text-shadow: 0 0 8px #a5b4fc, 0 0 10px #a5b4fc; } 50% { text-shadow: 0 0 16px #c4b5fd, 0 0 20px #c4b5fd; } }
+    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes modal-content-zoom-in { from { transform: translate(-50%, -50%) scale(0.8); } to { transform: translate(-50%, -50%) scale(1); } }
+    @keyframes shatter-fly {
+      to {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) rotate(var(--r)) scale(0.5);
+      }
     }
 
     /* --- 基本设置 --- */
@@ -28,82 +26,52 @@
     body {
       font-family: 'Poppins', "Segoe UI", sans-serif;
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      background-size: 400% 400%;
-      animation: animate-bg 25s ease infinite;
-      color: #e0e0e0;
-      min-height: 100vh;
+      background-size: 400% 400%; animation: animate-bg 25s ease infinite;
+      color: #e0e0e0; min-height: 100vh;
     }
 
     /* --- 返回导航按钮 --- */
     .back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      display: inline-block;
-      padding: 10px 20px;
-      color: #a5b4fc;
-      text-decoration: none;
-      border: 1px solid #a5b4fc;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      z-index: 100;
+      position: absolute; top: 20px; left: 20px; display: inline-block;
+      padding: 10px 20px; color: #a5b4fc; text-decoration: none; border: 1px solid #a5b4fc;
+      border-radius: 8px; font-size: 14px; font-weight: 500; transition: all 0.3s ease; z-index: 100;
     }
-    .back-button:hover {
-      background-color: rgba(165, 180, 252, 0.1);
-      color: #fff;
-      box-shadow: 0 0 15px rgba(165, 180, 252, 0.5);
-    }
-    .back-button:before {
-      content: '← ';
-    }
+    .back-button:hover { background-color: rgba(165, 180, 252, 0.1); color: #fff; box-shadow: 0 0 15px rgba(165, 180, 252, 0.5); }
+    .back-button:before { content: '← '; }
 
     /* --- 头部 --- */
     header {
-      padding: 60px 20px 40px;
-      text-align: center;
+      padding: 60px 20px 40px; text-align: center;
       border-bottom: 1px solid rgba(136, 107, 241, 0.3);
     }
     header h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5em;
-      color: #fff;
-      animation: pulse-glow 4s infinite ease-in-out;
-      margin-bottom: 10px;
+      font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: #fff;
+      animation: pulse-glow 4s infinite ease-in-out; margin-bottom: 10px;
     }
-    header p {
-      font-size: 16px;
-      color: #c7d2fe;
-      opacity: 0.9;
-    }
+    header p { font-size: 16px; color: #c7d2fe; opacity: 0.9; }
 
     /* --- 主体容器 --- */
     .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 25px;
-      padding: 40px 5%;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px; padding: 40px 5%;
     }
 
     /* --- 内容板块 (Glassmorphism) --- */
     .section {
-      background: rgba(15, 23, 42, 0.6); /* 半透明深蓝 */
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 25px;
-      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px); padding: 25px; border-radius: 16px;
       border: 1px solid rgba(135, 135, 221, 0.3);
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      opacity: 0;
-      animation: section-fade-in-up 0.8s ease forwards;
+      opacity: 0; animation: section-fade-in-up 0.8s ease forwards;
+      position: relative;
+      cursor: pointer;
     }
     .section:hover {
-      transform: translateY(-8px);
-      border-color: rgba(172, 98, 255, 0.8);
+      transform: translateY(-8px); border-color: rgba(172, 98, 255, 0.8);
       box-shadow: 0 0 25px rgba(172, 98, 255, 0.5);
     }
+    .section-content { transition: opacity 0.2s ease; }
 
     /* 错落入场动画 */
     .container .section:nth-child(1) { animation-delay: 0.1s; }
@@ -112,177 +80,221 @@
     .container .section:nth-child(4) { animation-delay: 0.4s; }
     .container .section:nth-child(5) { animation-delay: 0.5s; }
 
-    .section h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.25em;
-      margin-bottom: 20px;
-      color: #c4b5fd;
-      border-bottom: 1px solid rgba(196, 181, 253, 0.3);
-      padding-bottom: 10px;
+    .section-content h2 {
+      font-family: 'Orbitron', sans-serif; font-size: 1.25em; margin-bottom: 15px;
+      color: #c4b5fd; border-bottom: 1px solid rgba(196, 181, 253, 0.3); padding-bottom: 10px;
     }
+    .cta-button {
+        display: block; width: 100%; padding: 14px 20px; font-size: 16px; font-weight: 600; text-align: center;
+        text-decoration: none; color: #fff; background-color: #2aabee; border: none; border-radius: 10px;
+        cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+    }
+    .cta-button:hover { background-color: #39bfff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(42, 171, 238, 0.3); }
 
     /* --- 按钮样式 --- */
     .link-btn {
-      display: block;
-      margin: 12px 0;
-      padding: 12px 18px;
-      font-size: 15px;
-      font-weight: 500;
-      background: transparent;
-      color: #a5b4fc;
-      border-radius: 8px;
-      border: 1px solid #6366f1;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.3s ease;
+      display: block; margin: 12px 0; padding: 12px 18px; font-size: 15px;
+      font-weight: 500; background: transparent; color: #a5b4fc;
+      border-radius: 8px; border: 1px solid #6366f1; text-align: center;
+      text-decoration: none; transition: all 0.3s ease;
     }
-    .link-btn:hover {
-      background: rgba(99, 102, 241, 0.2);
-      color: #fff;
-      transform: scale(1.03);
-      box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-    }
-    .link-btn.special {
-      border-color: #10b981;
-      color: #34d399;
-    }
-    .link-btn.special:hover {
-      background: rgba(16, 185, 129, 0.2);
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-      color: #fff;
-    }
-    .link-btn.vpn {
-      border-color: #f59e0b;
-      color: #fbbf24;
-    }
-    .link-btn.vpn:hover {
-      background: rgba(245, 158, 11, 0.2);
-      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-      color: #fff;
-    }
+    .link-btn:hover { background: rgba(99, 102, 241, 0.2); color: #fff; transform: scale(1.03); box-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
+    .link-btn.special { border-color: #10b981; color: #34d399; }
+    .link-btn.special:hover { background: rgba(16, 185, 129, 0.2); box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); color: #fff; }
+    .link-btn.vpn { border-color: #f59e0b; color: #fbbf24; }
+    .link-btn.vpn:hover { background: rgba(245, 158, 11, 0.2); box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); color: #fff; }
+
+    /* Shatter Effect Container */
+    .shatter-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+    .shard { position: absolute; background: rgba(224, 224, 255, 0.7); animation: shatter-fly 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
     
-    /* --- 二维码区域样式 --- */
-    .qr-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
+    /* --- 弹窗 Modal --- */
+    .modal {
+      display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+      width: 100%; height: 100%; overflow: auto;
+      background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+      animation: modal-fade-in 0.3s ease;
     }
-    .qr-card {
-      text-align: center;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .modal-content {
+      position: absolute; left: 50%; top: 50%;
+      background: #1e1b3a; padding: 30px; border-radius: 16px;
+      border: 1px solid rgba(172, 98, 255, 0.8); text-align: center;
+      width: 90%; max-width: 380px;
+      box-shadow: 0 0 50px rgba(172, 98, 255, 0.5);
+      animation: modal-content-zoom-in 0.3s ease-out;
     }
-    .qr-card .qr-title {
-      font-size: 16px;
-      margin-bottom: 15px;
-      font-weight: 500;
-      color: #d1d5db;
+    .close-button {
+      position: absolute; top: 15px; right: 15px; color: #aaa;
+      font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s;
     }
-    .qr-card img {
-      width: 200px;
-      height: 200px;
-      object-fit: contain;
-      border-radius: 8px;
-      background: white;
-    }
+    .close-button:hover, .close-button:focus { color: #fff; }
+    .modal-content img { width: 100%; max-width: 300px; height: auto; border-radius: 12px; background: white; margin: 15px 0; }
+    .modal-content h3 { font-size: 1.5em; margin: 0; color: #fff; }
+    .modal-content .modal-links { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+    .modal-content .modal-links a { display: block; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s; }
+    .modal-content .modal-links a.direct-link { background-color: #2aabee; color: #fff; }
+    .modal-content .modal-links a.direct-link:hover { background-color: #39bfff; }
+    .modal-content .modal-links a.tutorial-link { background-color: #f59e0b; color: #fff; }
+    .modal-content .modal-links a.tutorial-link:hover { background-color: #fbbf24; }
 
     /* --- 页脚 --- */
-    footer {
-      text-align: center;
-      font-size: 14px;
-      color: #9ca3af;
-      padding: 40px 20px;
-      border-top: 1px solid rgba(136, 107, 241, 0.2);
-      margin-top: 20px;
-    }
-    footer strong {
-      color: #e0e0e0;
-      font-weight: 500;
-    }
+    footer { text-align: center; font-size: 14px; color: #9ca3af; padding: 40px 20px; border-top: 1px solid rgba(136, 107, 241, 0.2); margin-top: 20px; }
+    footer strong { color: #e0e0e0; font-weight: 500; }
   </style>
 </head>
 <body>
+  <div id="tgModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h3>加入TG交流群</h3>
+      <img src="3yuetg.png" alt="Telegram群组二维码">
+      <div class="modal-links">
+        <a href="https://t.me/sanyuedaohang" target="_blank" class="direct-link">🔗 点击链接直接加入</a>
+        <a href="TG.html" target="_blank" class="tutorial-link">🔧 没有Telegram？查看教程</a>
+      </div>
+    </div>
+  </div>
+
   <a href="https://3yuedaohang.com" class="back-button" target="_blank">返回主导航</a>
   
   <header>
-    <h1>最新地址发布页</h1>
-    <p>请使用浏览器打开下方链接，确保资源正常加载</p>
+    <h1>三月 · 晶体碎裂</h1>
+    <p>点击卡片，打破信息晶格，开启全新链接</p>
   </header>
 
   <main class="container">
-    <div class="section">
-      <h2>📘 教程与学习</h2>
-      <a href="lesson/index.html" class="link-btn special" target="_blank">🛠️ 完美网络搭建系列课程</a>
-      <a href="https://pan.quark.cn/s/3cb348716f56" class="link-btn special" target="_blank">📺 抖音被封免费课程观看</a>
+    <div class="section shatter-parent">
+      <div class="section-content">
+        <h2>📘 教程与学习</h2>
+        <a href="lesson/index.html" class="link-btn special" target="_blank">🛠️ 完美网络搭建系列课程</a>
+        <a href="https://pan.quark.cn/s/3cb348716f56" class="link-btn special" target="_blank">📺 抖音被封免费课程观看</a>
+      </div>
     </div>
-
-    <div class="section">
-      <h2>🧰 今日粉丝福利，每日一刷</h2>
-      <div class="qr-grid">
-        <!-- <div class="qr-card">
-          <div class="qr-title">🇻🇳 越南节点 (ShadowRocket)</div>
-          <img src="yuenanSS.png" alt="越南节点二维码">
-        </div> -->
-        <div class="qr-card">
-          <div class="qr-title">🇰🇷 韩国节点 (ShadowRocket)</div>
-          <img src="korean.png" alt="韩国节点二维码">
-        </div>
-        <!-- <div class="qr-card">
-          <div class="qr-title">🇭🇰 香港节点 (ShadowRocket)</div>
-          <img src="hongkong.png" alt="香港节点二维码">
-        </div>
-        <div class="qr-card">
-          <div class="qr-title">🇨🇦 加拿大节点 (ShadowRocket)</div>
-          <img src="cannada.png" alt="加拿大节点二维码">
-        </div> -->
+    
+    <div class="section" id="tg-card">
+      <div class="section-content">
+        <h2>🗣️ 加入TG交流群</h2>
+        <p style="color: #c7d2fe; line-height: 1.6; margin-top: 15px;">获取每日免费节点、最新资讯和教程，与众多技术爱好者一同交流。</p>
+        <button class="cta-button modal-trigger">打开传送门</button>
       </div>
     </div>
 
-    <div class="section">
-      <h2>🌐 科学上网服务</h2>
-      <a href="https://666clouds.com/aff.php?aff=2809" class="link-btn vpn" target="_blank">🖥️ VPS推荐 666clouds</a>
-      <a href="https://ipraft.com/?i950472" class="link-btn vpn" target="_blank">🏠 VPS推荐 IPraft</a>
-      <a href="https://bewildcard.com/i/AF6QOS3O" class="link-btn vpn" target="_blank">💳 海外虚拟卡</a>
-      <a href="https://www.lycheeip.com/?affId=spsBfWweO8" class="link-btn vpn" target="_blank">🏠 静态/动态住宅IP</a>
-      <a href="https://gorelay.net/#register/YAXRFFIVEW" class="link-btn vpn" target="_blank">🔁 中转节点 Go-relay</a>
-      <a href="https://hongxingyun.xyz/web/#/login?code=cqxYGAzt" class="link-btn vpn" target="_blank">🤑 实惠VPN</a>
-      <a href="http://www.xiaohaoduo.com?aff=s2afSwjx" class="link-btn vpn" target="_blank">👤 苹果ID、各类账号购买</a>
-      <a href="https://share.adspower.net/BpVkZk" class="link-btn" target="_blank">🔒 Adspower环境隔离</a>
-      <a href="https://sms-man.com/cn?ref=ZfPQwjsHSGQu" class="link-btn" target="_blank">📧 短信接码</a>
-      <a href="https://github.com/2dust/v2rayN/releases/tag/7.12.5" class="link-btn" target="_blank">📥 v2rayN (Github)</a>
-      <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/tag/1.3.9" class="link-btn" target="_blank">📱 NekoBox (Github)</a>
-      <a href="https://www.hostbuf.com/t/988.html" class="link-btn" target="_blank">🐚 FinalShell 下载</a>
+    <div class="section shatter-parent">
+      <div class="section-content">
+        <h2>🌐 科学上网服务</h2>
+        <a href="https://666clouds.com/aff.php?aff=2809" class="link-btn vpn" target="_blank">🖥️ VPS推荐 666clouds</a>
+        <a href="https://ipraft.com/?i950472" class="link-btn vpn" target="_blank">🏠 VPS推荐 IPraft</a>
+        <a href="https://bewildcard.com/i/AF6QOS3O" class="link-btn vpn" target="_blank">💳 海外虚拟卡</a>
+        <a href="http://www.xiaohaoduo.com?aff=s2afSwjx" class="link-btn vpn" target="_blank">👤 苹果ID、各类账号购买</a>
+        <a href="https://sms-man.com/cn?ref=ZfPQwjsHSGQu" class="link-btn" target="_blank">📧 短信接码</a>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>🔍 查询检测工具</h2>
-      <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" class="link-btn" target="_blank">🌍 国家代码查询</a>
-      <a href="https://www.shodan.io/search/facet?query=http.html%3Aassets%2Fqs%2Fqs.min.js+country%3Aus&facet=isp" class="link-btn" target="_blank">🔍 查找 VPS 来源</a>
-      <a href="https://ip111.cn/" class="link-btn" target="_blank">🧭 IP信息查询</a>
-      <a href="https://ping0.cc/ip/" class="link-btn" target="_blank">📡 IP监控</a>
-      <a href="https://ip.sb/" class="link-btn" target="_blank">🧪 IP体检</a>
-      <a href="https://scamalytics.com/ip/" class="link-btn" target="_blank">⚠️ 欺诈值检测</a>
-      <a href="https://whoer.net/zh" class="link-btn" target="_blank">🕵️ 匿名度评估</a>
-      <a href="https://fofa.info" class="link-btn" target="_blank">🌐 网络空间搜索</a>
-      <a href="https://ping.pe/" class="link-btn" target="_blank">🧱 被墙检测</a>
-      <a href="https://tools.ipip.net/traceroute.php" class="link-btn" target="_blank">🔍 路由追踪</a>
-      <a href="https://www.whatsmydns.net/" class="link-btn" target="_blank">🌐 DNS解析查询</a>
-      <a href="https://ipleak.net/" class="link-btn" target="_blank">💧 DNS泄漏查询</a>
+    <div class="section shatter-parent">
+      <div class="section-content">
+        <h2>🧰 软件与工具</h2>
+        <a href="https://github.com/2dust/v2rayN/releases" class="link-btn" target="_blank">📥 v2rayN (Github)</a>
+        <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases" class="link-btn" target="_blank">📱 NekoBox (Github)</a>
+        <a href="https://www.hostbuf.com/t/988.html" class="link-btn" target="_blank">🐚 FinalShell 下载</a>
+      </div>
+    </div>
+    
+    <div class="section shatter-parent">
+      <div class="section-content">
+        <h2>🔍 查询检测工具</h2>
+        <a href="https://ping0.cc/" class="link-btn" target="_blank">🧭 IP信息查询</a>
+        <a href="https://whoer.net/zh" class="link-btn" target="_blank">🕵️ 匿名度评估</a>
+        <a href="https://scamalytics.com/ip/" class="link-btn" target="_blank">⚠️ 欺诈值检测</a>
+        <a href="https://ping.pe/" class="link-btn" target="_blank">🧱 被墙检测</a>
+        <a href="https://ipleak.net/" class="link-btn" target="_blank">💧 DNS泄漏查询</a>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>🚀 网络测速平台</h2>
-      <a href="https://www.speedtest.net/" class="link-btn" target="_blank">💨 SpeedTest 全球测速</a>
-      <a href="https://speed.cloudflare.com/" class="link-btn" target="_blank">💨 Cloudflare测速</a>
-      <a href="https://fast.com/" class="link-btn" target="_blank">💨 Netflix Fast测速</a>
+    <div class="section shatter-parent">
+      <div class="section-content">
+        <h2>🚀 网络测速平台</h2>
+        <a href="https://www.speedtest.net/" class="link-btn" target="_blank">💨 SpeedTest 全球测速</a>
+        <a href="https://speed.cloudflare.com/" class="link-btn" target="_blank">💨 Cloudflare测速</a>
+        <a href="https://fast.com/" class="link-btn" target="_blank">💨 Netflix Fast测速</a>
+      </div>
     </div>
-
   </main>
 
   <footer>
-    📌 当前页面地址为 <strong>dapian.sbs</strong>，建议收藏本页防止失联。
+    📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- Shatter Effect Logic ---
+      const shatterParents = document.querySelectorAll('.shatter-parent');
+
+      shatterParents.forEach(parent => {
+        parent.addEventListener('click', (e) => {
+          // Find the actual link that was clicked
+          const clickedLink = e.target.closest('a');
+          
+          if (clickedLink) {
+            e.preventDefault();
+            if (parent.dataset.shattering) return;
+            parent.dataset.shattering = 'true';
+
+            const content = parent.querySelector('.section-content');
+            content.style.opacity = '0';
+            
+            const container = document.createElement('div');
+            container.className = 'shatter-container';
+            parent.appendChild(container);
+
+            for (let i = 0; i < 40; i++) {
+              const shard = document.createElement('div');
+              shard.className = 'shard';
+              const size = Math.random() * 25 + 5;
+              shard.style.width = `${size}px`; shard.style.height = `${size}px`;
+              
+              const rect = clickedLink.getBoundingClientRect();
+              const parentRect = parent.getBoundingClientRect();
+              const clickX = e.clientX - parentRect.left;
+              const clickY = e.clientY - parentRect.top;
+
+              shard.style.left = `${clickX}px`; shard.style.top = `${clickY}px`;
+              
+              const angle = Math.random() * 360;
+              const radius = Math.random() * 250 + 80;
+              shard.style.setProperty('--tx', `${Math.cos(angle * Math.PI / 180) * radius}px`);
+              shard.style.setProperty('--ty', `${Math.sin(angle * Math.PI / 180) * radius}px`);
+              shard.style.setProperty('--r', `${Math.random() * 720 - 360}deg`);
+              
+              container.appendChild(shard);
+            }
+
+            setTimeout(() => {
+              window.open(clickedLink.href, '_blank');
+              content.style.opacity = '1';
+              parent.removeChild(container);
+              delete parent.dataset.shattering;
+            }, 800);
+          }
+        });
+      });
+
+      // --- Modal Logic ---
+      const modal = document.getElementById("tgModal");
+      const tgCard = document.getElementById("tg-card");
+      const closeButton = document.querySelector('.close-button');
+
+      tgCard.addEventListener('click', () => {
+        modal.style.display = 'block';
+      });
+      closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+      window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
