@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>信息自由直通车 - 全平台网络解锁指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- 动画关键帧 --- */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
+    @keyframes glitch { 2%, 64% { transform: translate(2px, 0) skew(0deg); } 4%, 60% { transform: translate(-2px, 0) skew(0deg); } 62% { transform: translate(0, 0) skew(5deg); } }
+    @keyframes glitch-top { 2%, 64% { transform: translate(2px, -2px); } 4%, 60% { transform: translate(-2px, 2px); } 62% { transform: translate(13px, -1px) skew(-13deg); } }
+    @keyframes glitch-bottom { 2%, 64% { transform: translate(-2px, 0); } 4%, 60% { transform: translate(-2px, 0); } 62% { transform: translate(-22px, 5px) skew(21deg); } }
+    @keyframes neon-flicker { 0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { text-shadow: 0 0 5px #00f6ff, 0 0 10px #00f6ff, 0 0 20px #00f6ff, 0 0 40px #ff00ff, 0 0 80px #ff00ff, 0 0 90px #ff00ff; } 20%, 24%, 55% { text-shadow: none; } }
+    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes modal-content-pop-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+    
+    /* --- 基本设置 --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background-color: #0d0d1e;
+      color: #e0e0e0;
+      line-height: 1.7;
+      background-image: url('cyberpunk-bg.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      padding: 40px 20px;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(13, 13, 30, 0.7);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
+    body::after {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+      animation: scanline 0.4s linear infinite;
+      pointer-events: none;
+    }
+
+    /* --- 布局 & 容器 --- */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(20, 20, 40, 0.6);
+      border: 1px solid rgba(0, 246, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 0 25px rgba(0, 246, 255, 0.1);
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* --- 标题与文本 --- */
+    .title-glitch {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 42px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+      position: relative;
+      animation: glitch 1s linear infinite;
+    }
+    .title-glitch::before, .title-glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0d0d1e;
+      overflow: hidden;
+    }
+    .title-glitch::before { left: 2px; text-shadow: -2px 0 #ff00ff; animation: glitch-top 1s linear infinite reverse; }
+    .title-glitch::after { left: -2px; text-shadow: -2px 0 #00f6ff, 2px 2px #ff00ff; animation: glitch-bottom 1.5s linear infinite reverse; }
+    
+    .subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #00f6ff;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      animation: neon-flicker 4s infinite alternate;
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #00f6ff;
+      font-size: 22px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      border-left: 4px solid #ff00ff;
+      padding-left: 15px;
+    }
+
+    /* --- 内容模块 --- */
+    .pain-points ul, .course-modules ul {
+      list-style: none;
+      padding: 0;
+    }
+    .pain-points li, .course-modules li {
+      background: rgba(0, 246, 255, 0.05);
+      margin-bottom: 10px;
+      padding: 15px 20px;
+      border-radius: 5px;
+      border-left: 3px solid #00f6ff;
+      transition: all 0.3s ease;
+    }
+    .pain-points li:hover {
+      transform: translateX(10px);
+      background: rgba(0, 246, 255, 0.1);
+      border-left-color: #ff00ff;
+    }
+    .pain-points li::before {
+      content: '»';
+      color: #ff00ff;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    .course-modules strong {
+      color: #00f6ff;
+    }
+    .course-modules span {
+      display: inline-block;
+      background: #ff00ff;
+      color: #0d0d1e;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    /* --- 风险提示 & 购买区 --- */
+    .risk-warning {
+      border: 2px solid #ffff00;
+      border-radius: 5px;
+      padding: 20px;
+      background: rgba(255, 255, 0, 0.05);
+      margin-top: 40px;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.2);
+    }
+    .risk-warning h3 {
+      color: #ffff00;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      margin-top: 0;
+    }
+    .risk-warning p {
+      color: #f0f0f0;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .cta-section {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px;
+      background: linear-gradient(145deg, rgba(0, 246, 255, 0.1), rgba(255, 0, 255, 0.1));
+      border-radius: 8px;
+    }
+    .price {
+      font-size: 48px;
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      font-weight: bold;
+    }
+    .price span {
+      font-size: 24px;
+      color: #00f6ff;
+    }
+    .cta-description {
+      margin-top: 10px;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+    .cta-button {
+      background: #ff00ff;
+      color: #fff;
+      border: none;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 5px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    }
+    .cta-button:hover {
+      background: #00f6ff;
+      color: #0d0d1e;
+      box-shadow: 0 0 15px #00f6ff, 0 0 30px #00f6ff;
+      transform: scale(1.05);
+    }
+
+    /* --- 付款弹窗 (复用并调整风格) --- */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 13, 30, 0.8); backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
+    .modal-overlay.active { display: block; }
+    .modal-content {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: auto; min-width: 320px; max-width: 90vw;
+      background: #f4f4f4; color: #333;
+      border-radius: 12px; padding: 30px; text-align: center;
+      box-shadow: 0 0 25px rgba(0, 246, 255, 0.5);
+      border: 2px solid #00f6ff;
+      animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0;
+    }
+    .modal-close-btn { position: absolute; top: 10px; right: 15px; font-size: 30px; color: #888; cursor: pointer; transition: transform 0.2s, color 0.2s; }
+    .modal-close-btn:hover { transform: scale(1.2); color: #000; }
+    .modal-title { font-family: 'Noto Sans SC', sans-serif; font-size: 24px; font-weight: bold; color: #333; margin-bottom: 8px; }
+    .modal-price { font-family: 'Orbitron', sans-serif; font-size: 22px; color: #e67e22; margin-bottom: 20px; font-weight: bold; }
+    .qr-wrapper { display: inline-block; background: #ffffff; padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .qr-wrapper img { width: 250px; height: 250px; display: block; }
+    .modal-reminder { font-family: 'Noto Sans SC', sans-serif; font-size: 16px; color: #555; margin-top: 20px; font-weight: 500;}
+    .modal-reminder span { color: #c0392b; font-weight: bold;}
+    
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="title-glitch" data-text="信息自由直通车">信息自由直通车</h1>
+    <p class="subtitle">解 锁 完 整 的 互 联 网 世 界</p>
+
+    <div class="pain-points">
+      <h2>// 你是否正被这些问题困扰?</h2>
+      <ul>
+        <li>想用 ChatGPT、Google，却总在第一步就被“网络错误”劝退？</li>
+        <li>买来的VPN、加速器，时好时坏，关键时刻总掉链子？</li>
+        <li>网上教程眼花缭乱，专业术语像天书，根本看不懂？</li>
+        <li>花了冤枉钱，买到劣质服务，数据安全和隐私毫无保障？</li>
+        <li>厌倦了求人，想一劳永逸地解决全家设备（电脑、手机）的上网难题？</li>
+      </ul>
+    </div>
+
+    <div class="course-modules">
+      <h2>// 这门课程将带你彻底掌握</h2>
+      <ul>
+        <li><span>认知升级</span> <strong>第一章：破壁心法。</strong> 告别小白思维，用最通俗的比喻，让你秒懂“墙”是什么、它是如何工作的。知己知彼，百战不殆。</li>
+        <li><span>Windows篇</span> <strong>第二章：PC端终极指南。</strong> 保姆级视频教程，带你一步步在Windows上配置最稳定、最高效的客户端，实现智能分流，从此告别手动切换。</li>
+        <li><span>macOS篇</span> <strong>第三章：Mac优雅破局。</strong> Mac用户专属教程，教你使用设计最优雅、功能最强大的工具，完美融入系统，体验丝般顺滑。</li>
+        <li><span>Android篇</span> <strong>第四章：安卓自由行。</strong> 解决国内安卓手机安装软件难的问题，手把手教你配置，无论在哪都能畅享全球应用和服务。</li>
+        <li><span>iOS篇</span> <strong>第五章：苹果生态无障碍穿越。</strong> <strong><font color="#ffff00">[核心难点攻克]</font></strong> 从注册外区Apple ID，到购买和配置“小火箭”等神器，打通iOS翻墙最关键、最困难的一环。</li>
+        <li><span>工具甄别</span> <strong>第六章：炼就火眼金睛。</strong> 授人以鱼不如授人以渔。教你一套独家方法论，如何挑选稳定、安全、高性价比的“机场”服务商，再也不会被割韭菜。</li>
+      </ul>
+    </div>
+    
+    <div class="risk-warning">
+      <h3>⚠️ 重 要 安 全 声 明 ⚠️</h3>
+      <p>本课程旨在技术交流与学习，帮助用户访问国际学术及工作资源。在中国大陆使用相关技术可能存在法律风险。请务必保持低调，遵守当地法律法规，并对自己的行为负责。<strong>切勿用于非法用途！</strong></p>
+    </div>
+
+    <div class="cta-section">
+      <div class="price">¥149 <span>/ 永久访问</span></div>
+      <p class="cta-description">一次性投入，永久更新。告别信息壁垒，为自己的未来投资。</p>
+      <button class="cta-button" id="buyButton">GET ACCESS PASS // 获取访问权限</button>
+    </div>
+
+  </div>
+  
+  <!-- 付款弹窗的HTML结构 -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-content">
+      <span class="modal-close-btn" id="modalCloseBtn">×</span>
+      <h3 class="modal-title">扫码支付</h3>
+      <p class="modal-price" id="modalPrice">金额: ¥149元</p>
+      <div class="qr-wrapper">
+        <img alt="支付二维码" src="qrcode.jpg"/>
+      </div>
+      <p class="modal-reminder">请务必备注您的<span>邮箱地址</span>，课程链接将发送至您的邮箱</p>
+    </div>
+  </div>
+
+  <script>
+    const buyButton = document.getElementById('buyButton');
+    const modal = document.getElementById('paymentModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    
+    buyButton.addEventListener('click', () => {
+        modal.classList.add('active');
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+    };
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+  </script>
+
+</body>
+</html>

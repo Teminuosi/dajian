@@ -62,19 +62,19 @@
 
     /* ✅ --- 付款弹窗 (Modal) 最终优化样式 --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 0, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
-    .modal-overlay.active { display: block; } /* 修改为 block */
+    .modal-overlay.active { display: block; }
     .modal-content {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: auto;
-      min-width: 320px; /* 最小宽度 */
-      max-width: 90vw;  /* 最大宽度 */
-      background: #f4f4f4; /* ✅ 改为浅灰色背景，提供最佳对比度 */
+      min-width: 320px;
+      max-width: 90vw;
+      background: #f4f4f4;
       border-radius: 12px;
       padding: 30px;
       text-align: center;
-      box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); /* ✅ 保留外部辉光 */
+      box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
       border: 2px solid #0f0;
       animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       opacity: 0;
@@ -83,7 +83,7 @@
       position: absolute;
       top: 10px; right: 15px;
       font-size: 30px;
-      color: #888; /* ✅ 改为深灰色，易于辨认 */
+      color: #888;
       cursor: pointer;
       transition: transform 0.2s, color 0.2s;
     }
@@ -93,12 +93,12 @@
     .qr-wrapper {
       display: inline-block;
       background: #ffffff;
-      padding: 10px; /* 减少内边距，让二维码更大 */
+      padding: 10px;
       border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 内部的轻微阴影 */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     .qr-wrapper img {
-      width: 250px; /* ✅ 大幅增加二维码尺寸 */
+      width: 250px;
       height: 250px;
       display: block;
     }
@@ -116,8 +116,104 @@
   <div class="matrix-bg" id="matrix-bg"></div>
   
   <div class="container">
-    <!-- 卡片内容省略，与之前版本相同 -->
-    <div class="column"><h1>[入门] VPS完美网络搭建</h1><h2>零基础课程 // 79.9元</h2><h3>[痛点分析]</h3><ul><li>花钱买机场，<strong>节点慢、易掉线</strong>？</li><li>网上教程代码一堆，看不懂，<strong>连第一步都不会</strong>？</li><li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li><li>不想求人、又想拥有自己的稳定上网方案？</li></ul><h3>[课程核心]</h3><ul><li>【必学】解锁流媒体 + TikTok账号运营环境</li><li>【入门】SS / socket5 + 中转搭建</li><li>【进阶】指纹浏览器实战</li><li>【提升】Vmess/Vless + ws + reality多协议</li></ul><div class="payment-section"><div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div><button class="payment-button" data-price="79.9元">ACCESS PAYMENT TERMINAL</button></div></div><div class="column"><h1>[进阶] 软路由完美网络搭建</h1><h2>高阶系统课 // 499元</h2><h3>[课程目录] (共35节，持续更新)</h3><ul class="advanced-course-list"><li>软路由+科学上网+完美翻墙+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li><li>SSR翻墙+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li><li>公网IP+DDNS+SSL+HTTPS反代配置</li><li>电信+移动双线双拨+多线冗余配置</li><li>mosDNS+双ADGuard彻底防DNS泄露</li><li>手机翻墙+NAS访问：ZeroTier/TailScale/WireGuard</li><li>晚高峰8K流畅播放：Hysteria2+IEPL+IPLC+Xray+HAProxy</li><li>远程访问NAS/桌面，小火箭+NekoBox分流全搞定</li><li>OpenClash终极优化+FakeIP+负载均衡配置模版</li><li>openClash主路由+Sun-Pannel订阅转换+Docker部署</li><li>OpenClash旁路由极速配置模版</li><li>爱快+OpenWRT+OpenClash配置详解</li><li>OpenClash+PassWall翻墙+远程桌面RDP</li><li>IPv6主路由+公网IP+远程桌面+翻墙</li><li>IPv6旁路由+公网访问NAS+手机翻墙</li><li>爱快+OpenClash+IPv6配置+公网远程</li><li>硬路由+旁路由+IPv6+远程访问</li><li>OpenClash订阅转换100%成功+Play商店修复</li><li>IPv6下Lucky配置+DDNS+HTTPS访问NAS</li><li>全屋WIFI6 Mesh+精准测速+无缝漫游</li><li>OpenClash+双ADGuard完美组合优化DNS</li><li>优化双AdGuard/Docker固定IP维护</li><li>旁路由+双AdGuard喂饭教程</li><li>实战DNS污染/泄露分析与解决</li><li>机场节点全红不断网+订阅聚合玩法</li><li>Mihomo/Nikki配置+多机场+IPv6+防污染</li><li>Nikki+双AdGuard更新订阅/IPv6/Play修复</li><li>机场聚合配置+重命名+过滤节点</li><li>PVE/ESXi一键恢复架构</li><li>OpenClash/Nikki完美分流+图标导入</li><li>完美YAML+多机场聚合+GPT维护</li><li>Karing客户端吊打所有翻墙工具</li><li>不跳IP/不封号YAML进化</li><li>AI智能策略组+Smart节点优选</li><li>LightGBM+智能故障转移优选</li></ul><div class="payment-section"><p style="color:#0c0; margin-bottom: 15px;">购课即享永久更新权限</p><button class="payment-button" data-price="499元">ACCESS PAYMENT TERMINAL</button><p class="status" id="status">STATUS: WAITING FOR PAYMENT...</p></div></div><div class="column pitch-card"><h2>// 为何选择本课程?</h2><p>🍲 说实话，这套内容也就一顿海底捞火锅的钱。你吃顿火锅爽一晚上，<strong>学会这个方法，可能能爽很多年。</strong></p><p>🙋‍♂️ 我不是搞培训的，也不是啥大佬，就是一路摸索出来，把自己踩过的坑、走过的路，整理成了这份教程。👨‍🔧 有兄弟学了之后，不但搭好了自己的网络环境，<strong>还顺手帮别人做配置，半天赚回成本，后面全是纯赚。</strong></p><p>❗ 外面那些上千块的课程，只要你想要我几十块都能搞到，那才是割韭菜。能来到这里也是缘分，<strong>说实话没有点实力，一般人真找不到我这些内容。</strong></p><div class="highlight-box"><h3>[购课会员专属福利]</h3><ul><li>大模型的本地部署</li><li>数字人本地化运行</li><li>暗网/深网探索方法</li><li>主流AI工具合集</li></ul><p style="font-size: 14px; margin-top: 10px;">> 这些资源在外面，哪个不卖千八百？</p></div><p>🚀 这个时代，掌握 <strong>“找信息、用工具”</strong> 的能力，才是普通人逆袭的起点。⏱️ 比别人早接触一步信息差，你就能走得比别人更远。</p></div>
+
+    <div class="column">
+      <h1>[入门] VPS完美网络搭建</h1>
+      <h2>零基础课程 // 79.9元</h2>
+      <h3>[痛点分析]</h3>
+      <ul>
+        <li>花钱买机场，<strong>节点慢、易掉线</strong>？</li>
+        <li>网上教程代码一堆，看不懂，<strong>连第一步都不会</strong>？</li>
+        <li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li>
+        <li>不想求人、又想拥有自己的稳定上网方案？</li>
+      </ul>
+      <h3>[课程核心]</h3>
+      <ul>
+        <!-- 新增内容 START -->
+        <li>
+          【地基之石】<strong>数据包的朝圣之旅：</strong>抛开所有工具，回到原点。我们将亲眼见证，一次正常的谷歌访问，数据包是如何跨越重洋，为你揭示一条畅通无阻的数字高速公路是如何建成的。
+        </li>
+        <li>
+          【高墙之影】<strong>迷雾中的狙击手：</strong>上一节的完美旅程为何戛然而止？我们将扮演数字侦探，追踪消失的数据包，揭露那只无形之手如何通过DNS污染、IP黑洞等手段精准狙击你的请求。<strong>看清“墙”，才能“翻墙”！</strong>
+        </li>
+        <!-- 新增内容 END -->
+        <li>【必学】解锁流媒体 + TikTok账号运营环境</li>
+        <li>【入门】SS / socket5 + 中转搭建</li>
+        <li>【进阶】指纹浏览器实战</li>
+        <li>【提升】Vmess/Vless + ws + reality多协议</li>
+      </ul>
+      <div class="payment-section">
+        <div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
+        <button class="payment-button" data-price="79.9元">ACCESS PAYMENT TERMINAL</button>
+      </div>
+    </div>
+    
+    <div class="column">
+      <h1>[进阶] 软路由完美网络搭建</h1>
+      <h2>高阶系统课 // 499元</h2>
+      <h3>[课程目录] (共37节，持续更新)</h3>
+      <ul class="advanced-course-list">
+        <li>软路由+科学上网+完美翻墙+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li>
+        <li>SSR翻墙+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li>
+        <li>公网IP+DDNS+SSL+HTTPS反代配置</li>
+        <li>电信+移动双线双拨+多线冗余配置</li>
+        <li>mosDNS+双ADGuard彻底防DNS泄露</li>
+        <li>手机翻墙+NAS访问：ZeroTier/TailScale/WireGuard</li>
+        <li>晚高峰8K流畅播放：Hysteria2+IEPL+IPLC+Xray+HAProxy</li>
+        <li>远程访问NAS/桌面，小火箭+NekoBox分流全搞定</li>
+        <li>OpenClash终极优化+FakeIP+负载均衡配置模版</li>
+        <li>openClash主路由+Sun-Pannel订阅转换+Docker部署</li>
+        <li>OpenClash旁路由极速配置模版</li>
+        <li>爱快+OpenWRT+OpenClash配置详解</li>
+        <li>OpenClash+PassWall翻墙+远程桌面RDP</li>
+        <li>IPv6主路由+公网IP+远程桌面+翻墙</li>
+        <li>IPv6旁路由+公网访问NAS+手机翻墙</li>
+        <li>爱快+OpenClash+IPv6配置+公网远程</li>
+        <li>硬路由+旁路由+IPv6+远程访问</li>
+        <li>OpenClash订阅转换100%成功+Play商店修复</li>
+        <li>IPv6下Lucky配置+DDNS+HTTPS访问NAS</li>
+        <li>全屋WIFI6 Mesh+精准测速+无缝漫游</li>
+        <li>OpenClash+双ADGuard完美组合优化DNS</li>
+        <li>优化双AdGuard/Docker固定IP维护</li>
+        <li>旁路由+双AdGuard喂饭教程</li>
+        <li>实战DNS污染/泄露分析与解决</li>
+        <li>机场节点全红不断网+订阅聚合玩法</li>
+        <li>Mihomo/Nikki配置+多机场+IPv6+防污染</li>
+        <li>Nikki+双AdGuard更新订阅/IPv6/Play修复</li>
+        <li>机场聚合配置+重命名+过滤节点</li>
+        <li>PVE/ESXi一键恢复架构</li>
+        <li>OpenClash/Nikki完美分流+图标导入</li>
+        <li>完美YAML+多机场聚合+GPT维护</li>
+        <li>Karing客户端吊打所有翻墙工具</li>
+        <li>不跳IP/不封号YAML进化</li>
+        <li>AI智能策略组+Smart节点优选</li>
+        <li>LightGBM+智能故障转移优选</li>
+      </ul>
+      <div class="payment-section">
+        <p style="color:#0c0; margin-bottom: 15px;">购课即享永久更新权限</p>
+        <button class="payment-button" data-price="499元">ACCESS PAYMENT TERMINAL</button>
+        <p class="status" id="status">STATUS: WAITING FOR PAYMENT...</p>
+      </div>
+    </div>
+
+    <div class="column pitch-card">
+      <h2>// 为何选择本课程?</h2>
+      <p>🍲 说实话，这套内容也就一顿海底捞火锅的钱。你吃顿火锅爽一晚上，<strong>学会这个方法，可能能爽很多年。</strong></p>
+      <p>🙋‍♂️ 我不是搞培训的，也不是啥大佬，就是一路摸索出来，把自己踩过的坑、走过的路，整理成了这份教程。👨‍🔧 有兄弟学了之后，不但搭好了自己的网络环境，<strong>还顺手帮别人做配置，半天赚回成本，后面全是纯赚。</strong></p>
+      <p>❗ 外面那些上千块的课程，只要你想要我几十块都能搞到，那才是割韭菜。能来到这里也是缘分，<strong>说实话没有点实力，一般人真找不到我这些内容。</strong></p>
+      <div class="highlight-box">
+        <h3>[购课会员专属福利]</h3>
+        <ul>
+          <li>大模型的本地部署</li>
+          <li>数字人本地化运行</li>
+          <li>暗网/深网探索方法</li>
+          <li>主流AI工具合集</li>
+        </ul>
+        <p style="font-size: 14px; margin-top: 10px;">> 这些资源在外面，哪个不卖千八百？</p>
+      </div>
+      <p>🚀 这个时代，掌握 <strong>“找信息、用工具”</strong> 的能力，才是普通人逆袭的起点。⏱️ 比别人早接触一步信息差，你就能走得比别人更远。</p>
+    </div>
+
   </div>
 
   <div class="footer-contact">
@@ -126,7 +222,6 @@
     <p>抖音: <strong>海外短剧汇 / 三月搭建手记</strong></p>
   </div>
   
-  <!-- ✅ 付款弹窗的HTML结构 -->
   <div class="modal-overlay" id="paymentModal">
     <div class="modal-content">
       <span class="modal-close-btn" id="modalCloseBtn">×</span>
@@ -178,7 +273,6 @@
 
     modalCloseBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (event) => {
-        // 点击遮罩层本身关闭，点击内容区不关闭
         if (event.target === modal) {
             closeModal();
         }
