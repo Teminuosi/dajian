@@ -3,213 +3,204 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>三月 · 星际数据核心</title>
+  <title>三月 · 奥术科技核心</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #010416;
-      --primary-glow: #00f0ff;
-      --secondary-glow: #7a00ff;
-      --hot-glow-1: #ff4e50;
-      --hot-glow-2: #f9d423;
-      --text-color: #d1d5db;
-      --card-bg: rgba(15, 23, 42, 0.5);
+      --bg-color: #101018;
+      --primary-glow: #9f50ff; /* Arcane Purple */
+      --secondary-glow: #00f0ff; /* Cyber Blue */
+      --hot-glow: #ff8c00; /* Fiery Orange */
+      --text-color: #e0e0e0;
+      --card-bg: rgba(20, 18, 30, 0.7);
+      --card-border: rgba(159, 80, 255, 0.3);
     }
 
     /* --- 动画关键帧 --- */
-    @keyframes nebula-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    @keyframes holographic-reveal { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes hot-breathing { 0%, 100% { box-shadow: 0 0 20px 0 var(--hot-glow-1), inset 0 0 10px 0 rgba(255,255,255,0.2); } 50% { box-shadow: 0 0 35px 0 var(--hot-glow-2), inset 0 0 15px 0 rgba(255,255,255,0.3); } }
+    @keyframes pulse-glow { 0%, 100% { text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow); } 50% { text-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--secondary-glow); } }
+    @keyframes holographic-reveal { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes rune-power-up { 0%, 100% { box-shadow: 0 0 15px rgba(255,140,0,0.5); border-color: var(--hot-glow); } 50% { box-shadow: 0 0 30px rgba(255,140,0,0.8); border-color: #fff; } }
     @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
     @keyframes modal-content-zoom-in { from { transform: translate(-50%, -50%) scale(0.8); } to { transform: translate(-50%, -50%) scale(1); } }
-    @keyframes scanline-sweep { 0% { top: -20%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 120%; opacity: 0; } }
 
-    /* --- 基本设置与动态背景 --- */
+    /* --- 基本设置与融合风格背景 --- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Noto Sans SC', sans-serif; color: var(--text-color);
       overflow-x: hidden; position: relative;
       background-color: var(--bg-color);
-      background-image: 
-        radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(122, 0, 255, 0.15) 0%, transparent 40%);
-      background-size: 300% 300%;
-      animation: nebula-flow 25s ease infinite;
-    }
-    body::before {
-      content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-      pointer-events: none;
-      background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 240, 255, 0.15), transparent 80%);
-      transition: background 0.1s ease;
+      background-image:
+        radial-gradient(circle at 15% 25%, hsla(271, 100%, 65%, 0.2), transparent 30%),
+        radial-gradient(circle at 85% 75%, hsla(185, 100%, 50%, 0.15), transparent 40%),
+        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3Cpath d="M6 5V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6V5z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+      background-attachment: fixed;
     }
 
-    /* ⭐ CSS变更: 新增返回主导航按钮样式 */
-    .back-to-home {
-      position: fixed;
-      top: 25px; left: 25px;
-      z-index: 100;
-      padding: 10px 20px;
-      text-decoration: none;
-      font-weight: 500;
-      color: var(--primary-glow);
-      background: rgba(0, 240, 255, 0.1);
-      border: 1px solid var(--primary-glow);
-      border-radius: 8px;
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-    .back-to-home:hover {
-      background: rgba(0, 240, 255, 0.2);
-      color: #fff;
-      box-shadow: 0 0 15px var(--primary-glow);
-      transform: scale(1.05);
-    }
+    .back-to-home { position: fixed; top: 25px; left: 25px; z-index: 100; padding: 10px 20px; text-decoration: none; font-weight: 500; color: var(--secondary-glow); background: rgba(0, 240, 255, 0.1); border: 1px solid var(--secondary-glow); border-radius: 8px; backdrop-filter: blur(5px); transition: all 0.3s ease; }
+    .back-to-home:hover { background: rgba(0, 240, 255, 0.2); color: #fff; box-shadow: 0 0 15px var(--secondary-glow); transform: scale(1.05); }
 
-    /* --- 布局与标题 --- */
     .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-    header { text-align: center; margin-bottom: 40px; margin-top: 60px; /* 为返回按钮留出空间 */ }
-    header h1 { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 3.5em; letter-spacing: -2px; color: #fff; text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow), 0 0 40px var(--secondary-glow); }
+    header { text-align: center; margin-bottom: 40px; margin-top: 60px; }
+    header h1 { font-family: 'Cinzel Decorative', 'Orbitron', sans-serif; font-weight: 700; font-size: 3.5em; letter-spacing: 1px; color: #fff; animation: pulse-glow 4s ease-in-out infinite; }
     header p { font-size: 1.1em; color: var(--text-color); opacity: 0.8; margin-top: 10px; }
     
-    /* 全息通讯指令台 */
-    .comms-link-bar {
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.1), rgba(122, 0, 255, 0.1));
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      border-radius: 12px; padding: 20px 25px;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      margin-bottom: 50px; position: relative; overflow: hidden;
-      animation: holographic-reveal 0.8s ease-out forwards;
-    }
-    .comms-link-bar::after { content: ''; position: absolute; left: 0; top: -20%; width: 100%; height: 2px; background: var(--primary-glow); box-shadow: 0 0 10px 1px var(--primary-glow); animation: scanline-sweep 4s linear infinite; }
+    .comms-link-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: linear-gradient(90deg, rgba(159, 80, 255, 0.1), rgba(0, 240, 255, 0.1)); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px 25px; backdrop-filter: blur(10px); margin-bottom: 50px; position: relative; animation: holographic-reveal 0.8s ease-out forwards; }
     .comms-text h2 { font-family: 'Orbitron', sans-serif; font-size: 1.3em; color: #fff; margin: 0 0 5px 0; }
     .comms-text p { margin: 0; opacity: 0.8; font-size: 15px; }
-    .comms-button { background: var(--primary-glow); color: var(--bg-color); font-weight: 700; padding: 12px 25px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; margin-top: 10px; }
-    .comms-button:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--primary-glow); }
+    .comms-button { background: var(--secondary-glow); color: var(--bg-color); font-weight: 700; padding: 12px 25px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; white-space: nowrap; }
+    .comms-button:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--secondary-glow); }
     
-    /* 核心课程展示区 */
-    .premium-courses { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
-    .premium-card {
-      background: var(--card-bg); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px;
-      padding: 30px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: holographic-reveal 1s ease-out forwards; animation-delay: 0.2s; opacity: 0;
-      text-decoration: none; color: var(--text-color); display: flex; flex-direction: column;
+    .arcane-slabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; margin-bottom: 60px; }
+    .arcane-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 35px; backdrop-filter: blur(10px); position: relative; transition: all 0.2s ease-out; animation: holographic-reveal 1s ease-out forwards; opacity: 0; text-decoration: none; color: var(--text-color); display: flex; flex-direction: column; transform-style: preserve-3d; clip-path: polygon(0 20px, 20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px)); }
+    .arcane-card:hover { box-shadow: 0 0 40px rgba(159, 80, 255, 0.4); border-color: var(--primary-glow); }
+    .arcane-card-content { position: relative; z-index: 1; display: flex; flex-direction: column; flex-grow: 1; }
+    .arcane-card h3 { font-family: 'Cinzel Decorative', 'Orbitron', sans-serif; font-size: 1.8em; color: #fff; margin-bottom: 15px; }
+    .arcane-card .desc { font-size: 16px; opacity: 0.8; flex-grow: 1; line-height: 1.6; }
+    .arcane-card .cta-btn { display: block; width: 100%; text-align: center; color: #fff; font-weight: 700; padding: 15px; border-radius: 8px; margin-top: 25px; transition: all 0.3s ease; text-decoration: none; font-size: 1.1em; }
+    .arcane-card:hover .cta-btn { transform: scale(1.05) translateZ(20px); }
+    .arcane-card.hot { border-color: var(--hot-glow); animation: holographic-reveal 1s ease-out forwards, rune-power-up 2.5s ease-in-out infinite 1.2s; }
+    .arcane-card.hot h3 { color: var(--hot-glow); text-shadow: 0 0 10px var(--hot-glow); }
+    .arcane-card.hot .cta-btn { background: linear-gradient(45deg, var(--hot-glow), #ff4e50); }
+    .arcane-card.tech h3 { color: var(--secondary-glow); text-shadow: 0 0 10px var(--secondary-glow); }
+    .arcane-card.tech .cta-btn { background: linear-gradient(45deg, var(--secondary-glow), var(--primary-glow)); }
+
+    /* ✅ 修正：恢复横向并排的多列网格布局 */
+    .section-title { font-family: 'Cinzel Decorative', 'Orbitron', sans-serif; font-size: 2.2em; text-align: center; color: #fff; margin-bottom: 30px; text-shadow: 0 0 8px var(--secondary-glow); }
+    .rune-pillars-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
     }
-    .premium-card:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: var(--primary-glow); }
-    .premium-card::before, .premium-card::after { content: ''; position: absolute; width: 30px; height: 30px; border-style: solid; border-color: var(--primary-glow); transition: all 0.4s ease; }
-    .premium-card::before { top: 15px; left: 15px; border-width: 2px 0 0 2px; }
-    .premium-card::after { bottom: 15px; right: 15px; border-width: 0 2px 2px 0; }
-    .premium-card:hover::before, .premium-card:hover::after { transform: scale(1.2); }
-    .premium-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1.5em; color: #fff; margin-bottom: 15px; }
-    .premium-card .desc { font-size: 15px; opacity: 0.8; flex-grow: 1; }
-    .premium-card .cta-btn { display: block; width: 100%; text-align: center; background: linear-gradient(45deg, var(--primary-glow), var(--secondary-glow)); color: var(--bg-color); font-weight: 700; padding: 15px; border-radius: 8px; margin-top: 25px; transition: all 0.3s ease; text-decoration: none; }
-    .premium-card:hover .cta-btn { transform: scale(1.05); box-shadow: 0 0 20px var(--primary-glow); }
-    .premium-card.hot { border-color: var(--hot-glow-1); animation: holographic-reveal 1s ease-out forwards 0.2s, hot-breathing 2.5s ease-in-out infinite 1.2s; opacity: 0; }
-    .premium-card.hot:hover { border-color: var(--hot-glow-2); }
-    .premium-card.hot::before, .premium-card.hot::after { border-color: var(--hot-glow-1); }
-    .premium-card.hot:hover::before, .premium-card.hot:hover::after { border-color: var(--hot-glow-2); }
-    .premium-card.hot .cta-btn { background: linear-gradient(45deg, var(--hot-glow-1), var(--hot-glow-2)); }
-    
-    /* 工具矩阵布局 */
-    .section-title { font-family: 'Orbitron', sans-serif; font-size: 2em; text-align: center; color: #fff; margin-bottom: 30px; text-shadow: 0 0 5px var(--primary-glow); }
-    .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-    .tool-card { background: rgba(15, 23, 42, 0.4); border-radius: 10px; padding: 25px; border: 1px solid rgba(0, 240, 255, 0.15); backdrop-filter: blur(5px); transition: all 0.3s ease; }
-    .tool-card:hover { transform: translateY(-5px); background: rgba(15, 23, 42, 0.8); border-color: rgba(0, 240, 255, 0.5); }
-    .tool-card h2 { font-family: 'Orbitron', sans-serif; font-size: 1.2em; margin-bottom: 15px; color: var(--primary-glow); padding-bottom: 10px; border-bottom: 1px solid rgba(0, 240, 255, 0.2); }
-    .tool-card a { display: block; color: var(--text-color); text-decoration: none; padding: 10px; border-radius: 6px; margin: 8px 0; transition: all 0.3s ease; background-color: rgba(0, 240, 255, 0.05); }
-    .tool-card a:hover { background-color: rgba(0, 240, 255, 0.2); color: #fff; transform: translateX(5px); }
-    
-    /* 弹窗与页脚 */
+    .rune-pillar {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 25px;
+        backdrop-filter: blur(8px);
+    }
+    .rune-pillar h2 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.2em;
+        color: var(--secondary-glow);
+        margin: 0 0 20px 0;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .rune-card { display: flex; align-items: center; gap: 15px; padding: 12px 15px; margin-bottom: 10px; background: rgba(20, 18, 30, 0.5); border: 1px solid rgba(159, 80, 255, 0.1); border-radius: 6px; text-decoration: none; color: var(--text-color); transition: all 0.3s ease; }
+    .rune-card:last-child { margin-bottom: 0; }
+    .rune-card:hover { background: rgba(159, 80, 255, 0.2); border-color: var(--primary-glow); color: #fff; transform: translateX(5px); }
+    .rune-card .icon { font-size: 1.2em; line-height: 1; color: var(--primary-glow); transition: color 0.3s; }
+    .rune-card:hover .icon { color: #fff; }
+
+    /* 新增：QR码卡片样式 */
+    .qr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .qr-card { text-align: center; background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .qr-card .qr-title { font-size: 16px; margin-bottom: 15px; font-weight: 500; color: #d1d5db; }
+    .qr-card img { width: 100%; max-width: 200px; height: auto; object-fit: contain; border-radius: 8px; background: white; }
+
+    /* 页脚与弹窗 */
     footer { text-align: center; font-size: 14px; opacity: 0.6; padding: 40px 20px; margin-top: 20px; }
-    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(5px); animation: modal-fade-in 0.3s ease; }
-    .modal-content { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #1e1b3a; padding: 30px; border-radius: 16px; border: 1px solid var(--secondary-glow); text-align: center; width: 90%; max-width: 380px; box-shadow: 0 0 50px var(--secondary-glow); animation: modal-content-zoom-in 0.3s ease-out; }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(16,16,24,0.8); backdrop-filter: blur(8px); animation: modal-fade-in 0.3s ease; }
+    .modal-content { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #1a1829; padding: 30px; border-radius: 16px; border: 1px solid var(--primary-glow); text-align: center; width: 90%; max-width: 380px; box-shadow: 0 0 50px var(--primary-glow); animation: modal-content-zoom-in 0.3s ease-out; }
     .close-button { position: absolute; top: 15px; right: 15px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
-    .close-button:hover, .close-button:focus { color: #fff; }
+    .close-button:hover { color: #fff; }
     .modal-content img { width: 100%; max-width: 300px; height: auto; border-radius: 12px; background: white; margin: 15px 0; }
-    .modal-content h3 { font-size: 1.5em; margin: 0; color: #fff; }
-    .modal-content .modal-links a { display: block; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s; margin-top: 10px; }
-    .modal-content .modal-links a.direct-link { background-color: var(--primary-glow); color: #000; }
-    .modal-content .modal-links a.tutorial-link { background-color: var(--hot-glow-2); color: #000; }
+    .modal-content h3 { font-family: 'Cinzel Decorative', sans-serif; font-size: 1.5em; margin: 0; color: #fff; }
+    .modal-content .modal-links a { display: block; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.3s; margin-top: 10px; font-size: 1.1em; }
+    .modal-content .modal-links a.direct-link { background-color: var(--primary-glow); color: #101018; }
+    .modal-content .modal-links a.tutorial-link { background-color: var(--hot-glow); color: #101018; }
   </style>
 </head>
 <body>
-  <!-- HTML变更: 新增返回按钮 -->
+
   <a href="https://3yuedaohang.com" class="back-to-home" target="_blank">« 返回主导航</a>
 
   <div class="container">
     <header>
-      <h1>三月 · 星际数据核心</h1>
+      <h1>三月 · 奥术科技核心</h1>
       <p>信息是新时代的能源，这里是你的专属能源核心</p>
     </header>
 
-    <!-- 全息通讯指令台 -->
-    <div class="comms-link-bar">
-      <div class="comms-text">
+    <!-- <div class="comms-link-bar">
+     <div class="comms-text">
         <h2>站长TG小组 & 社区入口</h2>
         <p>获取售后支持、最新资讯和免费节点。点击开启传送门。</p>
-      </div>
+      </div> 
       <a href="#" class="comms-button" id="tg-trigger">[ 连接到数据核心 ]</a>
+    </div> -->
+
+    <!-- 奥术石板 -->
+    <div class="arcane-slabs">
+      <a href="lesson/index.html" class="arcane-card tech" target="_blank">
+        <div class="arcane-card-content">
+            <h3>完美网络搭建课程</h3>
+            <p class="desc">面向进阶用户，深入VPS、软路由、网络协议优化。打造属于你自己的高性能、高稳定、高安全性的网络帝国。</p>
+            <span class="cta-btn">解锁奥义</span>
+        </div>
+      </a>
+      <a href="https://pan.quark.cn/s/3cb348716f56" class="arcane-card hot" target="_blank" style="animation-delay: 0.2s;">
+        <div class="arcane-card-content">
+            <h3>抖音免费课程</h3>
+            <p class="desc">被封无数次的视频。本模块作为福利免费开放，点击直达网盘获取这份禁忌的知识遗物。</p>
+            <span class="cta-btn">获取遗物</span>
+        </div>
+      </a>
     </div>
 
-    <!-- 核心课程展示区 -->
-    <div class="premium-courses">
-      <a href="lesson/beginner-guide.html" class="premium-card hot" target="_blank">
-        <h3>🔥 寻找海外资源课程</h3>
-        <p class="desc">为纯小白打造的保姆级教程，覆盖Windows/Mac/iOS/安卓全平台。从零开始，永久解决你的网络访问难题。</p>
-        <span class="cta-btn">进入基础模块</span>
-      </a>
-      <a href="lesson/index.html" class="premium-card" target="_blank" style="animation-delay: 0.4s;">
-        <h3>🛠️ 完美网络搭建课程</h3>
-        <p class="desc">面向进阶用户，深入VPS、软路由、网络协议优化。打造属于你自己的高性能、高稳定、高安全性的网络帝国。</p>
-        <span class="cta-btn">进入进阶模块</span>
-      </a>
-      <a href="https://pan.quark.cn/s/3cb348716f56" class="premium-card" target="_blank" style="animation-delay: 0.6s;">
-        <h3>📺 抖音免费课程</h3>
-        <p class="desc">被封无数次的视频。本模块作为福利免费开放，点击直达网盘观看。</p>
-        <span class="cta-btn">获取免费资源</span>
-      </a>
-    </div>
+    <h2 class="section-title">符文矩阵 & 资源链接</h2>
+    <div class="rune-pillars-container">
 
-    <h2 class="section-title">工具矩阵 & 资源链接</h2>
-    <div class="tool-grid">
-      <div class="tool-card">
-        <h2>🌐 上网服务</h2>
-        <a href="https://www.sibker.com/register?code=JCGEzLFw" target="_blank">🚀 机场推荐</a>
-        <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank"> 🧬 中转推荐</a>
-        <a href="https://666clouds.com/aff.php?aff=2809" target="_blank">🖥️ VPS推荐 666clouds</a>
-        <a href="https://ipraft.com/?i950472" target="_blank">🏠 VPS推荐 IPraft</a>
-        <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank">💳 海外虚拟卡</a>
-        <a href="http://www.xiaohaoduo.com?aff=s2afSwjx" target="_blank">👤 苹果ID、各类账号购买</a>
-      </div>
-      <div class="tool-card">
-        <h2>🧰 软件与工具</h2>
-        <a href="https://github.com/2dust/v2rayN/releases" target="_blank">💻 v2rayN (Windows)</a>
-        <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases" target="_blank">📱 NekoBox (安卓)</a>
-        <a href="https://github.com/yanue/V2RayU/releases" target="_blank">🍎 V2RayU (macOS)</a>
-        <a href="https://www.hostbuf.com/t/988.html" target="_blank">🐚 FinalShell 下载</a>
-      </div>
-      <div class="tool-card">
-        <h2>🔍 查询检测工具</h2>
-        <a href="https://ping0.cc/" target="_blank">🧭 IP信息查询</a>
-        <a href="https://whoer.net/zh" target="_blank">🕵️ 匿名度评估</a>
-        <a href="https://scamalytics.com/ip/" target="_blank">⚠️ 欺诈值检测</a>
-        <a href="https://ping.pe/" target="_blank">🧱 被墙检测</a>
-      </div>
-      <div class="tool-card">
-        <h2>🚀 网络测速平台</h2>
-        <a href="https://www.speedtest.net/" target="_blank">💨 SpeedTest 全球测速</a>
-        <a href="https://speed.cloudflare.com/" target="_blank">💨 Cloudflare测速</a>
-        <a href="https://fast.com/" target="_blank">💨 Netflix Fast测速</a>
-      </div>
+        <!-- 上网服务 -->
+        <div class="rune-pillar">
+            <h2>🌐 科学上网服务</h2>
+            <a href="https://www.sibker.com/register?code=JCGEzLFw" target="_blank" class="rune-card"><div class="icon">🚀</div><span>机场推荐</span></a>
+            <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="rune-card"><div class="icon">🧬</div><span>中转节点 Go-relay</span></a>
+            <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="rune-card"><div class="icon">🖥️</div><span>VPS推荐 666clouds</span></a>
+            <a href="https://ipraft.com/?i950472" target="_blank" class="rune-card"><div class="icon">🏠</div><span>VPS推荐 IPraft</span></a>
+            <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank" class="rune-card"><div class="icon">💳</div><span>海外虚拟卡</span></a>
+            <a href="https://share.adspower.net/BpVkZk" target="_blank" class="rune-card"><div class="icon">🔒</div><span>Adspower环境隔离</span></a>
+        </div>
+     
+        <!-- 查询检测 -->
+        <div class="rune-pillar">
+            <h2>🔍 查询检测工具</h2>
+            <a href="https://ping0.cc/ip/" target="_blank" class="rune-card"><div class="icon">🧭</div><span>IP信息/监控</span></a>
+            <!-- <a href="https://ip.sb/" target="_blank" class="rune-card"><div class="icon">🧪</div><span>IP体检</span></a> -->
+            <a href="https://whoer.net/zh" target="_blank" class="rune-card"><div class="icon">🕵️</div><span>匿名度评估</span></a>
+            <a href="https://scamalytics.com/ip/" target="_blank" class="rune-card"><div class="icon">⚠️</div><span>欺诈值检测</span></a>
+            <a href="https://ping.pe/" target="_blank" class="rune-card"><div class="icon">🧱</div><span>被墙检测</span></a>
+            <a href="https://tools.ipip.net/traceroute.php" target="_blank" class="rune-card"><div class="icon">🗺️</div><span>路由追踪</span></a>
+            <a href="https://www.whatsmydns.net/" target="_blank" class="rune-card"><div class="icon">🌐</div><span>域名解析查询</span></a>
+            <a href="https://ipleak.net/" target="_blank" class="rune-card"><div class="icon">💧</div><span>DNS泄漏查询</span></a>
+            <a href="https://fofa.info" target="_blank" class="rune-card"><div class="icon">🔭</div><span>网络空间搜索</span></a>
+            <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" class="rune-card"><div class="icon">🌍</div><span>国家代码查询</span></a>
+        </div>
+        <!-- 网络测速 -->
+        <div class="rune-pillar">
+            <h2>🚀 网络测速平台</h2>
+            <a href="https://www.speedtest.net/" target="_blank" class="rune-card"><div class="icon">💨</div><span>SpeedTest 测速</span></a>
+            <a href="https://speed.cloudflare.com/" target="_blank" class="rune-card"><div class="icon">☁️</div><span>Cloudflare 测速</span></a>
+            <a href="https://fast.com/" target="_blank" class="rune-card"><div class="icon">🎬</div><span>Netflix Fast 测速</span></a>
+        </div>
+           <!-- 软件与工具 -->
+           <div class="rune-pillar">
+            <h2>🧰 科学上网软件</h2>
+            <a href="https://github.com/2dust/v2rayN/releases" target="_blank" class="rune-card"><div class="icon">💻</div><span>v2rayN (Win)</span></a>
+            <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases" target="_blank" class="rune-card"><div class="icon">📱</div><span>NekoBox (安卓)</span></a>
+            <a href="https://github.com/yanue/V2RayU/releases" target="_blank" class="rune-card"><div class="icon">🍎</div><span>V2RayU (macOS)</span></a>
+            <a href="https://www.hostbuf.com/t/988.html" target="_blank" class="rune-card"><div class="icon">🐚</div><span>FinalShell 下载</span></a>
+        </div>
     </div>
   </div>
 
   <footer>
-    📌 当前页面地址为 dajian.cyou，建议收藏本页防止失联。
+    📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。
   </footer>
   
   <div id="tgModal" class="modal">
@@ -218,21 +209,33 @@
       <h3>加入TG交流群</h3>
       <img src="3yuetg.png" alt="Telegram群组二维码">
       <div class="modal-links">
-        <a href="https://t.me/sanyuedaohang" target="_blank" class="direct-link">🔗 点击链接直接加入</a>
-        <a href="TG.html" target="_blank" class="tutorial-link">🔧 没有Telegram？查看教程</a>
+        <a href="https://t.me/sanyuedaohang" target="_blank" class="direct-link">启动传送法阵</a>
+        <a href="TG.html" target="_blank" class="tutorial-link">探寻入门卷轴</a>
       </div>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      document.body.addEventListener('mousemove', e => {
-        document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
-        document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+      const cards = document.querySelectorAll('.arcane-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = (y - centerY) / centerY * -6;
+          const rotateY = (x - centerX) / centerX * 6;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
       });
 
       const modal = document.getElementById("tgModal");
-      const tgTrigger = document.querySelector("#tg-trigger"); // Changed to querySelector for more flexibility
+      const tgTrigger = document.querySelector("#tg-trigger");
       const closeButton = modal.querySelector('.close-button');
 
       tgTrigger.addEventListener('click', (e) => {
