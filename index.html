@@ -24,6 +24,8 @@
     @keyframes rune-power-up { 0%, 100% { box-shadow: 0 0 15px rgba(255,140,0,0.5); border-color: var(--hot-glow); } 50% { box-shadow: 0 0 30px rgba(255,140,0,0.8); border-color: #fff; } }
     @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
     @keyframes modal-content-zoom-in { from { transform: translate(-50%, -50%) scale(0.8); } to { transform: translate(-50%, -50%) scale(1); } }
+    /* ✅ 新增：高亮卡片的呼吸辉光动画 */
+    @keyframes pulse-border-glow { 0%, 100% { border-color: var(--primary-glow); box-shadow: 0 0 20px rgba(159, 80, 255, 0.4); } 50% { border-color: var(--secondary-glow); box-shadow: 0 0 30px rgba(0, 240, 255, 0.5); } }
 
     /* --- 基本设置与融合风格背景 --- */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,7 +37,7 @@
       background-image:
         radial-gradient(circle at 15% 25%, hsla(271, 100%, 65%, 0.2), transparent 30%),
         radial-gradient(circle at 85% 75%, hsla(185, 100%, 50%, 0.15), transparent 40%),
-        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3Cpath d="M6 5V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6V5z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z"/%3E%3Cpath d="M6 5V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6V5z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
       background-attachment: fixed;
     }
 
@@ -67,7 +69,6 @@
     .arcane-card.tech h3 { color: var(--secondary-glow); text-shadow: 0 0 10px var(--secondary-glow); }
     .arcane-card.tech .cta-btn { background: linear-gradient(45deg, var(--secondary-glow), var(--primary-glow)); }
 
-    /* ✅ 修正：恢复横向并排的多列网格布局 */
     .section-title { font-family: 'Cinzel Decorative', 'Orbitron', sans-serif; font-size: 2.2em; text-align: center; color: #fff; margin-bottom: 30px; text-shadow: 0 0 8px var(--secondary-glow); }
     .rune-pillars-container {
         display: grid;
@@ -92,17 +93,49 @@
         align-items: center;
         gap: 10px;
     }
+    
+    /* ✅ 新增：为最重要的推荐项创建独立高亮卡片样式 */
+    .pillar-highlight-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        border: 1px solid;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text-color);
+        background: linear-gradient(90deg, rgba(159, 80, 255, 0.15), rgba(0, 240, 255, 0.1));
+        transition: all 0.3s ease;
+        animation: pulse-border-glow 3s ease-in-out infinite;
+    }
+    .pillar-highlight-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 40px rgba(159, 80, 255, 0.4);
+    }
+    .pillar-highlight-card .highlight-icon {
+        font-size: 1.8em;
+        line-height: 1;
+        color: var(--secondary-glow);
+        text-shadow: 0 0 10px var(--secondary-glow);
+    }
+    .pillar-highlight-card .highlight-text .title {
+        display: block;
+        font-weight: 700;
+        font-size: 1.1em;
+        color: #fff;
+    }
+    .pillar-highlight-card .highlight-text .subtitle {
+        display: block;
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+
     .rune-card { display: flex; align-items: center; gap: 15px; padding: 12px 15px; margin-bottom: 10px; background: rgba(20, 18, 30, 0.5); border: 1px solid rgba(159, 80, 255, 0.1); border-radius: 6px; text-decoration: none; color: var(--text-color); transition: all 0.3s ease; }
     .rune-card:last-child { margin-bottom: 0; }
     .rune-card:hover { background: rgba(159, 80, 255, 0.2); border-color: var(--primary-glow); color: #fff; transform: translateX(5px); }
     .rune-card .icon { font-size: 1.2em; line-height: 1; color: var(--primary-glow); transition: color 0.3s; }
     .rune-card:hover .icon { color: #fff; }
-
-    /* 新增：QR码卡片样式 */
-    .qr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-    .qr-card { text-align: center; background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); }
-    .qr-card .qr-title { font-size: 16px; margin-bottom: 15px; font-weight: 500; color: #d1d5db; }
-    .qr-card img { width: 100%; max-width: 200px; height: auto; object-fit: contain; border-radius: 8px; background: white; }
 
     /* 页脚与弹窗 */
     footer { text-align: center; font-size: 14px; opacity: 0.6; padding: 40px 20px; margin-top: 20px; }
@@ -126,14 +159,6 @@
       <h1>三月 · 奥术科技核心</h1>
       <p>信息是新时代的能源，这里是你的专属能源核心</p>
     </header>
-
-    <!-- <div class="comms-link-bar">
-     <div class="comms-text">
-        <h2>站长TG小组 & 社区入口</h2>
-        <p>获取售后支持、最新资讯和免费节点。点击开启传送门。</p>
-      </div> 
-      <a href="#" class="comms-button" id="tg-trigger">[ 连接到数据核心 ]</a>
-    </div> -->
 
     <!-- 奥术石板 -->
     <div class="arcane-slabs">
@@ -159,9 +184,18 @@
         <!-- 上网服务 -->
         <div class="rune-pillar">
             <h2>🌐 TikTok 运营策略</h2>
+            <!-- ✅ 修改：将“机场白月光”升级为独立高亮卡片 -->
+            <a href="https://www.sibker.com/register?code=JCGEzLFw" target="_blank" class="pillar-highlight-card">
+              <div class="highlight-icon">🚀</div>
+              <div class="highlight-text">
+                <span class="title">机场白月光推荐</span>
+                <span class="subtitle">稳定/高速/安全首选 | 科学上网软件在此下载</span>
+              </div>
+            </a>
+            
+            <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="rune-card"><div class="icon">📶</div><span>美国电信ATT 住宅IP/VPS</span></a>
             <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="rune-card"><div class="icon">🖥️</div><span>VPS推荐 666clouds</span></a>
             <a href="https://ipraft.com/?i950472" target="_blank" class="rune-card"><div class="icon">🏠</div><span>VPS推荐 IPraft</span></a>
-            <a href="https://www.sibker.com/register?code=JCGEzLFw" target="_blank" class="rune-card"><div class="icon">🚀</div><span>机场推荐</span></a>
             <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="rune-card"><div class="icon">🧬</div><span>中转节点 Go-relay</span></a>
             <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank" class="rune-card"><div class="icon">💳</div><span>海外虚拟卡</span></a>
             <a href="https://share.adspower.net/BpVkZk" target="_blank" class="rune-card"><div class="icon">🔒</div><span>Adspower环境隔离</span></a>
@@ -171,7 +205,6 @@
         <div class="rune-pillar">
             <h2>🔍 查询检测工具</h2>
             <a href="https://ping0.cc/ip/" target="_blank" class="rune-card"><div class="icon">🧭</div><span>IP信息/监控</span></a>
-            <!-- <a href="https://ip.sb/" target="_blank" class="rune-card"><div class="icon">🧪</div><span>IP体检</span></a> -->
             <a href="https://whoer.net/zh" target="_blank" class="rune-card"><div class="icon">🕵️</div><span>匿名度评估</span></a>
             <a href="https://scamalytics.com/ip/" target="_blank" class="rune-card"><div class="icon">⚠️</div><span>欺诈值检测</span></a>
             <a href="https://ping.pe/" target="_blank" class="rune-card"><div class="icon">🧱</div><span>被墙检测</span></a>
@@ -187,14 +220,6 @@
             <a href="https://www.speedtest.net/" target="_blank" class="rune-card"><div class="icon">💨</div><span>SpeedTest 测速</span></a>
             <a href="https://speed.cloudflare.com/" target="_blank" class="rune-card"><div class="icon">☁️</div><span>Cloudflare 测速</span></a>
             <a href="https://fast.com/" target="_blank" class="rune-card"><div class="icon">🎬</div><span>Netflix Fast 测速</span></a>
-        </div>
-           <!-- 软件与工具 -->
-           <div class="rune-pillar">
-            <h2>🧰 科学上网软件</h2>
-            <a href="https://github.com/2dust/v2rayN/releases" target="_blank" class="rune-card"><div class="icon">💻</div><span>v2rayN (Win)</span></a>
-            <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases" target="_blank" class="rune-card"><div class="icon">📱</div><span>NekoBox (安卓)</span></a>
-            <a href="https://github.com/yanue/V2RayU/releases" target="_blank" class="rune-card"><div class="icon">🍎</div><span>V2RayU (macOS)</span></a>
-            <a href="https://www.hostbuf.com/t/988.html" target="_blank" class="rune-card"><div class="icon">🐚</div><span>FinalShell 下载</span></a>
         </div>
     </div>
   </div>
@@ -234,22 +259,30 @@
         });
       });
 
+      // 注释掉了TG弹窗相关代码，因为页面上没有触发器了
+      // 如果需要恢复，请取消注释并确保有ID为 #tg-trigger 的元素
+      /*
       const modal = document.getElementById("tgModal");
       const tgTrigger = document.querySelector("#tg-trigger");
       const closeButton = modal.querySelector('.close-button');
 
-      tgTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        modal.style.display = 'block';
-      });
-      closeButton.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
+      if (tgTrigger) {
+        tgTrigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.style.display = 'block';
+        });
+      }
+      if (closeButton) {
+        closeButton.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+      }
       window.addEventListener('click', (event) => {
         if (event.target == modal) {
           modal.style.display = 'none';
         }
       });
+      */
     });
   </script>
 </body>
