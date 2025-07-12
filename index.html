@@ -145,8 +145,6 @@
         transition: all 0.3s ease; 
         position: relative;
         overflow: hidden;
-        /* ✅ 修复：移除 flex-grow 避免卡片在列中被拉伸 */
-        /* flex-grow: 1; */ 
         margin-bottom: 12px;
     }
     .rune-card:last-child { margin-bottom: 0; }
@@ -271,7 +269,7 @@
                 <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="rune-card"><div class="icon">💥</div><span>VPS推荐 双ISP 大带宽无需中转（日韩德美英法、香港、台湾、新加坡）</span></a>
                 <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="rune-card"><div class="icon">🖥️</div><span>VPS推荐 666clouds 大带宽无需中转（日韩美英、香港）</span></a>
                 <a href="https://ipraft.com/?i950472" target="_blank" class="rune-card"><div class="icon">🏠</div><span>VPS推荐 IPraft 需配中转提速（其他国家）</span></a>
-                <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="rune-card"><div class="icon">🧬</div><span>中转节点 Go-relay</span></a>
+                <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="rune-card"><div class="icon">🧬</div><span>中转提速平台 Go-relay</span></a>
                 <a href="http://www.xiaohaoduo.com?aff=s2afSwjx" target="_blank" class="rune-card"><div class="icon">💴</div><span>苹果、谷歌、FB、TK各类账号购买</span></a>
                 <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank" class="rune-card"><div class="icon">💳</div><span>海外虚拟卡</span></a>
                 <a href="https://share.adspower.net/BpVkZk" target="_blank" class="rune-card"><div class="icon">🔒</div><span>Adspower环境隔离</span></a>
@@ -283,7 +281,6 @@
             <h2><i class="fas fa-scroll"></i> 核心课程 & 奥义</h2>
             <div class="rune-card-list">
               
-                <!-- ✅ 修改：应用新的高亮样式并优化HTML结构 -->
                 <a href="ip-explain.html" target="_blank" class="rune-card rune-card--special-highlight">
                   <div class="icon">🔥</div>
                   <span>IP节点解析指南</span>
@@ -304,15 +301,17 @@
         <div class="rune-pillar">
             <h2><i class="fas fa-search"></i> 查询检测工具</h2>
             <div class="rune-card-list">
-                <a href="https://ping0.cc/ip/" target="_blank" class="rune-card"><div class="icon">🧭</div><span>IP信息/监控</span></a>
-                <a href="https://whoer.net/zh" target="_blank" class="rune-card"><div class="icon">🕵️</div><span>匿名度评估</span></a>
-                <a href="https://scamalytics.com/ip/" target="_blank" class="rune-card"><div class="icon">⚠️</div><span>欺诈值检测</span></a>
-                <a href="https://ping.pe/" target="_blank" class="rune-card"><div class="icon">🧱</div><span>被墙检测</span></a>
+                <!-- ✅ 修改：已将新增的3个链接放在最前 -->
+                <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" class="rune-card"><div class="icon">🌍</div><span>国家代码查询</span></a>
+                <a href="https://fofa.info/result?qbase64=ZG9tYWluPSJuaWNldGsudG9wIiAmJiBjb3VudHJ5PSJNWSI%3D" target="_blank" class="rune-card"><div class="icon">🔭</div><span>FOFA网络空间搜索</span></a>
+                <a href="https://ipinfo.io/1.9.4.221?lookup_source=search-bar#block-asn" target="_blank" class="rune-card"><div class="icon">📍</div><span>IPInfo.io 详细信息</span></a>
+                <a href="https://ping0.cc/ip/" target="_blank" class="rune-card"><div class="icon">🧭</div><span>Ping0.cc IP检测</span></a>
+                <a href="https://whoer.net/zh" target="_blank" class="rune-card"><div class="icon">🕵️</div><span>Whoer 匿名度评估</span></a>
+                <a href="https://scamalytics.com/ip/" target="_blank" class="rune-card"><div class="icon">⚠️</div><span>Scamalytics 欺诈值检测</span></a>
+                <a href="https://ping.pe/" target="_blank" class="rune-card"><div class="icon">🧱</div><span>Ping.pe 被墙检测</span></a>
                 <a href="https://tools.ipip.net/traceroute.php" target="_blank" class="rune-card"><div class="icon">🗺️</div><span>路由追踪</span></a>
                 <a href="https://www.whatsmydns.net/" target="_blank" class="rune-card"><div class="icon">🌐</div><span>域名解析查询</span></a>
-                <a href="https://ipleak.net/" target="_blank" class="rune-card"><div class="icon">💧</div><span>DNS泄漏查询</span></a>
-                <a href="https://fofa.info" target="_blank" class="rune-card"><div class="icon">🔭</div><span>网络空间搜索</span></a>
-                <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" class="rune-card"><div class="icon">🌍</div><span>国家代码查询</span></a>
+                <a href="https://ipleak.net/" target="_blank" class="rune-card"><div class="icon">💧</div><span>Ipleak DNS泄漏查询</span></a>
             </div>
         </div>
         
