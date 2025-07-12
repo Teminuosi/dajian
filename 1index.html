@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>三月 · 跨境网络核心</title>
+  <title>三月 · 奥术科技核心</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -28,12 +28,6 @@
       0% { transform: translateX(-150%) skewX(-30deg); }
       100% { transform: translateX(150%) skewX(-30deg); }
     }
-    
-    /* ✅ 新增：为特别高亮的卡片图标增加脉冲动画 */
-    @keyframes pulse-icon {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-    }
 
 
     /* --- 基本设置与融合风格背景 --- */
@@ -52,41 +46,47 @@
 
     /* --- ✨ 优化后的导航栏样式 (START) --- */
     .top-nav-bar {
-        background-color: rgba(20, 18, 30, 0.8);
+        background-color: rgba(20, 18, 30, 0.8); /* 稍微降低不透明度，让毛玻璃效果更明显 */
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        padding: 15px 0;
+        padding: 15px 0; /* 增加垂直内边距，让导航栏更大气 */
         text-align: center;
         width: 100%;
         position: sticky;
         top: 0;
         z-index: 1001;
+        /* 将普通边框改为发光的科技感边框 */
         border-bottom: 1px solid rgba(0, 240, 255, 0.3); 
+        /* 添加微妙的辉光阴影，使其'浮'在页面上 */
         box-shadow: 0 4px 25px rgba(0, 240, 255, 0.1); 
         transition: all 0.3s ease;
     }
     .top-nav-bar a {
-        display: inline-block;
+        /* 将链接本身设计成一个按钮 */
+        display: inline-block; /* 允许设置padding和border */
         background-color: transparent;
         border: 1px solid var(--secondary-glow);
         color: var(--secondary-glow);
         text-decoration: none;
         font-size: 1rem;
         font-weight: 500;
-        padding: 8px 20px;
-        border-radius: 50px;
+        padding: 8px 20px; /* 设置内边距，形成按钮形状 */
+        border-radius: 50px; /* 创建药丸形状 */
+        /* 添加平滑的过渡动画 */
         transition: all 0.3s ease, text-shadow 0.3s ease;
-        text-shadow: 0 0 5px rgba(0, 240, 255, 0.7);
+        text-shadow: 0 0 5px rgba(0, 240, 255, 0.7); /* 默认状态也带上微光 */
     }
     .top-nav-bar a:hover {
+        /* 悬停时，效果反转，提供强反馈 */
         background-color: var(--secondary-glow);
-        color: var(--bg-color);
-        text-shadow: none;
-        box-shadow: 0 0 15px var(--secondary-glow), 0 0 25px var(--secondary-glow);
-        transform: scale(1.05);
+        color: var(--bg-color); /* 文字变暗色，形成对比 */
+        text-shadow: none; /* 亮背景下不再需要文字阴影 */
+        box-shadow: 0 0 15px var(--secondary-glow), 0 0 25px var(--secondary-glow); /* 强化辉光 */
+        transform: scale(1.05); /* 轻微放大 */
     }
     .top-nav-bar a i {
         margin-right: 8px;
+        /* 图标颜色随文字一起变化 */
         transition: color 0.3s ease;
     }
     /* --- ✨ 优化后的导航栏样式 (END) --- */
@@ -145,35 +145,36 @@
         transition: all 0.3s ease; 
         position: relative;
         overflow: hidden;
-        /* ✅ 修复：移除 flex-grow 避免卡片在列中被拉伸 */
-        /* flex-grow: 1; */ 
+        flex-grow: 1;
         margin-bottom: 12px;
     }
     .rune-card:last-child { margin-bottom: 0; }
     
+    /* ✅ 优化：增强普通卡片悬停反馈，增加主题色辉光 */
     .rune-card:hover { 
         background: rgba(159, 80, 255, 0.2); 
         border-color: var(--primary-glow); 
         color: #fff; 
         transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 0 20px rgba(159, 80, 255, 0.4);
+        box-shadow: 0 0 20px rgba(159, 80, 255, 0.4); /* 替换黑色阴影为紫色辉光 */
     }
     
+    /* ✅ 优化：为图标增加过渡动画效果 */
     .rune-card .icon { 
         font-size: 1.5em;
         line-height: 1; 
         color: var(--primary-glow); 
         width: 30px;
         text-align: center;
-        transition: color 0.3s, transform 0.3s ease;
+        transition: color 0.3s, transform 0.3s ease; /* 增加 transform 过渡 */
     }
     
+    /* ✅ 优化：图标悬停时增加动态效果 */
     .rune-card:hover .icon { 
         color: #fff;
-        transform: scale(1.2) rotate(-5deg);
+        transform: scale(1.2) rotate(-5deg); /* 悬停时放大并轻微旋转 */
     }
 
-    /* 普通高亮卡片 */
     .rune-card--highlighted {
       background: radial-gradient(circle at 50% 50%, rgba(159, 80, 255, 0.2), transparent 70%), rgba(20, 18, 30, 0.5);
       border-color: var(--primary-glow);
@@ -186,6 +187,7 @@
       font-weight: 700;
       color: #fff;
     }
+    
     .rune-card--highlighted::before {
       content: '';
       position: absolute;
@@ -197,36 +199,15 @@
       transform: translateX(-150%) skewX(-30deg);
       transition: transform 0s;
     }
+
     .rune-card--highlighted:hover::before {
       transform: translateX(250%) skewX(-30deg);
       transition: transform 1.2s ease-in-out;
     }
+    
+    /* ✅ 优化：高亮卡片的图标也增加动态效果 */
     .rune-card--highlighted:hover .icon {
-        transform: scale(1.2) rotate(5deg);
-    }
-
-    /* ✅ 新增：为IP解析指南定制的特别高亮样式 */
-    .rune-card--special-highlight {
-      border: 1px solid var(--hot-glow);
-      background: radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.2), transparent 80%), rgba(20, 18, 30, 0.5);
-      box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
-    }
-    .rune-card--special-highlight .icon {
-      color: var(--hot-glow);
-      text-shadow: 0 0 10px var(--hot-glow);
-      animation: pulse-icon 2s infinite ease-in-out; /* 应用脉冲动画 */
-    }
-    .rune-card--special-highlight span {
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 0 5px var(--hot-glow);
-    }
-    .rune-card--special-highlight:hover {
-      box-shadow: 0 0 30px var(--hot-glow), 0 0 50px rgba(255, 140, 0, 0.3);
-      transform: translateY(-2px) scale(1.03);
-    }
-    .rune-card--special-highlight:hover .icon {
-      animation-play-state: paused; /* 悬停时暂停动画，避免冲突 */
+        transform: scale(1.2) rotate(5deg); /* 方向可以反过来，增加趣味性 */
     }
 
     /* 页脚与弹窗 */
@@ -252,7 +233,7 @@
 
   <div class="container">
     <header>
-      <h1>三月 · 跨境网络核心</h1>
+      <h1>三月 · 奥术科技核心</h1>
       <p>信息是新时代的能源，这里是你的专属能源核心</p>
     </header>
 
@@ -267,6 +248,7 @@
                   <div class="icon">🚀</div>
                   <span>站长主推专线机场 SSR (免费试用24小时！)</span>
                 </a>
+                <!-- <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="rune-card"><div class="icon">📶</div><span>专线高速机场 SSR</span></a>                 -->
                 <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="rune-card"><div class="icon">📶</div><span>美国电信ATT 住宅IP/VPS</span></a>
                 <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="rune-card"><div class="icon">💥</div><span>VPS推荐 双ISP 大带宽无需中转（日韩德美英法、香港、台湾、新加坡）</span></a>
                 <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="rune-card"><div class="icon">🖥️</div><span>VPS推荐 666clouds 大带宽无需中转（日韩美英、香港）</span></a>
@@ -283,10 +265,9 @@
             <h2><i class="fas fa-scroll"></i> 核心课程 & 奥义</h2>
             <div class="rune-card-list">
               
-                <!-- ✅ 修改：应用新的高亮样式并优化HTML结构 -->
-                <a href="ip-explain.html" target="_blank" class="rune-card rune-card--special-highlight">
-                  <div class="icon">🔥</div>
-                  <span>IP节点解析指南</span>
+                <a href="ip-explain.html" target="_blank" class="rune-card rune-card--highlighted">
+                  <div class="icon">🔥IP节点解析指南</div>
+                  <span></span>
                 </a>
 
                 <a href="lesson/index.html" target="_blank" class="rune-card rune-card--highlighted">
