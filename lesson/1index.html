@@ -26,7 +26,7 @@
     body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px); animation: scanline 0.5s linear infinite; pointer-events: none; z-index: 1; }
 
     /* --- 布局 & 卡片 --- */
-    .container { display: flex; flex-wrap: wrap; max-width: 1600px; margin: auto; gap: 30px; position: relative; z-index: 2; align-items: stretch; }
+    .container { display: flex; flex-wrap: wrap; max-width: 1600px; margin: auto; gap: 30px; position: relative; z-index: 2; }
     .column { flex: 1; min-width: 380px; background: rgba(10, 25, 10, 0.6); backdrop-filter: blur(5px); border: 1px solid rgba(0, 255, 0, 0.3); border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1); padding: 30px; display: flex; flex-direction: column; transition: all 0.4s ease; opacity: 0; animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
     .column:hover { transform: translateY(-10px); box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2); border-color: rgba(0, 255, 0, 0.6); }
     .container .column:nth-child(2) { animation-delay: 0.2s; }
@@ -40,18 +40,13 @@
     ul { padding-left: 0; list-style-type: none; margin: 10px 0; }
     ul li { line-height: 1.8; padding-left: 25px; position: relative; }
     ul li::before { content: '>'; position: absolute; left: 0; color: #0f0; animation: text-flicker 2s infinite alternate; }
-    .advanced-course-list {
-      counter-reset: lesson-counter;
-      max-height: 550px;
-      overflow-y: auto;
-      padding-right: 15px;
-    }
+    .advanced-course-list { counter-reset: lesson-counter; max-height: 440px; overflow-y: auto; padding-right: 15px; } /* Adjusted max-height */
     .advanced-course-list::-webkit-scrollbar { width: 4px; }
     .advanced-course-list::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.1); }
     .advanced-course-list::-webkit-scrollbar-thumb { background: #0f0; }
     .advanced-course-list li { padding-left: 45px; font-size: 14px; }
     .advanced-course-list li::before { counter-increment: lesson-counter; content: '[' counter(lesson-counter, decimal-leading-zero) ']'; font-weight: 600; color: #ff9900; }
-    .pitch-card h1 { color: #f0f; text-shadow: 0 0 8px #f0f; }
+    .pitch-card h2 { color: #f0f; text-shadow: 0 0 8px #f0f; }
     .pitch-card p { font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: left; }
     .pitch-card p strong { color: #ff9900; font-weight: 600; }
     .pitch-card .highlight-box { background: rgba(0, 255, 0, 0.05); border-left: 3px solid #0f0; padding: 15px; margin: 20px 0; border-radius: 4px; }
@@ -65,7 +60,7 @@
     .payment-button:hover { background: #0f0; color: #000; box-shadow: 0 0 15px #0f0; text-shadow: none; }
     .status { margin-top: 20px; font-weight: 600; color: #ff9900; text-shadow: 0 0 5px #ff9900; }
 
-    /* --- 福利模块样式 --- */
+    /* --- 499课程福利模块样式 --- */
     .bonus-offer-pro {
       background: rgba(255, 153, 0, 0.1);
       border: 1px solid rgba(255, 153, 0, 0.5);
@@ -142,7 +137,6 @@
     }
     .modal-reminder { font-family: 'Helvetica', sans-serif; font-size: 16px; color: #555; margin-top: 20px; animation: none; text-shadow: none; font-weight: 500;}
     .modal-reminder span { color: #c0392b; font-weight: bold;}
-    .modal-reminder strong { color: #333; }
     
     /* --- 页脚 --- */
     .footer-contact { margin-top: 50px; text-align: center; font-size: 14px; color: #0c0; position: relative; z-index: 2; }
@@ -170,24 +164,24 @@
       <h2>零基础课程 // 79.9元</h2>
       <h3>[痛点分析]</h3>
       <ul>
-        <li>花钱买节点，<strong>速度慢、易掉线</strong>？</li>
+        <li>花钱买机场，<strong>节点慢、易掉线</strong>？</li>
         <li>网上教程代码一堆，看不懂，<strong>连第一步都不会</strong>？</li>
         <li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li>
-        <li>不想求人、又想拥有自己的稳定网络方案？</li>
+        <li>不想求人、又想拥有自己的稳定上网方案？</li>
       </ul>
       <h3>[课程核心]</h3>
       <ul>
         <li>
-          【地基之石】<strong>数据包的朝圣之旅：</strong>抛开所有工具，回到原点。我们将亲眼见证，一次正常的全球访问，数据包是如何跨越重洋，为你揭示一条畅通无阻的数字高速公路是如何建成的。
+          【地基之石】<strong>数据包的朝圣之旅：</strong>抛开所有工具，回到原点。我们将亲眼见证，一次正常的谷歌访问，数据包是如何跨越重洋，为你揭示一条畅通无阻的数字高速公路是如何建成的。
         </li>
         <li>
-          【高墙之影】<strong>迷雾中的狙击手：</strong>上一节的完美旅程为何戛然而止？我们将扮演数字侦探，追踪消失的数据包，揭露那只无形之手如何通过DNS污染、IP黑洞等手段精准狙击你的请求。<strong>看清限制，才能畅行无阻！</strong>
+          【高墙之影】<strong>迷雾中的狙击手：</strong>上一节的完美旅程为何戛然而止？我们将扮演数字侦探，追踪消失的数据包，揭露那只无形之手如何通过DNS污染、IP黑洞等手段精准狙击你的请求。<strong>看清“墙”，才能“翻墙”！</strong>
         </li>
         <li>【必学】解锁流媒体 + TikTok账号运营环境</li>
         <li>【入门】SS / socket5 + 中转搭建</li>
         <li>【进阶】指纹浏览器实战</li>
         <li>【提升】Vmess/Vless + ws + reality多协议</li>
-        <li>【终极】Sing-Box 核心部署：一站式掌握 Hysteria2, TUIC, ShadowTLS 等全协议，构建高稳定性的终极网络核心。</li>
+        <li>【终极】Sing-Box 核心部署：一站式掌握 Hysteria2, TUIC, ShadowTLS 等全协议，构建无法被识别的终极网络核心。</li>
       </ul>
       <div class="payment-section">
         <div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
@@ -198,27 +192,23 @@
     <div class="column">
       <h1>[进阶] 软路由完美网络搭建</h1>
       <h2>高阶系统课 // 499元</h2>
-      <h3>[课程目录] (持续更新)</h3>
+      <h3>[课程目录] (共35节，持续更新)</h3>
       <ul class="advanced-course-list">
-        <li>【核心基础】软路由刷机：R2S、X86、万能刷机方法汇总</li>
-        <li>【核心基础】固件与系统：路由器降级与刷入OpenWrt系统实战</li>
-        <li>【核心基础】高级网络配置：一台路由配置多个Wi-Fi网络</li>
-        <li>【核心基础】高级网络配置：一个路由器分配多个IP地址</li>
-        <li>软路由+网络优化+完美出海+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li>
-        <li>SSR出海加速+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li>
+        <li>软路由+科学上网+完美翻墙+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li>
+        <li>SSR翻墙+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li>
         <li>公网IP+DDNS+SSL+HTTPS反代配置</li>
         <li>电信+移动双线双拨+多线冗余配置</li>
         <li>mosDNS+双ADGuard彻底防DNS泄露</li>
-        <li>手机全球加速+NAS访问：ZeroTier/TailScale/WireGuard</li>
+        <li>手机翻墙+NAS访问：ZeroTier/TailScale/WireGuard</li>
         <li>晚高峰8K流畅播放：Hysteria2+IEPL+IPLC+Xray+HAProxy</li>
         <li>远程访问NAS/桌面，小火箭+NekoBox分流全搞定</li>
         <li>OpenClash终极优化+FakeIP+负载均衡配置模版</li>
         <li>openClash主路由+Sun-Pannel订阅转换+Docker部署</li>
         <li>OpenClash旁路由极速配置模版</li>
         <li>爱快+OpenWRT+OpenClash配置详解</li>
-        <li>OpenClash+PassWall出海加速+远程桌面RDP</li>
-        <li>IPv6主路由+公网IP+远程桌面+全球加速</li>
-        <li>IPv6旁路由+公网访问NAS+手机出海</li>
+        <li>OpenClash+PassWall翻墙+远程桌面RDP</li>
+        <li>IPv6主路由+公网IP+远程桌面+翻墙</li>
+        <li>IPv6旁路由+公网访问NAS+手机翻墙</li>
         <li>爱快+OpenClash+IPv6配置+公网远程</li>
         <li>硬路由+旁路由+IPv6+远程访问</li>
         <li>OpenClash订阅转换100%成功+Play商店修复</li>
@@ -228,15 +218,26 @@
         <li>优化双AdGuard/Docker固定IP维护</li>
         <li>旁路由+双AdGuard喂饭教程</li>
         <li>实战DNS污染/泄露分析与解决</li>
-        <li>服务节点全红不断网+订阅聚合玩法</li>
+        <li>机场节点全红不断网+订阅聚合玩法</li>
+        <li>Mihomo/Nikki配置+多机场+IPv6+防污染</li>
+        <li>Nikki+双AdGuard更新订阅/IPv6/Play修复</li>
+        <li>机场聚合配置+重命名+过滤节点</li>
+        <li>PVE/ESXi一键恢复架构</li>
+        <li>OpenClash/Nikki完美分流+图标导入</li>
+        <li>完美YAML+多机场聚合+GPT维护</li>
+        <li>Karing客户端吊打所有翻墙工具</li>
+        <li>不跳IP/不封号YAML进化</li>
+        <li>AI智能策略组+Smart节点优选</li>
+        <li>LightGBM+智能故障转移优选</li>
       </ul>
       <div class="payment-section">
+        <!-- 新增的福利模块 -->
         <div class="bonus-offer-pro">
           <div class="bonus-title">🔥 终极升级福利 🔥</div>
           <p>现在购买，即可免费获赠价值 <strong>¥140</strong> 的全套新手课程包：</p>
           <ul class="bonus-list">
             <li>《[入门] VPS完美网络搭建》</li>
-            <li>《TG 小组每日免费节点送不停》</li>
+            <li>《信息自由直通车》</li>
           </ul>
         </div>
         <p style="color:#0c0; margin-bottom: 15px;">购课即享永久更新权限</p>
@@ -246,33 +247,21 @@
     </div>
 
     <div class="column pitch-card">
-      <h1>[即插即用] 高性能成品路由</h1>
-      <h2>专业定制 // 899元起</h2>
-      <h3>[告别折腾 · 一步到位]</h3>
-      <p>
-        厌倦了复杂的刷机和繁琐的配置？想要一个<strong>开箱即用、稳定如山</strong>的网络核心？我们的成品软路由，专为追求效率与稳定性的您打造，是TikTok矩阵运营和跨境团队的终极解决方案。
-      </p>
-      <h3>[TikTok运营 & 跨境首选]</h3>
-      <p>
-        我们解决最核心的网络环境问题，<strong>从源头避免因IP问题导致的封号风险</strong>。您收到的不只是一台机器，而是一套为您业务保驾护航的、完整、纯净、独立隔离的专属网络方案。
-      </p>
-      <h3>[核心功能]</h3>
-      <ul style="list-style-type: none; padding-left: 0;">
-        <li style="padding-left: 25px;"><strong>【一机多IP】</strong>为不同业务配置独立出口IP，完美实现环境隔离，是矩阵运营的必备神器。</li>
-        <li style="padding-left: 25px;"><strong>【多WIFI网络】</strong>轻松创建多个相互隔离的Wi-Fi信号，办公、家庭、访客网络互不干扰，安全便捷。</li>
-        <li style="padding-left: 25px;"><strong>【支持专线】</strong>可根据需求接入企业级IEPL/IPLC专线（费用另计），享受极致丝滑的低延迟体验。</li>
-        <li style="padding-left: 25px;"><strong>【兼容自备节点】</strong>同样支持配置您自己购买的节点服务，提供最大限度的灵活性。</li>
-        <li style="padding-left: 25px;"><strong>【7x24小时稳定】</strong>经过严格的压力测试与优化，确保设备长时间稳定运行，告别断流和卡顿。</li>
-      </ul>
-      <div class="payment-section">
-         <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5);">
-              <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">🛒 套餐与价格</div>
-              <p style="margin-bottom: 8px; font-size: 14px;"><strong>基础版 (899元):</strong> 适合个人及小型团队，满足日常所有出海需求。</p>
-              <p style="font-size: 14px;"><strong>性能版 (1299元):</strong> 适合多用户、高负载场景，推荐TikTok矩阵及工作室使用。</p>
-         </div>
-         <p style="color:#0c0; margin-bottom: 15px;">购机含全年技术支持</p>
-         <button class="payment-button" id="contact-us-btn" style="background: #0f0; color: #000; text-shadow: none;">联系我们定制</button>
+      <h2>// 为何选择本课程?</h2>
+      <p>🍲 说实话，这套内容也就一顿海底捞火锅的钱。你吃顿火锅爽一晚上，<strong>学会这个方法，可能能爽很多年。</strong></p>
+      <p>🙋‍♂️ 我不是搞培训的，也不是啥大佬，就是一路摸索出来，把自己踩过的坑、走过的路，整理成了这份教程。👨‍🔧 有兄弟学了之后，不但搭好了自己的网络环境，<strong>还顺手帮别人做配置，半天赚回成本，后面全是纯赚。</strong></p>
+      <p>❗ 外面那些上千块的课程，只要你想要我几十块都能搞到，那才是割韭菜。能来到这里也是缘分，<strong>说实话没有点实力，一般人真找不到我这些内容。</strong></p>
+      <div class="highlight-box">
+        <h3>[购课会员专属福利]</h3>
+        <ul>
+          <li>大模型的本地部署</li>
+          <li>数字人本地化运行</li>
+          <li>暗网/深网探索方法</li>
+          <li>主流AI工具合集</li>
+        </ul>
+        <p style="font-size: 14px; margin-top: 10px;">> 这些资源在外面，哪个不卖千八百？</p>
       </div>
+      <p>🚀 这个时代，掌握 <strong>“找信息、用工具”</strong> 的能力，才是普通人逆袭的起点。⏱️ 比别人早接触一步信息差，你就能走得比别人更远。</p>
     </div>
 
   </div>
@@ -283,29 +272,15 @@
     <p>Telegram: <strong><a href="https://t.me/sanyuedaohang" target="_blank">@sanyuedaohang</a></strong></p>
   </div>
   
-  <!-- 付款弹窗 -->
   <div class="modal-overlay" id="paymentModal">
     <div class="modal-content">
-      <span class="modal-close-btn" id="paymentModalCloseBtn">×</span>
+      <span class="modal-close-btn" id="modalCloseBtn">×</span>
       <h3 class="modal-title">扫码支付</h3>
       <p class="modal-price" id="modalPrice">--</p>
       <div class="qr-wrapper">
         <img alt="微信支付二维码" src="qrcode.jpg"/>
       </div>
       <p class="modal-reminder">请务必备注您的<span>邮箱地址</span></p>
-    </div>
-  </div>
-
-  <!-- 联系我们弹窗 -->
-  <div class="modal-overlay" id="contactModal">
-    <div class="modal-content">
-      <span class="modal-close-btn" id="contactModalCloseBtn">×</span>
-      <h3 class="modal-title">联系我们定制</h3>
-      <p class="modal-reminder" style="margin-top:0; margin-bottom: 20px;">WeChat:请扫描下方二维码 </p>
-      <div class="qr-wrapper">
-        <img alt="联系二维码" src="wechat.jpg"/> <!-- 请将此处的 contact-qrcode.jpg 替换为您自己的二维码图片 -->
-      </div>
-      <!-- <p class="modal-reminder" style="font-size: 15px;">Telegram: <strong>@sanyuedaohang</strong><br>邮箱: <strong>terminos888@gmail.com</strong></p> -->
     </div>
   </div>
   
@@ -328,51 +303,30 @@
         }
     }
 
-    // --- 弹窗控制逻辑 ---
-
-    // 付款弹窗
-    const paymentButtons = document.querySelectorAll('.payment-button[data-price]');
-    const paymentModal = document.getElementById('paymentModal');
-    const paymentModalCloseBtn = document.getElementById('paymentModalCloseBtn');
+    // Modal (弹窗) 控制逻辑
+    const paymentButtons = document.querySelectorAll('.payment-button');
+    const modal = document.getElementById('paymentModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
     const modalPriceEl = document.getElementById('modalPrice');
 
     paymentButtons.forEach(button => {
         button.addEventListener('click', () => {
             const price = button.getAttribute('data-price');
-            if(modalPriceEl) modalPriceEl.textContent = `金额: ${price}`;
-            if(paymentModal) paymentModal.classList.add('active');
+            modalPriceEl.textContent = `金额: ${price}`;
+            modal.classList.add('active');
         });
     });
 
-    const closePaymentModal = () => {
-        if(paymentModal) paymentModal.classList.remove('active');
+    const closeModal = () => {
+        modal.classList.remove('active');
     };
 
-    if(paymentModalCloseBtn) paymentModalCloseBtn.addEventListener('click', closePaymentModal);
-    if(paymentModal) paymentModal.addEventListener('click', (event) => {
-        if (event.target === paymentModal) closePaymentModal();
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
     });
-
-    // 联系我们弹窗
-    const contactButton = document.getElementById('contact-us-btn');
-    const contactModal = document.getElementById('contactModal');
-    const contactModalCloseBtn = document.getElementById('contactModalCloseBtn');
-
-    if (contactButton) {
-        contactButton.addEventListener('click', () => {
-            if(contactModal) contactModal.classList.add('active');
-        });
-    }
-
-    const closeContactModal = () => {
-        if(contactModal) contactModal.classList.remove('active');
-    };
-
-    if(contactModalCloseBtn) contactModalCloseBtn.addEventListener('click', closeContactModal);
-    if(contactModal) contactModal.addEventListener('click', (event) => {
-        if (event.target === contactModal) closeContactModal();
-    });
-
 
     // Payment Check
     const checkPayment = () => {
