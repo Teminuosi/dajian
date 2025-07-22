@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IP节点终极解析指南 (毕业典藏版)</title>
+    <!-- 新增 Font Awesome 以支持图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --primary-color: #007bff;
@@ -26,6 +28,39 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
+        }
+        /* 新增：返回导航栏样式 */
+        .top-nav-bar {
+            background-color: #ffffff;
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .top-nav-bar a {
+            display: inline-block;
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .top-nav-bar a:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .top-nav-bar a i {
+            margin-right: 8px;
         }
         .container {
             max-width: 1200px;
@@ -141,6 +176,13 @@
     </style>
 </head>
 <body>
+
+    <!-- 新增的返回导航按钮 -->
+    <nav class="top-nav-bar">
+        <a href="index.html">
+            <i class="fas fa-arrow-left"></i> 返回核心导航
+        </a>
+    </nav>
 
     <div class="container">
         <header>
@@ -272,4 +314,4 @@ graph TD
         mermaid.initialize({ startOnLoad: true });
     </script>
 </body>
-</html>
+</html>```
