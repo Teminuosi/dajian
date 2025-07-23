@@ -6,19 +6,25 @@
   <title>完美网络课程 · 终端访问</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* --- 动画关键帧 --- */
     @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
     @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
     @keyframes card-fade-in { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes text-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+    @keyframes ultimate-flicker { 0%, 100% { opacity: 1; text-shadow: 0 0 10px #f0f; } 50% { opacity: 0.9; text-shadow: 0 0 15px #f0f; } }
     @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
     @keyframes modal-content-pop-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 
     /* --- 基本设置 --- */
+    :root {
+        --main-glow: #0f0;
+        --secondary-glow: #ff9900;
+        --ultimate-glow: #f0f; /* Magenta for the ultimate offer */
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Fira Code', monospace; background-color: #0d0d0d; color: #0f0; margin: 0; padding: 40px 20px; overflow-x: hidden; min-height: 100vh; }
+    body { font-family: 'Fira Code', monospace; background-color: #0d0d0d; color: #eee; margin: 0; padding: 40px 20px; overflow-x: hidden; min-height: 100vh; }
 
     /* --- 背景效果 --- */
     .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
@@ -26,120 +32,98 @@
     body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px); animation: scanline 0.5s linear infinite; pointer-events: none; z-index: 1; }
 
     /* --- 布局 & 卡片 --- */
-    .container { display: flex; flex-wrap: wrap; max-width: 1600px; margin: auto; gap: 30px; position: relative; z-index: 2; align-items: stretch; }
-    .column { flex: 1; min-width: 380px; background: rgba(10, 25, 10, 0.6); backdrop-filter: blur(5px); border: 1px solid rgba(0, 255, 0, 0.3); border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1); padding: 30px; display: flex; flex-direction: column; transition: all 0.4s ease; opacity: 0; animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
-    .column:hover { transform: translateY(-10px); box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2); border-color: rgba(0, 255, 0, 0.6); }
-    .container .column:nth-child(2) { animation-delay: 0.2s; }
-    .container .column:nth-child(3) { animation-delay: 0.4s; }
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        max-width: 1800px;
+        margin: auto;
+        gap: 30px;
+        position: relative;
+        z-index: 2;
+        align-items: stretch;
+    }
+    .column {
+        background: rgba(10, 25, 10, 0.6);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+        opacity: 0;
+        animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+    .column:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2);
+        border-color: rgba(0, 255, 0, 0.6);
+    }
+    .container .column:nth-child(1) { animation-delay: 0s; }
+    .container .column:nth-child(2) { animation-delay: 0.1s; }
+    .container .column:nth-child(3) { animation-delay: 0.2s; }
+    .container .column:nth-child(4) { animation-delay: 0.3s; }
 
     /* --- 文本样式 --- */
-    h1, h2, h3 { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px #0f0; animation: text-flicker 3s infinite; }
+    h1, h2, h3 { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px var(--main-glow); animation: text-flicker 3s infinite; }
     h1 { font-size: 24px; color: #5f5; margin-bottom: 10px; }
-    h2 { font-size: 20px; color: #ff9900; text-shadow: 0 0 8px #ff9900; margin-bottom: 20px; }
+    h2 { font-size: 20px; color: var(--secondary-glow); text-shadow: 0 0 8px var(--secondary-glow); margin-bottom: 20px; }
     h3 { font-size: 18px; color: #3f3; margin-top: 25px; padding-bottom: 10px; border-bottom: 1px dashed rgba(0, 255, 0, 0.3); }
     ul { padding-left: 0; list-style-type: none; margin: 10px 0; }
     ul li { line-height: 1.8; padding-left: 25px; position: relative; }
-    ul li::before { content: '>'; position: absolute; left: 0; color: #0f0; animation: text-flicker 2s infinite alternate; }
-    .advanced-course-list {
-      counter-reset: lesson-counter;
-      max-height: 550px;
-      overflow-y: auto;
-      padding-right: 15px;
-    }
+    ul li::before { content: '>'; position: absolute; left: 0; color: var(--main-glow); animation: text-flicker 2s infinite alternate; }
+    
+    .advanced-course-list { counter-reset: lesson-counter; max-height: 450px; overflow-y: auto; padding-right: 15px; }
     .advanced-course-list::-webkit-scrollbar { width: 4px; }
     .advanced-course-list::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.1); }
-    .advanced-course-list::-webkit-scrollbar-thumb { background: #0f0; }
+    .advanced-course-list::-webkit-scrollbar-thumb { background: var(--main-glow); }
     .advanced-course-list li { padding-left: 45px; font-size: 14px; }
-    .advanced-course-list li::before { counter-increment: lesson-counter; content: '[' counter(lesson-counter, decimal-leading-zero) ']'; font-weight: 600; color: #ff9900; }
-    .pitch-card h1 { color: #f0f; text-shadow: 0 0 8px #f0f; }
-    .pitch-card p { font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: left; }
-    .pitch-card p strong { color: #ff9900; font-weight: 600; }
-    .pitch-card .highlight-box { background: rgba(0, 255, 0, 0.05); border-left: 3px solid #0f0; padding: 15px; margin: 20px 0; border-radius: 4px; }
-    .pitch-card .highlight-box h3 { margin-top: 0; border: none; font-size: 16px; }
-    .pitch-card .highlight-box ul li::before { content: '🎁'; }
+    .advanced-course-list li::before { counter-increment: lesson-counter; content: '[' counter(lesson-counter, decimal-leading-zero) ']'; font-weight: 600; color: var(--secondary-glow); }
     
+    /* --- C位咨询卡片样式 --- */
+    .pitch-card-ultimate {
+        border-color: var(--ultimate-glow);
+        box-shadow: 0 0 30px var(--ultimate-glow), inset 0 0 15px rgba(255, 0, 255, 0.2);
+    }
+    .pitch-card-ultimate:hover { border-color: #ff80ff; box-shadow: 0 0 50px var(--ultimate-glow), inset 0 0 20px rgba(255, 0, 255, 0.3); }
+    .pitch-card-ultimate h1 { color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); animation: ultimate-flicker 2s infinite; font-size: 26px; }
+    .pitch-card-ultimate p { font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: left; }
+    .pitch-card-ultimate p strong { color: var(--secondary-glow); font-weight: 600; }
+    .pitch-card-ultimate .highlight-box { background: rgba(255, 0, 255, 0.05); border-left: 3px solid var(--ultimate-glow); padding: 15px; margin: 20px 0; border-radius: 4px; }
+    .pitch-card-ultimate .highlight-box h3 { margin-top: 0; border: none; font-size: 16px; color: #f5f; }
+    .pitch-card-ultimate .highlight-box ul li::before { content: '🎁'; color: var(--ultimate-glow); }
+    .pitch-card-ultimate .payment-button { background: #2a0a2a; border-color: var(--ultimate-glow); color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); }
+    .pitch-card-ultimate .payment-button:hover { background: var(--ultimate-glow); color: #000; box-shadow: 0 0 15px var(--ultimate-glow); }
+
     /* --- 付款区 --- */
     .payment-section { text-align: center; margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(0, 255, 0, 0.3); }
     .payment-note { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.5); padding: 10px; border-radius: 4px; color: #ff5555; font-weight: 600; margin-bottom: 15px; }
-    .payment-button { background: #0a2a0a; border: 1px solid #0f0; color: #0f0; padding: 12px 24px; font-family: 'Orbitron', sans-serif; font-size: 16px; border-radius: 4px; cursor: pointer; text-shadow: 0 0 8px #0f0; transition: all 0.3s ease; width: 100%; }
-    .payment-button:hover { background: #0f0; color: #000; box-shadow: 0 0 15px #0f0; text-shadow: none; }
-    .status { margin-top: 20px; font-weight: 600; color: #ff9900; text-shadow: 0 0 5px #ff9900; }
+    .payment-button { background: #0a2a0a; border: 1px solid var(--main-glow); color: var(--main-glow); padding: 12px 24px; font-family: 'Orbitron', sans-serif; font-size: 16px; border-radius: 4px; cursor: pointer; text-shadow: 0 0 8px var(--main-glow); transition: all 0.3s ease; width: 100%; }
+    .payment-button:hover { background: var(--main-glow); color: #000; box-shadow: 0 0 15px var(--main-glow); text-shadow: none; }
+    .status { margin-top: 20px; font-weight: 600; color: var(--secondary-glow); text-shadow: 0 0 5px var(--secondary-glow); }
 
     /* --- 福利模块样式 --- */
-    .bonus-offer-pro {
-      background: rgba(255, 153, 0, 0.1);
-      border: 1px solid rgba(255, 153, 0, 0.5);
-      padding: 15px 20px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .bonus-offer-pro .bonus-title {
-      color: #ff9900;
-      font-size: 16px;
-      font-weight: bold;
-      font-family: 'Orbitron', sans-serif;
-      text-shadow: 0 0 5px #ff9900;
-      animation: text-flicker 3s infinite;
-      margin-bottom: 10px;
-    }
-    .bonus-offer-pro p {
-      font-size: 14px; color: #eee;
-      line-height: 1.5; margin-bottom: 10px;
-    }
-    .bonus-offer-pro p strong { color: #ff9900; }
+    .bonus-offer-pro { background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.5); padding: 15px 20px; border-radius: 4px; margin-bottom: 20px; text-align: left; }
+    .bonus-offer-pro .bonus-title { color: var(--secondary-glow); font-size: 16px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--secondary-glow); animation: text-flicker 3s infinite; margin-bottom: 10px; }
+    .bonus-offer-pro p { font-size: 14px; color: #eee; line-height: 1.5; margin-bottom: 10px; }
+    .bonus-offer-pro p strong { color: var(--secondary-glow); font-weight: 600; }
     .bonus-offer-pro .bonus-list { list-style-type: none; padding-left: 0; margin: 0; }
-    .bonus-offer-pro .bonus-list li {
-      font-size: 13px; color: #ccc; line-height: 1.7;
-      padding-left: 20px; position: relative;
-    }
-    .bonus-offer-pro .bonus-list li::before {
-      content: '🎁'; position: absolute; left: 0; top: 1px;
-      animation: none; color: #ff9900;
-    }
+    .bonus-offer-pro .bonus-list li { font-size: 13px; color: #ccc; line-height: 1.7; padding-left: 20px; position: relative; }
+    .bonus-offer-pro .bonus-list li::before { content: '🎁'; position: absolute; left: 0; top: 1px; animation: none; color: var(--secondary-glow); }
+    .bonus-list li.ultimate-gift strong { color: var(--ultimate-glow); text-shadow: 0 0 5px var(--ultimate-glow); }
+    .bonus-list li.ultimate-gift::before { color: var(--ultimate-glow); }
 
     /* --- 付款弹窗 (Modal) --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 0, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
     .modal-overlay.active { display: block; }
-    .modal-content {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: auto;
-      min-width: 320px;
-      max-width: 90vw;
-      background: #f4f4f4;
-      border-radius: 12px;
-      padding: 30px;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
-      border: 2px solid #0f0;
-      animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-      opacity: 0;
-    }
-    .modal-close-btn {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 30px;
-      color: #888;
-      cursor: pointer;
-      transition: transform 0.2s, color 0.2s;
-    }
+    .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; min-width: 320px; max-width: 90vw; background: #f4f4f4; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); border: 2px solid var(--main-glow); animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0; }
+    .modal-close-btn { position: absolute; top: 10px; right: 15px; font-size: 30px; color: #888; cursor: pointer; transition: transform 0.2s, color 0.2s; }
     .modal-close-btn:hover { transform: scale(1.2); color: #000; }
     .modal-title { font-family: 'Helvetica', sans-serif; font-size: 24px; font-weight: bold; color: #333; margin-bottom: 8px; animation: none; text-shadow: none; }
     .modal-price { font-family: 'Helvetica', sans-serif; font-size: 22px; color: #e67e22; margin-bottom: 20px; animation: none; text-shadow: none; font-weight: bold; }
-    .qr-wrapper {
-      display: inline-block;
-      background: #ffffff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .qr-wrapper img {
-      width: 250px;
-      height: 250px;
-      display: block;
-    }
+    .qr-wrapper { display: inline-block; background: #ffffff; padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .qr-wrapper img { width: 250px; height: 250px; display: block; }
     .modal-reminder { font-family: 'Helvetica', sans-serif; font-size: 16px; color: #555; margin-top: 20px; animation: none; text-shadow: none; font-weight: 500;}
     .modal-reminder span { color: #c0392b; font-weight: bold;}
     .modal-reminder strong { color: #333; }
@@ -148,15 +132,8 @@
     .footer-contact { margin-top: 50px; text-align: center; font-size: 14px; color: #0c0; position: relative; z-index: 2; }
     .footer-contact p { margin-bottom: 8px; }
     .footer-contact strong { color: #5f5; }
-    .footer-contact a {
-      color: #5f5;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-    .footer-contact a:hover {
-      color: #0f0;
-      text-shadow: 0 0 5px #0f0;
-    }
+    .footer-contact a { color: #5f5; text-decoration: none; transition: all 0.3s; }
+    .footer-contact a:hover { color: var(--main-glow); text-shadow: 0 0 5px var(--main-glow); }
   </style>
 </head>
 <body>
@@ -165,6 +142,7 @@
   
   <div class="container">
 
+    <!-- 入门课程 -->
     <div class="column">
       <h1>[入门] VPS完美网络搭建</h1>
       <h2>零基础课程 // 79.9元</h2>
@@ -177,17 +155,13 @@
       </ul>
       <h3>[课程核心]</h3>
       <ul>
-        <li>
-          【地基之石】<strong>数据包的朝圣之旅：</strong>抛开所有工具，回到原点。我们将亲眼见证，一次正常的全球访问，数据包是如何跨越重洋，为你揭示一条畅通无阻的数字高速公路是如何建成的。
-        </li>
-        <li>
-          【高墙之影】<strong>迷雾中的狙击手：</strong>上一节的完美旅程为何戛然而止？我们将扮演数字侦探，追踪消失的数据包，揭露那只无形之手如何通过DNS污染、IP黑洞等手段精准狙击你的请求。<strong>看清限制，才能畅行无阻！</strong>
-        </li>
+        <li>【地基之石】<strong>数据包的朝圣之旅</strong>：亲眼见证一次全球访问，揭示畅通无阻的数字高速公路是如何建成的。</li>
+        <li>【高墙之影】<strong>迷雾中的狙击手</strong>：追踪消失的数据包，揭露无形之手如何精准狙击你的请求。<strong>看清限制，才能畅行无阻！</strong></li>
         <li>【必学】解锁流媒体 + TikTok账号运营环境</li>
         <li>【入门】SS / socket5 + 中转搭建</li>
         <li>【进阶】指纹浏览器实战</li>
         <li>【提升】Vmess/Vless + ws + reality多协议</li>
-        <li>【终极】Sing-Box 核心部署：一站式掌握 Hysteria2, TUIC, ShadowTLS 等全协议，构建高稳定性的终极网络核心。</li>
+        <li>【终极】Sing-Box 核心部署：构建高稳定性的终极网络核心。</li>
       </ul>
       <div class="payment-section">
         <div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
@@ -195,10 +169,38 @@
       </div>
     </div>
     
+    <!-- 1对1咨询 -->
+    <div class="column pitch-card-ultimate">
+        <h1>[终极权限] 1对1根目录访问</h1>
+        <h2>专属解决方案 // 299元</h2>
+        <h3>[直面核心 · 扫清一切障碍]</h3>
+        <p>
+            自学摸索，浪费的是你宝贵的时间，搞砸的是你价值连城的账号。<strong>投资大脑，永远是回报率最高的交易。</strong>
+        </p>
+        <p>
+            上学时一节补习课都要几百块，我这足以改变你业务轨迹的稀有知识，是你最该投资的捷径。你省下的时间、避免的封号风险，价值远超这个数字。
+        </p>
+        <div class="highlight-box">
+            <h3>[连接建立]</h3>
+            <ul>
+              <li><strong>40分钟</strong> 1对1语音/视频，解决你关于跨境网络的一切疑难杂症。</li>
+              <li>从IP类型到链式代理，从软件配置到安全防范，<strong>有问必答，倾囊相授</strong>。</li>
+              <li><strong>免费赠送：</strong>《[入门] VPS完美网络搭建》 (价值¥79.9)</li>
+            </ul>
+        </div>
+        <div class="payment-section">
+            <div class="payment-note" style="border-color: rgba(255, 153, 0, 0.5); background:rgba(255, 153, 0, 0.1); color: #ffcc80;">1对1咨询需先沟通，请扫码联系</div>
+            <!-- ✅ 修改：此按钮现在将触发联系弹窗 -->
+            <button class="payment-button contact-trigger">扫码预约咨询</button>
+        </div>
+    </div>
+
+    <!-- 进阶课程 -->
     <div class="column">
       <h1>[进阶] 软路由完美网络搭建</h1>
       <h2>高阶系统课 // 499元</h2>
       <h3>[课程目录] (持续更新)</h3>
+      <!-- ✅ 修复：恢复完整的课程列表 -->
       <ul class="advanced-course-list">
         <li>【核心基础】软路由刷机：R2S、X86、万能刷机方法汇总</li>
         <li>【核心基础】固件与系统：路由器降级与刷入OpenWrt系统实战</li>
@@ -232,11 +234,12 @@
       </ul>
       <div class="payment-section">
         <div class="bonus-offer-pro">
-          <div class="bonus-title">🔥 终极升级福利 🔥</div>
-          <p>现在购买，即可免费获赠价值 <strong>¥140</strong> 的全套新手课程包：</p>
+          <div class="bonus-title">🔥 终极权限捆绑包 🔥</div>
+          <p>现在购买，即可免费获赠价值 <strong>¥378.9</strong> 的全套新手+咨询服务：</p>
           <ul class="bonus-list">
-            <li>《[入门] VPS完美网络搭建》</li>
-            <li>《TG 小组每日免费节点送不停》</li>
+            <li class="ultimate-gift"><strong>免费加赠：</strong>《[终极权限] 1对1根目录访问》 (价值¥299)</li>
+            <li><strong>免费加赠：</strong>《[入门] VPS完美网络搭建》 (价值¥79.9)</li>
+            <li>一份价格，获得<strong style="color:var(--secondary-glow)">全部核心权限</strong>！新手入门、一步到位的最佳选择！</li>
           </ul>
         </div>
         <p style="color:#0c0; margin-bottom: 15px;">购课即享永久更新权限</p>
@@ -245,6 +248,7 @@
       </div>
     </div>
 
+    <!-- 成品路由 -->
     <div class="column pitch-card">
       <h1>[即插即用] 高性能成品路由</h1>
       <h2>专业定制 // 899元起</h2>
@@ -252,29 +256,24 @@
       <p>
         厌倦了复杂的刷机和繁琐的配置？想要一个<strong>开箱即用、稳定如山</strong>的网络核心？我们的成品软路由，专为追求效率与稳定性的您打造，是TikTok矩阵运营和跨境团队的终极解决方案。
       </p>
-      <h3>[TikTok运营 & 跨境首选]</h3>
-      <p>
-        我们解决最核心的网络环境问题，<strong>从源头避免因IP问题导致的封号风险</strong>。您收到的不只是一台机器，而是一套为您业务保驾护航的、完整、纯净、独立隔离的专属网络方案。
-      </p>
       <h3>[核心功能]</h3>
       <ul style="list-style-type: none; padding-left: 0;">
         <li style="padding-left: 25px;"><strong>【一机多IP】</strong>为不同业务配置独立出口IP，完美实现环境隔离，是矩阵运营的必备神器。</li>
-        <li style="padding-left: 25px;"><strong>【多WIFI网络】</strong>轻松创建多个相互隔离的Wi-Fi信号，办公、家庭、访客网络互不干扰，安全便捷。</li>
-        <li style="padding-left: 25px;"><strong>【支持专线】</strong>可根据需求接入企业级IEPL/IPLC专线（费用另计），享受极致丝滑的低延迟体验。</li>
+        <li style="padding-left: 25px;"><strong>【多WIFI网络】</strong>轻松创建多个相互隔离的Wi-Fi信号，办公、家庭、访客网络互不干扰。</li>
         <li style="padding-left: 25px;"><strong>【兼容自备节点】</strong>同样支持配置您自己购买的节点服务，提供最大限度的灵活性。</li>
         <li style="padding-left: 25px;"><strong>【7x24小时稳定】</strong>经过严格的压力测试与优化，确保设备长时间稳定运行，告别断流和卡顿。</li>
       </ul>
       <div class="payment-section">
          <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5);">
               <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">🛒 套餐与价格</div>
-              <p style="margin-bottom: 8px; font-size: 14px;"><strong>基础版 (899元):</strong> 适合个人及小型团队，满足日常所有出海需求。</p>
-              <p style="font-size: 14px;"><strong>性能版 (1299元):</strong> 适合多用户、高负载场景，推荐TikTok矩阵及工作室使用。</p>
+              <p style="margin-bottom: 8px; font-size: 14px;"><strong>基础版 (899元):</strong> 适合个人及小型团队。</p>
+              <p style="font-size: 14px;"><strong>性能版 (1299元):</strong> 推荐TikTok矩阵及工作室使用。</p>
          </div>
          <p style="color:#0c0; margin-bottom: 15px;">购机含全年技术支持</p>
-         <button class="payment-button" id="contact-us-btn" style="background: #0f0; color: #000; text-shadow: none;">联系我们定制</button>
+         <!-- ✅ 修改：此按钮现在也将触发联系弹窗 -->
+         <button class="payment-button contact-trigger" style="background: #0f0; color: #000; text-shadow: none;">联系我们定制</button>
       </div>
     </div>
-
   </div>
 
   <div class="footer-contact">
@@ -300,12 +299,11 @@
   <div class="modal-overlay" id="contactModal">
     <div class="modal-content">
       <span class="modal-close-btn" id="contactModalCloseBtn">×</span>
-      <h3 class="modal-title">联系我们定制</h3>
-      <p class="modal-reminder" style="margin-top:0; margin-bottom: 20px;">WeChat:请扫描下方二维码 </p>
+      <h3 class="modal-title">联系我们</h3>
+      <p class="modal-reminder" style="margin-top:0; margin-bottom: 20px;">请扫描下方二维码与我们沟通</p>
       <div class="qr-wrapper">
-        <img alt="联系二维码" src="wechat.jpg"/> <!-- 请将此处的 contact-qrcode.jpg 替换为您自己的二维码图片 -->
+        <img alt="联系二维码" src="wechat.jpg"/> 
       </div>
-      <!-- <p class="modal-reminder" style="font-size: 15px;">Telegram: <strong>@sanyuedaohang</strong><br>邮箱: <strong>terminos888@gmail.com</strong></p> -->
     </div>
   </div>
   
@@ -335,7 +333,6 @@
     const paymentModal = document.getElementById('paymentModal');
     const paymentModalCloseBtn = document.getElementById('paymentModalCloseBtn');
     const modalPriceEl = document.getElementById('modalPrice');
-
     paymentButtons.forEach(button => {
         button.addEventListener('click', () => {
             const price = button.getAttribute('data-price');
@@ -343,42 +340,33 @@
             if(paymentModal) paymentModal.classList.add('active');
         });
     });
-
-    const closePaymentModal = () => {
-        if(paymentModal) paymentModal.classList.remove('active');
-    };
-
+    const closePaymentModal = () => { if(paymentModal) paymentModal.classList.remove('active'); };
     if(paymentModalCloseBtn) paymentModalCloseBtn.addEventListener('click', closePaymentModal);
-    if(paymentModal) paymentModal.addEventListener('click', (event) => {
-        if (event.target === paymentModal) closePaymentModal();
-    });
+    if(paymentModal) paymentModal.addEventListener('click', (event) => { if (event.target === paymentModal) closePaymentModal(); });
 
-    // 联系我们弹窗
-    const contactButton = document.getElementById('contact-us-btn');
+    // ✅ 修复：统一的联系弹窗触发逻辑
+    const contactButtons = document.querySelectorAll('.contact-trigger');
     const contactModal = document.getElementById('contactModal');
     const contactModalCloseBtn = document.getElementById('contactModalCloseBtn');
-
-    if (contactButton) {
-        contactButton.addEventListener('click', () => {
-            if(contactModal) contactModal.classList.add('active');
-        });
-    }
-
+    
+    const openContactModal = () => {
+        if(contactModal) contactModal.classList.add('active');
+    };
     const closeContactModal = () => {
         if(contactModal) contactModal.classList.remove('active');
     };
 
-    if(contactModalCloseBtn) contactModalCloseBtn.addEventListener('click', closeContactModal);
-    if(contactModal) contactModal.addEventListener('click', (event) => {
-        if (event.target === contactModal) closeContactModal();
+    contactButtons.forEach(button => {
+        button.addEventListener('click', openContactModal);
     });
 
+    if(contactModalCloseBtn) contactModalCloseBtn.addEventListener('click', closeContactModal);
+    if(contactModal) contactModal.addEventListener('click', (event) => { if (event.target === contactModal) closeContactModal(); });
 
-    // Payment Check
+
+    // Payment Check (此部分为示例，请根据您的后端逻辑修改)
     const checkPayment = () => {
-      fetch('/check.php')
-        .then(res => res.json())
-        .then(data => {
+      fetch('/check.php').then(res => res.json()).then(data => {
           if (data.paid) {
             const statusEl = document.getElementById('status');
             if (statusEl) {
@@ -387,8 +375,7 @@
             }
             setTimeout(() => { window.location.href = data.url; }, 1500);
           }
-        })
-        .catch(err => { /* console.error("Payment check failed:", err); */ });
+      }).catch(err => { /* console.error("Payment check failed:", err); */ });
     };
     setInterval(checkPayment, 5000);
   </script>
