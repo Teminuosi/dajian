@@ -1,342 +1,356 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>三月 · 跨境网络核心</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    :root {
-      --bg-color: #101018;
-      --primary-glow: #9f50ff; /* Arcane Purple */
-      --secondary-glow: #00f0ff; /* Cyber Blue */
-      --hot-glow: #ff8c00; /* Fiery Orange */
-      --text-color: #e0e0e0;
-      --card-bg: rgba(20, 18, 30, 0.7);
-      --card-border: rgba(159, 80, 255, 0.3);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三月 · 跨境网络核心 (最终版)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0A0D14;
+            --primary-accent: #00BFFF; /* 电光蓝 */
+            --text-color: #E0E5F0;
+            --card-bg: rgba(22, 28, 41, 0.7);
+            --border-color: rgba(0, 191, 255, 0.2);
+            --glow-color: rgba(0, 191, 255, 0.5);
+        }
 
-    /* --- 动画关键帧 --- */
-    @keyframes pulse-glow { 0%, 100% { text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow); } 50% { text-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--secondary-glow); } }
-    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes modal-content-zoom-in { from { transform: translate(-50%, -50%) scale(0.8); } to { transform: translate(-50%, -50%) scale(1); } }
-    
-    @keyframes shimmer-effect {
-      0% { transform: translateX(-150%) skewX(-30deg); }
-      100% { transform: translateX(150%) skewX(-30deg); }
-    }
-    
-    @keyframes pulse-icon {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
 
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            background-image: 
+                radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .top-nav {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            background-color: rgba(10, 13, 20, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-    /* --- 基本设置与融合风格背景 --- */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Noto Sans SC', sans-serif; color: var(--text-color);
-      overflow-x: hidden; position: relative;
-      background-color: var(--bg-color);
-      background-image:
-        radial-gradient(circle at 15% 25%, hsla(271, 100%, 65%, 0.2), transparent 30%),
-        radial-gradient(circle at 85% 75%, hsla(185, 100%, 50%, 0.15), transparent 40%),
-        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath opacity=".5" d="M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6V5z"/%3E%3Cpath d="M6 5V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h9V0h1v5h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9h-1v-9h-9v9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6v-1h9v-9H6V5z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-      background-attachment: fixed;
-    }
+        .top-nav a {
+            color: var(--primary-accent);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
 
-    /* --- 导航栏样式 --- */
-    .top-nav-bar {
-        background-color: rgba(20, 18, 30, 0.8);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 15px 0;
-        text-align: center;
-        width: 100%;
-        position: sticky;
-        top: 0;
-        z-index: 1001;
-        border-bottom: 1px solid rgba(0, 240, 255, 0.3); 
-        box-shadow: 0 4px 25px rgba(0, 240, 255, 0.1); 
-        transition: all 0.3s ease;
-    }
-    .top-nav-bar a {
-        display: inline-block;
-        background-color: transparent;
-        border: 1px solid var(--secondary-glow);
-        color: var(--secondary-glow);
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 500;
-        padding: 8px 20px;
-        border-radius: 50px;
-        transition: all 0.3s ease, text-shadow 0.3s ease;
-        text-shadow: 0 0 5px rgba(0, 240, 255, 0.7);
-    }
-    .top-nav-bar a:hover {
-        background-color: var(--secondary-glow);
-        color: var(--bg-color);
-        text-shadow: none;
-        box-shadow: 0 0 15px var(--secondary-glow), 0 0 25px var(--secondary-glow);
-        transform: scale(1.05);
-    }
-    .top-nav-bar a i {
-        margin-right: 8px;
-        transition: color 0.3s ease;
-    }
+        .top-nav a:hover {
+            background-color: var(--primary-accent);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        
+        .top-nav a i {
+            margin-right: 8px;
+        }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-    header { text-align: center; margin-bottom: 40px; margin-top: 60px; }
-    header h1 { font-family: 'Cinzel Decorative', 'Orbitron', sans-serif; font-weight: 700; font-size: 3.5em; letter-spacing: 1px; color: #fff; animation: pulse-glow 4s ease-in-out infinite; }
-    header p { font-size: 1.1em; color: var(--text-color); opacity: 0.8; margin-top: 10px; }
-    
-    .section-title { font-family: 'Cinzel Decorative', 'Orbitron', sans-serif; font-size: 2.2em; text-align: center; color: #fff; margin-bottom: 30px; text-shadow: 0 0 8px var(--secondary-glow); }
-    
-    .rune-pillars-container { 
-        display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); 
-        gap: 25px; 
-    }
-    .rune-pillar { 
-        background: var(--card-bg); 
-        border: 1px solid var(--card-border); 
-        border-radius: 12px; 
-        padding: 25px; 
-        backdrop-filter: blur(8px); 
-        display: flex;
-        flex-direction: column;
-    }
-    .rune-pillar h2 { 
-        font-family: 'Orbitron', sans-serif; 
-        font-size: 1.2em; 
-        color: var(--secondary-glow); 
-        margin: 0 0 20px 0; 
-        padding-bottom: 15px; 
-        border-bottom: 1px solid rgba(0, 240, 255, 0.2); 
-        display: flex; 
-        align-items: center; 
-        gap: 10px; 
-        flex-shrink: 0;
-    }
-    
-    .rune-card-list {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
+        .container {
+            width: 100%;
+            max-width: 1200px; /* 稍微加宽以容纳4栏 */
+            text-align: center;
+            padding: 40px 20px;
+        }
 
-    .rune-card { 
-        display: flex; 
-        align-items: center; 
-        gap: 15px; 
-        padding: 15px;
-        background: rgba(20, 18, 30, 0.5); 
-        border: 1px solid rgba(159, 80, 255, 0.1); 
-        border-radius: 8px;
-        text-decoration: none; 
-        color: var(--text-color); 
-        transition: all 0.3s ease; 
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 12px;
-    }
-    .rune-card:last-child { margin-bottom: 0; }
-    
-    .rune-card:hover { 
-        background: rgba(159, 80, 255, 0.2); 
-        border-color: var(--primary-glow); 
-        color: #fff; 
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 0 20px rgba(159, 80, 255, 0.4);
-    }
-    
-    .rune-card .icon { 
-        font-size: 1.5em;
-        line-height: 1; 
-        color: var(--primary-glow); 
-        width: 30px;
-        text-align: center;
-        transition: color 0.3s, transform 0.3s ease;
-    }
-    
-    .rune-card:hover .icon { 
-        color: #fff;
-        transform: scale(1.2) rotate(-5deg);
-    }
+        /* 主角：核心课程蓝图 */
+        .hero-blueprint {
+            max-width: 900px; /* 限制英雄区最大宽度，使其居中 */
+            margin-left: auto;
+            margin-right: auto;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(0, 191, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* 普通高亮卡片 */
-    .rune-card--highlighted {
-      background: radial-gradient(circle at 50% 50%, rgba(159, 80, 255, 0.2), transparent 70%), rgba(20, 18, 30, 0.5);
-      border-color: var(--primary-glow);
-    }
-    .rune-card--highlighted .icon {
-      color: var(--secondary-glow);
-      text-shadow: 0 0 10px var(--secondary-glow);
-    }
-    .rune-card--highlighted span {
-      font-weight: 700;
-      color: #fff;
-    }
-    .rune-card--highlighted::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
-      transform: translateX(-150%) skewX(-30deg);
-      transition: transform 0s;
-    }
-    .rune-card--highlighted:hover::before {
-      transform: translateX(250%) skewX(-30deg);
-      transition: transform 1.2s ease-in-out;
-    }
-    .rune-card--highlighted:hover .icon {
-        transform: scale(1.2) rotate(5deg);
-    }
+        .hero-blueprint::before {
+            content: 'CORE MODULE';
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--primary-accent);
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
 
-    /* IP解析指南特别高亮 */
-    .rune-card--special-highlight {
-      border: 1px solid var(--hot-glow);
-      background: radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.2), transparent 80%), rgba(20, 18, 30, 0.5);
-      box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
-    }
-    .rune-card--special-highlight .icon {
-      color: var(--hot-glow);
-      text-shadow: 0 0 10px var(--hot-glow);
-      animation: pulse-icon 2s infinite ease-in-out; 
-    }
-    .rune-card--special-highlight span {
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 0 5px var(--hot-glow);
-    }
-    .rune-card--special-highlight:hover {
-      box-shadow: 0 0 30px var(--hot-glow), 0 0 50px rgba(255, 140, 0, 0.3);
-      transform: translateY(-2px) scale(1.03);
-    }
-    .rune-card--special-highlight:hover .icon {
-      animation-play-state: paused;
-    }
+        .hero-title {
+            font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px var(--glow-color);
+            margin-bottom: 15px;
+        }
 
-    /* 页脚与弹窗 */
-    footer { text-align: center; font-size: 14px; opacity: 0.6; padding: 40px 20px; margin-top: 20px; }
-    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(16,16,24,0.8); backdrop-filter: blur(8px); animation: modal-fade-in 0.3s ease; }
-    .modal-content { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: #1a1829; padding: 30px; border-radius: 16px; border: 1px solid var(--primary-glow); text-align: center; width: 90%; max-width: 380px; box-shadow: 0 0 50px var(--primary-glow); animation: modal-content-zoom-in 0.3s ease-out; }
-    .close-button { position: absolute; top: 15px; right: 15px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
-    .close-button:hover { color: #fff; }
-    .modal-content img { width: 100%; max-width: 300px; height: auto; border-radius: 12px; background: white; margin: 15px 0; }
-    .modal-content h3 { font-family: 'Cinzel Decorative', sans-serif; font-size: 1.5em; margin: 0; color: #fff; }
-    .modal-content .modal-links a { display: block; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.3s; margin-top: 10px; font-size: 1.1em; }
-    .modal-content .modal-links a.direct-link { background-color: var(--primary-glow); color: #101018; }
-    .modal-content .modal-links a.tutorial-link { background-color: var(--hot-glow); color: #101018; }
-  </style>
+        .hero-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .feature-item i {
+            color: var(--primary-accent);
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-accent);
+            color: var(--bg-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--glow-color);
+            border: 1px solid var(--primary-accent);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary-accent);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--primary-accent);
+        }
+
+        /* 配角：资源库（分类版） */
+        .resources-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .resource-pillars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+            text-align: left;
+        }
+
+        .resource-pillar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-pillar h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            color: var(--primary-accent);
+            margin: 0 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resource-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* 用gap替代margin-bottom */
+        }
+        
+        .resource-card {
+            background-color: rgba(10, 13, 20, 0.6);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card .icon {
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .resource-card span {
+             font-size: 0.9rem;
+        }
+
+        .resource-card:hover {
+            background-color: rgba(0, 191, 255, 0.1);
+            border-color: var(--primary-accent);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+        
+        .resource-card:hover .icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 60px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .features { gap: 15px; flex-direction: column; align-items: center;}
+            .container { padding: 20px 15px; }
+        }
+
+    </style>
 </head>
 <body>
 
-  <nav class="top-nav-bar">
-    <a href="https://3yuedaohang.com" target="_blank">
-        <i class="fas fa-home"></i> 返回主导航
-    </a>
-  </nav>
+    <nav class="top-nav">
+        <a href="https://3yuedaohang.com" target="_blank">
+            <i class="fas fa-home"></i> 返回主导航
+        </a>
+    </nav>
 
-  <div class="container">
-    <header>
-      <h1>三月 · 跨境网络核心</h1>
-      <p>信息是新时代的能源，这里是你的专属能源核心</p>
-    </header>
-
-    <h2 class="section-title">符文矩阵 & 资源链接</h2>
-    <div class="rune-pillars-container">
-
-        <!-- 上网服务 -->
-        <div class="rune-pillar">
-            <h2><i class="fas fa-satellite-dish"></i> TikTok 运营策略</h2>
-            <div class="rune-card-list">
-                <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="rune-card rune-card--highlighted">
-                  <div class="icon">🚀</div>
-                  <span>专线机场 SSR (可免费试用24小时！刷剧专享！)</span>
-                </a>
-                <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="rune-card"><div class="icon">📶</div><span>美国电信ATT，真实家用住宅IP</span></a>
-                <!-- <a href="https://share.cliproxy.com/share/ltok2wkk6" target="_blank" class="rune-card"><div class="icon">🌐</div><span>Cliproxy 其他国家静态ISP</span></a> -->
-                <!-- ✅ 新增的链接 -->
-                <!-- <a href="https://bandwagonhost.com/aff.php?aff=78956" target="_blank" class="rune-card"><div class="icon">⚙️</div><span>CN2 GIA VPS专线  (稳定建站/节点推荐)</span></a> -->
-                <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="rune-card"><div class="icon">💥</div><span>VPS推荐 双ISP 大带宽无需中转（日韩德美英法、香港、台湾、新加坡）</span></a>
-                <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="rune-card"><div class="icon">🖥️</div><span>VPS推荐 666clouds 大带宽无需中转（日韩美英、香港）</span></a>
-                <a href="https://ipraft.com/?i950472" target="_blank" class="rune-card"><div class="icon">🏠</div><span>VPS推荐 IPraft 需配中转提速（其他国家）</span></a>
-                <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="rune-card"><div class="icon">🧬</div><span>中转提速平台 Go-relay</span></a>
-                <!-- <a href="http://www.xiaohaoduo.com?aff=s2afSwjx" target="_blank" class="rune-card"><div class="icon">💴</div><span>苹果、谷歌、FB、TK各类账号购买</span></a> -->
-                <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank" class="rune-card"><div class="icon">💳</div><span>海外虚拟卡</span></a>
-                <a href="https://share.adspower.net/BpVkZk" target="_blank" class="rune-card"><div class="icon">🔒</div><span>Adspower环境隔离</span></a>
-            </div>
-        </div>
-
+    <div class="container">
         <!-- 核心课程 -->
-        <div class="rune-pillar">
-            <h2><i class="fas fa-scroll"></i> 核心课程 & 奥义</h2>
-            <div class="rune-card-list">
-              <a href="lesson/index.html" target="_blank" class="rune-card rune-card--special-highlight">
-                <div class="icon">💎</div>
-                <span>VPS搭建/软路由</span>
-              </a>
-
-                <a href="ip-explain.html" target="_blank" class="rune-card rune-card--highlighted">
-                  <div class="icon">🔥</div>
-                  <span>IP节点解析指南</span>
-                </a>
-
-              
-                <a href="https://pan.quark.cn/s/e03a8dc5b265" target="_blank" class="rune-card">
-                    <div class="icon">🎁</div>
-                    <span>抖音免费课程</span>
-                </a>
+        <section class="hero-blueprint">
+            <h1 class="hero-title">VPS 搭建软路由 · 核心技术课程</h1>
+            <p class="hero-subtitle">从零开始，构建您的专属、安全、高效的全球网络中枢，掌控每一比特数据。</p>
+            <div class="features">
+                <span class="feature-item"><i class="fas fa-shield-halved"></i> 绝对隐私与安全</span>
+                <span class="feature-item"><i class="fas fa-rocket"></i> 全平台网络加速</span>
+                <span class="feature-item"><i class="fas fa-microchip"></i> 商业级稳定性</span>
             </div>
-        </div>
-     
-        <!-- 查询检测 -->
-        <div class="rune-pillar">
-            <h2><i class="fas fa-search"></i> 查询检测工具</h2>
-            <div class="rune-card-list">
-                <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" class="rune-card"><div class="icon">🌍</div><span>国家代码查询</span></a>
-                <a href="https://fofa.info/result?qbase64=ZG9tYWluPSJuaWNldGsudG9wIiAmJiBjb3VudHJ5PSJNWSI%3D" target="_blank" class="rune-card"><div class="icon">🔭</div><span>FOFA网络空间搜索</span></a>
-                <a href="https://ipinfo.io/1.9.4.221?lookup_source=search-bar#block-asn" target="_blank" class="rune-card"><div class="icon">📍</div><span>IPInfo.io 详细信息</span></a>
-                <a href="https://ping0.cc/ip/" target="_blank" class="rune-card"><div class="icon">🧭</div><span>Ping0.cc IP检测</span></a>
-                <a href="https://whoer.net/zh" target="_blank" class="rune-card"><div class="icon">🕵️</div><span>Whoer 匿名度评估</span></a>
-                <a href="https://scamalytics.com/ip/" target="_blank" class="rune-card"><div class="icon">⚠️</div><span>Scamalytics 欺诈值检测</span></a>
-                <a href="https://ping.pe/" target="_blank" class="rune-card"><div class="icon">🧱</div><span>Ping.pe 被墙检测</span></a>
-                <a href="https://tools.ipip.net/traceroute.php" target="_blank" class="rune-card"><div class="icon">🗺️</div><span>路由追踪</span></a>
-                <a href="https://www.whatsmydns.net/" target="_blank" class="rune-card"><div class="icon">🌐</div><span>域名解析查询</span></a>
-                <a href="https://ipleak.net/" target="_blank" class="rune-card"><div class="icon">💧</div><span>Ipleak DNS泄漏查询</span></a>
-            </div>
-        </div>
+            <a href="lesson/index.html" target="_blank" class="cta-button">
+                <i class="fas fa-unlock-alt"></i> 解锁核心课程
+            </a>
+        </section>
+
+        <!-- 辅助资源 -->
+        <section class="resources-section">
+            <h2 class="resources-title">配套资源矩阵</h2>
+            <div class="resource-pillars-container">
+
+                <!-- 分类一：TikTok 运营策略 -->
+                <div class="resource-pillar">
+                    <h2><i class="fas fa-satellite-dish"></i> TikTok 运营策略</h2>
+                    <div class="resource-card-list">
+                        <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card"><div class="icon">🚀</div><span>专线机场 SSR (可试用)</span></a>
+                        <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="resource-card"><div class="icon">📶</div><span>美国真实住宅IP</span></a>
+                        <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="resource-card"><div class="icon">💥</div><span>VPS推荐 (双ISP)</span></a>
+                        <!-- <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="resource-card"><div class="icon">🖥️</div><span>VPS推荐 (666clouds)</span></a> -->
+                        <!-- <a href="https://ipraft.com/?i950472" target="_blank" class="resource-card"><div class="icon">🏠</div><span>VPS推荐 (IPraft)</span></a> -->
+                        <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="resource-card"><div class="icon">🧬</div><span>中转提速平台</span></a>
+                        <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank" class="resource-card"><div class="icon">💳</div><span>海外虚拟卡</span></a>
+                        <a href="https://share.adspower.net/BpVkZk" target="_blank" class="resource-card"><div class="icon">🔒</div><span>Adspower环境隔离</span></a>
+                    </div>
+                </div>
+
+                <!-- 分类二：其他教程与指南 -->
+                <div class="resource-pillar">
+                    <h2><i class="fas fa-book-open"></i> 其他教程与指南</h2>
+                    <div class="resource-card-list">
+                        <a href="nange.html" target="_blank" class="resource-card"><div class="icon">🎯</div><span>跨越投流方案</span></a>
+                        <a href="ip-explain.html" target="_blank" class="resource-card"><div class="icon">🔥</div><span>IP节点解析指南</span></a>
+                        <a href="https://pan.quark.cn/s/e03a8dc5b265" target="_blank" class="resource-card"><div class="icon">🎁</div><span>抖音免费课程</span></a>
+                    </div>
+                </div>
         
-        <!-- 网络测速 -->
-        <div class="rune-pillar">
-            <h2><i class="fas fa-tachometer-alt"></i> 网络测速平台</h2>
-            <div class="rune-card-list">
-                <a href="https://www.speedtest.net/" target="_blank" class="rune-card"><div class="icon">💨</div><span>SpeedTest 测速</span></a>
-                <a href="https://speed.cloudflare.com/" target="_blank" class="rune-card"><div class="icon">☁️</div><span>Cloudflare 测速</span></a>
-                <a href="https://fast.com/" target="_blank" class="rune-card"><div class="icon">🎬</div><span>Netflix Fast 测速</span></a>
+                <!-- 分类三：查询检测工具 -->
+                <div class="resource-pillar">
+                    <h2><i class="fas fa-search-location"></i> 查询检测工具</h2>
+                    <div class="resource-card-list">
+                        <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" class="resource-card"><div class="icon">🌍</div><span>国家代码查询</span></a>
+                        <a href="https://fofa.info/result?qbase64=ZG9tYWluPSJuaWNldGsudG9wIiAmJiBjb3VudHJ5PSJNWSI%3D" target="_blank" class="resource-card"><div class="icon">🔭</div><span>FOFA网络空间搜索</span></a>
+                        <a href="https://ipinfo.io/1.9.4.221?lookup_source=search-bar#block-asn" target="_blank" class="resource-card"><div class="icon">📍</div><span>IPInfo.io 详细信息</span></a>
+                        <a href="https://ping0.cc/ip/" target="_blank" class="resource-card"><div class="icon">🧭</div><span>Ping0.cc IP检测</span></a>
+                        <a href="https://whoer.net/zh" target="_blank" class="resource-card"><div class="icon">🕵️</div><span>Whoer 匿名度评估</span></a>
+                        <a href="https://scamalytics.com/ip/" target="_blank" class="resource-card"><div class="icon">⚠️</div><span>Scamalytics 欺诈值</span></a>
+                        <a href="https://ping.pe/" target="_blank" class="resource-card"><div class="icon">🧱</div><span>Ping.pe 被墙检测</span></a>
+                        <a href="https://tools.ipip.net/traceroute.php" target="_blank" class="resource-card"><div class="icon">🗺️</div><span>路由追踪</span></a>
+                        <a href="https://www.whatsmydns.net/" target="_blank" class="resource-card"><div class="icon">🌐</div><span>域名解析查询</span></a>
+                        <a href="https://ipleak.net/" target="_blank" class="resource-card"><div class="icon">💧</div><span>Ipleak DNS泄漏查询</span></a>
+                    </div>
+                </div>
+                
+                <!-- 分类四：网络测速平台 -->
+                <div class="resource-pillar">
+                    <h2><i class="fas fa-tachometer-alt"></i> 网络测速平台</h2>
+                    <div class="resource-card-list">
+                        <a href="https://www.speedtest.net/" target="_blank" class="resource-card"><div class="icon">💨</div><span>SpeedTest 测速</span></a>
+                        <a href="https://speed.cloudflare.com/" target="_blank" class="resource-card"><div class="icon">☁️</div><span>Cloudflare 测速</span></a>
+                        <a href="https://fast.com/" target="_blank" class="resource-card"><div class="icon">🎬</div><span>Netflix Fast 测速</span></a>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </section>
     </div>
-  </div>
 
-  <footer>
-    📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。
-  </footer>
-  
-  <div id="tgModal" class="modal">
-    <!-- Modal content remains the same -->
-  </div>
+    <footer>
+        <p>📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。</p>
+    </footer>
 
-  <script>
-    // No script needed for this page's functionality.
-  </script>
 </body>
-</html>```
+</html>
