@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三月 · 跨境网络核心 (最终版)</title>
+    <title>三月 · 跨境网络核心</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
@@ -249,7 +249,6 @@
             transform: scale(1.1);
         }
 
-        /* --- 新增的卡片高亮样式 --- */
         .highlight-card {
             border: 1px solid var(--highlight-border-color);
             box-shadow: 0 0 15px var(--highlight-glow-color);
@@ -259,7 +258,6 @@
              color: #FFD700; /* 金色文字 */
              font-weight: bold;
         }
-        /* --- 高亮样式结束 --- */
 
         footer {
             margin-top: 60px;
@@ -275,6 +273,136 @@
             .container { padding: 20px 15px; }
         }
 
+        /* --- ✅ [新增] 悬浮联系卡片CSS --- */
+        .side-contact-card {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 25px;
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .side-contact-card.left { left: 40px; }
+        .side-contact-card.right { right: 40px; }
+
+        .side-contact-card:hover {
+            transform: translateY(-50%) scale(1.05);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+        
+        .side-contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary-accent);
+            transition: color 0.3s;
+        }
+
+        .side-contact-card:hover i {
+            color: #fff;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-info strong {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .contact-info span {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* --- ✅ [新增] 微信弹窗CSS --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: #161c29;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h3 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .modal-content img {
+            width: 250px;
+            height: 250px;
+            border-radius: 8px;
+        }
+        
+        .modal-content p {
+            margin-top: 15px;
+            opacity: 0.8;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            opacity: 1;
+        }
+
+        /* --- ✅ [新增] 响应式设计 --- */
+        @media (max-width: 1400px) {
+            .side-contact-card {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -309,11 +437,11 @@
                 <div class="resource-pillar">
                     <h2><i class="fas fa-satellite-dish"></i> TikTok 运营策略</h2>
                     <div class="resource-card-list">
-                        <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card"><div class="icon">🚀</div><span>专线机场 SSR (可试用)</span></a>
+                        <a href="https://www.duoplus.cn/share/tNVaXc" target="_blank" class="resource-card"><div class="icon">📱</div><span>云手机推荐（TK养号）</span></a>
+                        <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card"><div class="icon">🚀</div><span>专线机场(试用24小时)</span></a>
                         <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="resource-card"><div class="icon">📶</div><span>美国真实住宅IP</span></a>
                         <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="resource-card"><div class="icon">💥</div><span>VPS推荐 (双ISP)</span></a>
-                        <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="resource-card"><div class="icon">🧬</div><span>中转提速平台</span></a>
-                        <a href="https://bewildcard.com/i/AF6QOS3O" target="_blank" class="resource-card"><div class="icon">💳</div><span>海外虚拟卡</span></a>
+                        <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="resource-card"><div class="icon">🧬</div><span>中转提速平台</span>
                         <a href="https://share.adspower.net/BpVkZk" target="_blank" class="resource-card"><div class="icon">🔒</div><span>Adspower环境隔离</span></a>
                     </div>
                 </div>
@@ -322,12 +450,10 @@
                 <div class="resource-pillar">
                     <h2><i class="fas fa-book-open"></i> 其他教程与指南</h2>
                     <div class="resource-card-list">
-                        <!-- --- 这里是修改过的地方 --- -->
                         <a href="nange.html" target="_blank" class="resource-card highlight-card">
                             <div class="icon">🎯</div>
                             <span>跨越投流方案</span>
                         </a>
-                        <!-- --- 修改结束 --- -->
                         <a href="ip-explain.html" target="_blank" class="resource-card"><div class="icon">🔥</div><span>IP节点解析指南</span></a>
                         <a href="https://pan.quark.cn/s/e03a8dc5b265" target="_blank" class="resource-card"><div class="icon">🎁</div><span>抖音免费课程</span></a>
                     </div>
@@ -350,7 +476,7 @@
                     </div>
                 </div>
                 
-                <!-- 修改后的分类四：测速与常用工具 -->
+                <!-- 分类四：测速与常用工具 -->
                 <div class="resource-pillar">
                     <h2><i class="fas fa-tools"></i> 测速与常用工具</h2>
                     <div class="resource-card-list">
@@ -370,6 +496,65 @@
     <footer>
         <p>📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。</p>
     </footer>
+
+    <!-- ✅ [新增] 悬浮联系方式和弹窗的HTML -->
+    <!-- 左侧悬浮联系卡片 (微信) -->
+    <div class="side-contact-card left" id="wechat-contact-trigger">
+        <i class="fab fa-weixin"></i>
+        <div class="contact-info">
+            <strong>微信客服</strong>
+            <span>点击扫码咨询</span>
+        </div>
+    </div>
+
+    <!-- 右侧悬浮联系卡片 (Telegram) -->
+    <a href="TG.html" target="_blank" class="side-contact-card right">
+        <i class="fab fa-telegram-plane"></i>
+        <div class="contact-info">
+            <strong>TG交流群</strong>
+            <!-- <span>三月</span> -->
+        </div>
+    </a>
+
+    <!-- 微信二维码弹窗 -->
+    <div class="modal-overlay" id="wechat-modal">
+        <div class="modal-content">
+            <span class="modal-close-btn" id="modal-close">&times;</span>
+            <h3>请扫描微信二维码</h3>
+            <img src="lesson/wechat.jpg" alt="微信二维码">
+            <p>添加站长微信进行咨询</p>
+        </div>
+    </div>
+
+    <!-- ✅ [新增] 弹窗功能的JavaScript -->
+    <script>
+        const wechatTrigger = document.getElementById('wechat-contact-trigger');
+        const wechatModal = document.getElementById('wechat-modal');
+        const modalCloseBtn = document.getElementById('modal-close');
+
+        // 点击微信卡片，打开弹窗
+        if (wechatTrigger) {
+            wechatTrigger.addEventListener('click', () => {
+                if (wechatModal) wechatModal.classList.add('active');
+            });
+        }
+
+        // 点击关闭按钮“×”，关闭弹窗
+        if (modalCloseBtn) {
+            modalCloseBtn.addEventListener('click', () => {
+                if (wechatModal) wechatModal.classList.remove('active');
+            });
+        }
+
+        // 点击弹窗的灰色背景区域，关闭弹窗
+        if (wechatModal) {
+            wechatModal.addEventListener('click', (event) => {
+                if (event.target === wechatModal) {
+                    wechatModal.classList.remove('active');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
