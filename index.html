@@ -16,6 +16,9 @@
             --card-bg: rgba(22, 28, 41, 0.7);
             --border-color: rgba(0, 191, 255, 0.2);
             --glow-color: rgba(0, 191, 255, 0.5);
+            /* --- 新增高亮颜色变量 --- */
+            --highlight-glow-color: rgba(255, 215, 0, 0.7);
+            --highlight-border-color: rgba(255, 215, 0, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -70,14 +73,13 @@
 
         .container {
             width: 100%;
-            max-width: 1200px; /* 稍微加宽以容纳4栏 */
+            max-width: 1200px;
             text-align: center;
             padding: 40px 20px;
         }
 
-        /* 主角：核心课程蓝图 */
         .hero-blueprint {
-            max-width: 900px; /* 限制英雄区最大宽度，使其居中 */
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
             background-color: var(--card-bg);
@@ -163,7 +165,6 @@
             box-shadow: 0 0 30px var(--primary-accent);
         }
 
-        /* 配角：资源库（分类版） */
         .resources-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
@@ -207,7 +208,7 @@
         .resource-card-list {
             display: flex;
             flex-direction: column;
-            gap: 12px; /* 用gap替代margin-bottom */
+            gap: 12px;
         }
         
         .resource-card {
@@ -247,6 +248,18 @@
             opacity: 1;
             transform: scale(1.1);
         }
+
+        /* --- 新增的卡片高亮样式 --- */
+        .highlight-card {
+            border: 1px solid var(--highlight-border-color);
+            box-shadow: 0 0 15px var(--highlight-glow-color);
+        }
+
+        .highlight-card .icon, .highlight-card span {
+             color: #FFD700; /* 金色文字 */
+             font-weight: bold;
+        }
+        /* --- 高亮样式结束 --- */
 
         footer {
             margin-top: 60px;
@@ -309,7 +322,12 @@
                 <div class="resource-pillar">
                     <h2><i class="fas fa-book-open"></i> 其他教程与指南</h2>
                     <div class="resource-card-list">
-                        <a href="nange.html" target="_blank" class="resource-card"><div class="icon">🎯</div><span>跨越投流方案</span></a>
+                        <!-- --- 这里是修改过的地方 --- -->
+                        <a href="nange.html" target="_blank" class="resource-card highlight-card">
+                            <div class="icon">🎯</div>
+                            <span>跨越投流方案</span>
+                        </a>
+                        <!-- --- 修改结束 --- -->
                         <a href="ip-explain.html" target="_blank" class="resource-card"><div class="icon">🔥</div><span>IP节点解析指南</span></a>
                         <a href="https://pan.quark.cn/s/e03a8dc5b265" target="_blank" class="resource-card"><div class="icon">🎁</div><span>抖音免费课程</span></a>
                     </div>
