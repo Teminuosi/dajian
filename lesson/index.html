@@ -65,9 +65,7 @@
     .container .column:nth-child(2) { animation-delay: 0.1s; }
     .container .column:nth-child(3) { animation-delay: 0.2s; }
     .container .column:nth-child(4) { animation-delay: 0.3s; }
-    /* ✅ 新增：为新卡片增加动画延迟 */
     .container .column:nth-child(5) { animation-delay: 0.4s; }
-    .container .column:nth-child(6) { animation-delay: 0.5s; }
 
 
     /* --- 文本样式 --- */
@@ -79,7 +77,7 @@
     ul li { line-height: 1.8; padding-left: 25px; position: relative; }
     ul li::before { content: '>'; position: absolute; left: 0; color: var(--main-glow); animation: text-flicker 2s infinite alternate; }
     
-    .advanced-course-list { counter-reset: lesson-counter; max-height: 450px; overflow-y: auto; padding-right: 15px; }
+    .advanced-course-list { counter-reset: lesson-counter; max-height: 280px; overflow-y: auto; padding-right: 15px; }
     .advanced-course-list::-webkit-scrollbar { width: 4px; }
     .advanced-course-list::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.1); }
     .advanced-course-list::-webkit-scrollbar-thumb { background: var(--main-glow); }
@@ -93,7 +91,7 @@
     }
     .advanced-course-list li.hot-lesson::after {
         content: '🔥 HOT';
-        font-family: 'Noto Sans SC', sans-serif; /* 确保emoji正常显示 */
+        font-family: 'Noto Sans SC', sans-serif;
         font-size: 12px;
         margin-left: 10px;
         color: var(--secondary-glow);
@@ -103,20 +101,24 @@
     .pitch-card-ultimate { border-color: var(--ultimate-glow); box-shadow: 0 0 30px var(--ultimate-glow), inset 0 0 15px rgba(255, 0, 255, 0.2); }
     .pitch-card-ultimate:hover { border-color: #ff80ff; box-shadow: 0 0 50px var(--ultimate-glow), inset 0 0 20px rgba(255, 0, 255, 0.3); }
     .pitch-card-ultimate h1 { color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); animation: ultimate-flicker 2s infinite; font-size: 26px; }
-    .pitch-card-ultimate p { font-size: 15px; line-height: 1.8; margin-bottom: 15px; text-align: left; }
-    .pitch-card-ultimate p strong { color: var(--secondary-glow); font-weight: 600; }
-    .pitch-card-ultimate .highlight-box { background: rgba(255, 0, 255, 0.05); border-left: 3px solid var(--ultimate-glow); padding: 15px; margin: 20px 0; border-radius: 4px; }
-    .pitch-card-ultimate .highlight-box h3 { margin-top: 0; border: none; font-size: 16px; color: #f5f; }
-    .pitch-card-ultimate .highlight-box ul li::before { content: '✅'; color: var(--ultimate-glow); }
-    .pitch-card-ultimate .knowledge-list li { font-size: 14px; line-height: 1.7; }
-    .pitch-card-ultimate .knowledge-list li strong { color: var(--main-glow); }
-    .pitch-card-ultimate .payment-button { background: #2a0a2a; border-color: var(--ultimate-glow); color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); }
-    .pitch-card-ultimate .payment-button:hover { background: var(--ultimate-glow); color: #000; box-shadow: 0 0 15px var(--ultimate-glow); }
+    .pitch-card-ultimate p, .column p { font-size: 15px; line-height: 1.8; margin-bottom: 15px; text-align: left; }
+    .pitch-card-ultimate p strong, .column p strong { color: var(--secondary-glow); font-weight: 600; }
+    .highlight-box { background: rgba(255, 0, 255, 0.05); border-left: 3px solid var(--ultimate-glow); padding: 15px; margin: 20px 0; border-radius: 4px; }
+    .highlight-box h3 { margin-top: 0; border: none; font-size: 16px; color: #f5f; }
+    .highlight-box ul li::before { content: '✅'; color: var(--ultimate-glow); }
+    .knowledge-list li { font-size: 14px; line-height: 1.7; }
+    .knowledge-list li strong { color: var(--main-glow); }
+    .pitch-card-ultimate .payment-button, .pitch-card-ultimate .contact-trigger { background: #2a0a2a; border-color: var(--ultimate-glow); color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); }
+    .pitch-card-ultimate .payment-button:hover, .pitch-card-ultimate .contact-trigger:hover { background: var(--ultimate-glow); color: #000; box-shadow: 0 0 15px var(--ultimate-glow); }
+    .column .payment-button, .column .contact-trigger {
+        background: #0a2a0a; border: 1px solid var(--main-glow); color: var(--main-glow); padding: 12px 24px; font-family: 'Orbitron', sans-serif; font-size: 16px; border-radius: 4px; cursor: pointer; text-shadow: 0 0 8px var(--main-glow); transition: all 0.3s ease; width: 100%;
+    }
+    .column .payment-button:hover, .column .contact-trigger:hover {
+        background: var(--main-glow); color: #000; box-shadow: 0 0 15px var(--main-glow); text-shadow: none;
+    }
 
     .payment-section { text-align: center; margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(0, 255, 0, 0.3); }
     .payment-note { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.5); padding: 10px; border-radius: 4px; color: #ff5555; font-weight: 600; margin-bottom: 15px; }
-    .payment-button { background: #0a2a0a; border: 1px solid var(--main-glow); color: var(--main-glow); padding: 12px 24px; font-family: 'Orbitron', sans-serif; font-size: 16px; border-radius: 4px; cursor: pointer; text-shadow: 0 0 8px var(--main-glow); transition: all 0.3s ease; width: 100%; }
-    .payment-button:hover { background: var(--main-glow); color: #000; box-shadow: 0 0 15px var(--main-glow); text-shadow: none; }
     .status { margin-top: 20px; font-weight: 600; color: var(--secondary-glow); text-shadow: 0 0 5px var(--secondary-glow); }
     .bonus-offer-pro { background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.5); padding: 15px 20px; border-radius: 4px; margin-bottom: 20px; text-align: left; }
     .bonus-offer-pro .bonus-title { color: var(--secondary-glow); font-size: 16px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--secondary-glow); animation: text-flicker 3s infinite; margin-bottom: 10px; }
@@ -166,21 +168,52 @@
 
   <div class="matrix-bg" id="matrix-bg"></div>
   
-  <h1 class="section-divider">[// COURSE TERMINAL //]</h1>
+  <h1 class="section-divider">[// 最高的成本是走弯路，交易的本质是价值交换。 //]</h1>
   <div class="container">
 
-    <!-- 入门课程 -->
+    <!-- ✅ 第一个模块: 新手首选方案 -->
+    <div class="column pitch-card-ultimate">
+        <h1>[新手首选] TikTok启航护航计划</h1>
+        <h2>1对1陪跑 · 解决从0到1所有问题 // 99元</h2>
+        <h3>[是不是正面临这些问题？]</h3>
+        <p>
+            专为纯小白设计。我们不教你复杂的代码和搭建，只带你解决真正卡脖子的问题，让你迈出安全、正确的第一步。
+        </p>
+        <ul class="knowledge-list">
+            <li>想做TikTok，但第一步<strong>网络和手机设置</strong>就彻底卡住？</li>
+            <li>担心买到<strong>不干净的IP</strong>，导致账号刚注册就被封？</li>
+            <li>不知道怎么<strong>选择靠谱的网络服务</strong>，怕被坑、怕不稳定？</li>
+            <li>手机和电脑怎么设置才能<strong>彻底隔离环境</strong>，防止被平台关联？</li>
+        </ul>
+        
+        <h3>[我们将1对1带你搞定]</h3>
+        <ul class="knowledge-list">
+            <li><strong>【网络选择思路】</strong>不再盲目，建立正确的网络选择观，告诉你个人/团队应该用哪种方案。</li>
+            <li><strong>【优质服务商筛选】</strong>授人以渔，教你<strong>识别和判断</strong>靠谱网络服务商的几个核心标准。</li>
+            <li><strong>【环境隔离实操】</strong>手机端（iOS/安卓）与电脑端的<strong>终极隔离方案</strong>，手把手带你配置，确保万无一失。</li>
+            <li><strong>【IP质量检测】</strong>提供实用工具和方法，教你如何<strong>检测IP的伪装度</strong>和清洁度，告别“脏IP”。</li>
+            <li><strong>【账号运营入门】</strong>分享最新的<strong>TikTok养号与初期运营</strong>的核心技巧与注意事项。</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>[服务核心]</h3>
+            <ul>
+              <li><strong>全程1对1语音/视频陪跑：</strong>解答你所有问题，带你走通从0到1的全流程。</li>
+              <li><strong>提供所有推荐工具的下载与配置指导。</strong></li>
+              <li><strong>交付一套让你安心、能落地的完整行动方案。</strong></li>
+            </ul>
+        </div>
+        <div class="payment-section">
+            <div class="payment-note" style="border-color: rgba(255, 153, 0, 0.5); background:rgba(255, 153, 0, 0.1); color: #ffcc80;">1对1服务需先沟通，请扫码联系</div>
+            <button class="payment-button contact-trigger">扫码预约咨询 (¥99)</button>
+        </div>
+    </div>
+
+    <!-- ✅ 第二个模块: 终极DIY课程包 -->
     <div class="column">
-      <h1>[入门] VPS完美网络搭建</h1>
-      <h2>零基础课程 // 79.9元</h2>
-      <h3>[痛点分析]</h3>
-      <ul>
-        <li>花钱买节点，<strong>速度慢、易掉线</strong>？</li>
-        <li>网上教程代码一堆，看不懂，<strong>连第一步都不会</strong>？</li>
-        <li>做跨境账号，经常<strong>因为网络环境问题被封号</strong>？</li>
-        <li>不想求人、又想拥有自己的稳定网络方案？</li>
-      </ul>
-      <h3>[课程核心]</h3>
+      <h1>[终极DIY] 从VPS到软路由全攻略</h1>
+      <h2>高阶玩家系统课 // 99元起</h2>
+      <h3>[模块一：VPS入门篇 (¥99)]</h3>
       <ul>
         <li>【地基之石】<strong>数据包的朝圣之旅</strong>：亲眼见证一次全球访问，揭示畅通无阻的数字高速公路是如何建成的。</li>
         <li>【高墙之影】<strong>迷雾中的狙击手</strong>：追踪消失的数据包，揭露无形之手如何精准狙击你的请求。<strong>看清限制，才能畅行无阻！</strong></li>
@@ -190,51 +223,8 @@
         <li>【提升】Vmess/Vless + ws + reality多协议</li>
         <li>【终极】Sing-Box 核心部署：构建高稳定性的终极网络核心。</li>
       </ul>
-      <div class="payment-section">
-        <div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
-        <button class="payment-button" data-price="79.9元">ACCESS PAYMENT TERMINAL</button>
-      </div>
-    </div>
-    
-    <!-- 1对1咨询 -->
-    <div class="column pitch-card-ultimate">
-        <h1>[终极权限] 1对1根目录访问</h1>
-        <h2>专属解决方案 // 299元</h2>
-        <h3>[直面核心 · 扫清一切障碍]</h3>
-        <p>
-            自学摸索，浪费的是你宝贵的时间，搞砸的是你价值连城的账号。<strong>投资大脑，永远是回报率最高的交易。</strong>
-        </p>
-        <p>
-            这不只是一次Q&A，这是一场为你量身定制的、从0到1的知识风暴。你将获得一套完整的跨境网络作战体系。
-        </p>
-        <h3>[知识灌输模块 · 覆盖以下所有盲区]</h3>
-        <ul class="knowledge-list">
-            <li><strong>VPS选型与部署：</strong>告别选择困难，找到最适合你业务的服务器。</li>
-            <li><strong>IP身份大揭秘：</strong>彻底搞懂机房/住宅/ISP/移动IP，不再踩坑。</li>
-            <li><strong>代理软件终极指南：</strong>手把手带你精通电脑/手机端软件（Clash/小火箭）的正确用法与核心配置。</li>
-            <li><strong>高级网络架构：</strong>为你规划“中转+落地”等高级链式代理方案，实现速度与稳定的完美平衡。</li>
-            <li><strong>从0到1环境搭建：</strong>全程指导，确保你的网络环境纯净、安全、不被关联。</li>
-        </ul>
-        <div class="highlight-box">
-            <h3>[服务核心]</h3>
-            <ul>
-              <li><strong>40分钟专属时间：</strong>1对1语音/视频，全面解答你在上述模块中的所有问题，并为你规划专属方案。</li>
-              <li><strong>免费赠送：</strong>《[入门] VPS完美网络搭建》 (价值¥79.9)</li>
-            </ul>
-        </div>
-        <div class="payment-section">
-            <div class="payment-note" style="border-color: rgba(255, 153, 0, 0.5); background:rgba(255, 153, 0, 0.1); color: #ffcc80;">1对1咨询需先沟通，请扫码联系</div>
-            <button class="payment-button contact-trigger">扫码预约咨询</button>
-        </div>
-    </div>
-
-    <!-- 进阶课程 -->
-    <div class="column">
-      <h1>[进阶] 软路由完美网络搭建</h1>
-      <h2>高阶系统课 // 499元</h2>
-      <h3>[课程目录] (持续更新)</h3>
+      <h3>[模块二：软路由进阶篇 (仅限¥499全套)]</h3>
       <ul class="advanced-course-list">
-        <!-- ✅ 修改：新增的热门课程放在第一位 -->
         <li class="hot-lesson">【热门核心】专线搭建 (IEPL/IPLC/游戏加速)</li>
         <li>【核心基础】软路由刷机：R2S、X86、万能刷机方法汇总</li>
         <li>【核心基础】固件与系统：路由器降级与刷入OpenWrt系统实战</li>
@@ -268,17 +258,16 @@
       </ul>
       <div class="payment-section">
         <div class="bonus-offer-pro">
-          <div class="bonus-title">🔥 终极权限捆绑包 🔥</div>
-          <p>现在购买，即可免费获赠价值 <strong>¥378.9</strong> 的全套新手+咨询服务：</p>
-          <ul class="bonus-list">
-            <li class="ultimate-gift"><strong>免费加赠：</strong>《[终极权限] 1对1根目录访问》 (价值¥299)</li>
-            <li><strong>免费加赠：</strong>《[入门] VPS完美网络搭建》 (价值¥79.9)</li>
-            <li>一份价格，获得<strong style="color:var(--secondary-glow)">全部核心权限</strong>！新手入门、一步到位的最佳选择！</li>
-          </ul>
+          <div class="bonus-title">🔥 [套餐A] 终极DIY全套 (¥499)</div>
+          <p>包含<strong>模块一</strong>和<strong>模块二</strong>的全部内容，从入门到精通，一步到位。购课即享永久更新权限。</p>
+          <button class="payment-button" data-price="499元">购买全套课程 (¥499)</button>
         </div>
-        <p style="color:#0c0; margin-bottom: 15px;">购课即享永久更新权限</p>
-        <button class="payment-button" data-price="499元">ACCESS PAYMENT TERMINAL</button>
-        <p class="status" id="status">STATUS: WAITING FOR PAYMENT...</p>
+        <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5); margin-top: 20px;">
+           <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">💡 [套餐B] 仅VPS入门篇 (¥99)</div>
+           <p>仅需学习<strong>模块一</strong>？此选项适合只想搞定基础VPS，不想折腾软路由的同学。</p>
+           <button class="payment-button" data-price="99元" style="background:#0a2a0a; border-color: var(--main-glow); color: var(--main-glow);">仅购买VPS入门篇 (¥99)</button>
+        </div>
+        <div class="payment-note" style="margin-top: 20px;">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
       </div>
     </div>
 
@@ -290,12 +279,18 @@
       <p>
         厌倦了复杂的刷机和繁琐的配置？想要一个<strong>开箱即用、稳定如山</strong>的网络核心？我们的成品软路由，专为追求效率与稳定性的您打造，是TikTok矩阵运营和跨境团队的终极解决方案。
       </p>
+      <h3>[专业级硬件与优化]</h3>
+      <ul>
+        <li><strong>高性能多核处理器：</strong>确保在高负载下依然流畅运行，轻松应对多任务处理。</li>
+        <li><strong>大容量内存与高速闪存：</strong>为复杂的规则和大量的并发连接提供坚实的硬件基础。</li>
+        <li><strong>深度定制OpenWrt系统：</strong>预装并优化所有必要插件，性能释放最大化。</li>
+        <li><strong>7x24小时稳定性优化：</strong>经过严格的压力测试，确保长时间不间断运行，告别断流。</li>
+      </ul>
       <h3>[核心功能]</h3>
       <ul style="list-style-type: none; padding-left: 0;">
         <li style="padding-left: 25px;"><strong>【一机多IP】</strong>为不同业务配置独立出口IP，完美实现环境隔离，是矩阵运营的必备神器。</li>
         <li style="padding-left: 25px;"><strong>【多WIFI网络】</strong>轻松创建多个相互隔离的Wi-Fi信号，办公、家庭、访客网络互不干扰。</li>
         <li style="padding-left: 25px;"><strong>【兼容自备节点】</strong>同样支持配置您自己购买的节点服务，提供最大限度的灵活性。</li>
-        <li style="padding-left: 25px;"><strong>【7x24小时稳定】</strong>经过严格的压力测试与优化，确保设备长时间稳定运行，告别断流和卡顿。</li>
       </ul>
       <div class="payment-section">
          <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5);">
@@ -308,7 +303,7 @@
       </div>
     </div>
     
-    <!-- ✅ 新增：网站搭建 -->
+    <!-- 网站搭建 -->
     <div class="column">
         <h1>[定制] 炫酷网站/主页开发</h1>
         <h2>品牌门面搭建 // 299元起</h2>
@@ -323,6 +318,13 @@
             <li><strong>全端响应式：</strong>完美适配电脑、平板和手机等所有设备。</li>
             <li><strong>后台集成：</strong>可根据需求，为您集成博客发布、作品展示等后台管理功能。</li>
         </ul>
+        <h3>[交付流程与服务]</h3>
+        <ul>
+            <li><strong>需求沟通与方案设计：</strong>深入了解您的想法，为您规划最佳实现路径。</li>
+            <li><strong>UI视觉稿确认：</strong>在开发前，让您先看到网站的最终视觉效果。</li>
+            <li><strong>前端开发与动效实现：</strong>将设计稿1:1精准还原为动态、可交互的网页。</li>
+            <li><strong>部署上线与后期维护：</strong>为您搞定服务器与域名，确保网站稳定访问。</li>
+        </ul>
          <div class="payment-section">
              <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5);">
                   <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">📦 费用说明</div>
@@ -334,7 +336,7 @@
         </div>
     </div>
 
-    <!-- ✅ 新增：自媒体课程 -->
+    <!-- 自媒体课程 -->
     <div class="column pitch-card-ultimate">
         <h1>[AI赋能] 自媒体矩阵解决方案</h1>
         <h2>站长1对1教学 // 499元</h2>
