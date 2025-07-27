@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>站长自营 | 高性能原生IP VPS - 专为直播与TikTok运营打造</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        h1, h2, h3 {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+        }
+        .navbar { background-color: rgba(18, 18, 18, 0.8); padding: 15px 0; position: sticky; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); border-bottom: 1px solid #2a2a2a; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8em; font-weight: bold; color: #ffffff; }
+        .nav-links a { color: #e0e0e0; text-decoration: none; margin-left: 25px; font-size: 1em; transition: color 0.3s; }
+        .nav-links a:hover { color: #007bff; }
+        .hero { background: url('https://images.unsplash.com/photo-1593492778179-8d5915486a4a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600') no-repeat center center/cover; height: 100vh; display: flex; align-items: center; text-align: center; color: #ffffff; position: relative; padding-top: 80px; }
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(18, 18, 18, 0.7); }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 3.5em; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.3em; margin-bottom: 40px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-item { background-color: #1e1e1e; padding: 30px; border-radius: 12px; text-align: center; border: 1px solid #2a2a2a; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .feature-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+        .feature-icon { font-size: 3em; margin-bottom: 20px; color: #007bff; }
+        .feature-item h3 { margin-bottom: 15px; font-size: 1.4em; }
+        .feature-item p { color: #b0b0b0; font-size: 0.95em; }
+        .locations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 25px; text-align: center; }
+        .location-item { background-color: #1e1e1e; padding: 20px; border-radius: 10px; border: 1px solid #2a2a2a; }
+        .location-item img { width: 50px; height: 50px; border-radius: 50%; margin-bottom: 15px; object-fit: cover; }
+        .location-item span { font-weight: bold; font-size: 1.1em; color: #ffffff; }
+        .pricing-card { background-color: #1e1e1e; padding: 35px; border-radius: 15px; text-align: center; border: 1px solid #2a2a2a; display: flex; flex-direction: column; justify-content: space-between; }
+        .pricing-card h3 { font-size: 1.6em; color: #00d4ff; }
+        .price { font-size: 3.5em; font-weight: bold; color: #ffffff; margin: 15px 0; }
+        .price sub { font-size: 0.4em; font-weight: normal; }
+        .price-features { list-style: none; padding: 0; margin: 20px 0 30px 0; text-align: left; }
+        .price-features li { margin-bottom: 12px; color: #b0b0b0; }
+        .price-features li::before { content: '✓'; color: #00d4ff; font-weight: bold; margin-right: 10px; }
+        .footer { background-color: #1e1e1e; text-align: center; padding: 40px 0; margin-top: -1px; border-bottom: none; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            padding: 30px;
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 320px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .close-btn:hover { color: #fff; }
+        .modal-content h3 { margin-top: 0; color: #ffffff; }
+        .modal-content img { max-width: 80%; height: auto; margin: 15px 0; border-radius: 8px; }
+        .modal-content p { color: #b0b0b0; font-size: 0.9em; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.1em; }
+            .section-title { font-size: 2em; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">站长自营VPS</div>
+            <div class="nav-links">
+                <a href="#features">服务优势</a>
+                <a href="#locations">节点覆盖</a>
+                <a href="#pricing">套餐价格</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <h1>高性能双ISP原生VPS节点</h1>
+            <p>专为直播、TikTok运营量身打造，提供极致稳定、高速的大带宽网络体验。独享IP，确保业务纯净，数据安全。</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="features" class="section">
+             <div class="container">
+                <h2 class="section-title">为何选择我们？</h2>
+                <p class="section-subtitle">我们不仅仅是提供VPS，更是提供一套稳定可靠的业务解决方案。站长亲自技术支持，保障您的业务顺畅运行。</p>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🚀</div>
+                        <h3>双ISP & 原生IP</h3>
+                        <p>解锁所有主流流媒体，IP纯净度高，完美规避平台限制，TikTok运营数据表现极佳。</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h3>超大带宽 & 充足流量</h3>
+                        <p>300Mbps带宽起步，告别卡顿。每月2000G起步流量，轻松应对高清直播和大数据传输。</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>独享IP & 独立面板</h3>
+                        <p>每个实例都配备独立IP，杜绝邻居干扰。提供管理面板，可随时修改密码，确保资源独享和安全。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="locations" class="section">
+            <div class="container">
+                <h2 class="section-title">精选节点 覆盖核心区域</h2>
+                <p class="section-subtitle">我们专注于提供网络质量最优、最受市场欢迎的地区节点，确保您的业务连接稳定高效。</p>
+                <div class="locations-grid">
+                    <div class="location-item"> <img src="https://flagcdn.com/w160/us.png" alt="美国国旗"> <span>美国</span> </div>
+                    <div class="location-item"> <img src="https://flagcdn.com/w160/jp.png" alt="日本国旗"> <span>日本</span> </div>
+                    <div class="location-item"> <img src="https://flagcdn.com/w160/tw.png" alt="台湾旗帜"> <span>台湾</span> </div>
+                    <!-- <div class="location-item"> <img src="https://flagcdn.com/w160/hk.png" alt="香港旗帜"> <span>香港</span> </div> -->
+                    <div class="location-item"> <img src="https://flagcdn.com/w160/gb.png" alt="英国国旗"> <span>英国</span> </div>
+                    <div class="location-item"> <img src="https://flagcdn.com/w160/de.png" alt="德国国旗"> <span>德国</span> </div>
+                    <div class="location-item"> <img src="https://flagcdn.com/w160/kr.png" alt="韩国国旗"> <span>韩国</span> </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="section">
+            <div class="container">
+                <h2 class="section-title">套餐与价格</h2>
+                <p class="section-subtitle">透明定价，无隐藏费用。我们只提供精选的优质配置，确保每一分投入都物超所值。价格从¥150/月起。</p>
+                <div class="pricing-card">
+                     <h3>「旗舰 · 全能型」套餐</h3>
+                     <div class="price">¥150<sub>/月起</sub></div>
+                     <ul class="price-features">
+                        <li style="color:#fff; font-weight:bold;">-- 核心配置 --</li>
+                        <li><strong>带宽速率:</strong> 300 Mbps 起步 (可按需定制)</li>
+                        <li><strong>月度流量:</strong> 2000 GB 起步 (可按需升级)</li>
+                        <li style="color:#fff; font-weight:bold; padding-top:15px;">-- 线路质量 --</li>
+                        <li><strong>三网优化:</strong> 针对移动/联通/电信，强制回程优化</li>
+                        <li><strong>优质线路:</strong> CMI / CN2 / BGP 等多种高端线路可选</li>
+                        <li style="color:#fff; font-weight:bold; padding-top:15px;">-- IP质量与平台支持 --</li>
+                        <li><strong>IP类型:</strong> 双ISP / 原生独享IP，确保资源独享</li>
+                        <li><strong>IP纯净度:</strong> 严格筛选，确保低风险、高匿名度</li>
+                        <li><strong>解锁本土服务:</strong> 全力解锁当地流媒体与原生服务</li>
+                        <li><strong>TikTok支持:</strong> 经大量实测，TK平台数据表现极佳</li>
+                        <li style="color:#fff; font-weight:bold; padding-top:15px;">-- 管理与服务 --</li>
+                        <li><strong>独立面板:</strong> 提供独立控制面板，可随时修改密码</li>
+                        <li><strong>金牌支持:</strong> 站长一对一技术支持，解决您的后顾之忧</li>
+                     </ul>
+                     <p style="margin-bottom: 25px; color: #b0b0b0;">不同地区节点/线路配置价格略有差异，具体请联系站长获取精准报价。</p>
+                     <!-- <button class="btn" id="priceContactBtn">联系站长获取报价</button> -->
+                        <button class="btn" id="contactBtn">立即联系站长定制</button>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright © 2024-2025 站长自营VPS. All Rights Reserved.</p>
+            <p>专为高性能业务而生的VPS解决方案</p>
+        </div>
+    </footer>
+
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>扫码添加站长微信</h3>
+            <img src="lesson/wechat.jpg" alt="站长微信二维码">
+        </div>
+    </div>
+
+    <!-- ✅ [修复] 全新、简洁且稳健的JavaScript代码 -->
+    <script>
+        // 1. 获取需要操作的DOM元素
+        const modal = document.getElementById('qrModal');
+        const contactBtn1 = document.getElementById('contactBtn');      // Hero区域的按钮
+        const contactBtn2 = document.getElementById('priceContactBtn'); // 价格区域的按钮
+        const closeBtn = document.querySelector('.close-btn');          // 弹窗内的关闭按钮
+
+        // 2. 封装打开弹窗的函数
+        function openModal() {
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        // 3. 封装关闭弹窗的函数
+        function closeModal() {
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // 4. 为所有触发按钮绑定点击事件
+        if (contactBtn1) {
+            contactBtn1.addEventListener('click', openModal);
+        }
+        if (contactBtn2) {
+            contactBtn2.addEventListener('click', openModal);
+        }
+
+        // 5. 为关闭元素绑定点击事件
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+        if (modal) {
+            // 点击灰色背景区域关闭
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

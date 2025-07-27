@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三月 · 核心服务入口</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Noto+Sans+SC:wght@400;700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0A0D14;
+            --blue-accent: #00BFFF;
+            --blue-glow: rgba(0, 191, 255, 0.5);
+            --green-accent: #00ff7f;
+            --green-glow: rgba(0, 255, 127, 0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: #E0E5F0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: radial-gradient(rgba(0, 191, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-attachment: fixed;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 0 0 10px var(--blue-glow);
+        }
+
+        .launchpad-container {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+        }
+
+        .service-card {
+            flex: 1;
+            background: rgba(22, 28, 41, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            text-decoration: none;
+            color: #E0E5F0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.03);
+        }
+
+        .service-card .icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+        }
+        .service-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .service-card p {
+            font-size: 1rem;
+            opacity: 0.8;
+            min-height: 50px;
+        }
+        .service-card .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        /* VPS Card (Blue) */
+        .vps-card { border: 1px solid var(--blue-accent); }
+        .vps-card:hover { box-shadow: 0 0 40px var(--blue-glow); }
+        .vps-card .icon, .vps-card h2 { color: var(--blue-accent); }
+        .vps-card .cta-button { background: var(--blue-accent); color: #000; }
+        .vps-card:hover .cta-button { background: #fff; }
+
+        /* Tech Card (Green) */
+        .tech-card { border: 1px solid var(--green-accent); }
+        .tech-card:hover { box-shadow: 0 0 40px var(--green-glow); }
+        .tech-card .icon, .tech-card h2 { color: var(--green-accent); }
+        .tech-card p, .tech-card h2 { font-family: 'Fira Code', monospace; }
+        .tech-card .cta-button { background: var(--green-accent); color: #000; }
+        .tech-card:hover .cta-button { background: #fff; }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 900px) {
+            body { height: auto; overflow: auto; }
+            .launchpad-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1 class="main-title">选择您的服务路径</h1>
+
+    <div class="launchpad-container">
+        <!-- 入口一：原生VPS服务 -->
+        <a href="ziying.html" class="service-card vps-card">
+            <div class="icon"><i class="fas fa-shield-alt"></i></div>
+            <h2>原生ISP节点</h2>
+            <p>专为直播与TikTok运营打造，提供极致稳定、安全可靠的成品网络解决方案。</p>
+            <div class="cta-button">查看服务详情</div>
+        </a>
+
+        <!-- 入口二：技术核心 -->
+        <a href="lesson/index.html" class="service-card tech-card">
+            <div class="icon"><i class="fas fa-terminal"></i></div>
+            <h2>技术核心</h2>
+            <p>从0到1的系统化DIY课程与即插即用的成品软路由，助您完全掌控自己的网络。</p>
+            <div class="cta-button">进入技术核心</div>
+        </a>
+    </div>
+
+    <footer>
+        <p>三月 · 核心技术服务</p>
+    </footer>
+
+</body>
+</html>
