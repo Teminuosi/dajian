@@ -234,15 +234,21 @@
         .glossary-dl dt { font-size: 1.3em; font-weight: bold; color: #00d4ff; margin-top: 20px; }
         .glossary-dl dd { margin-left: 0; color: #b0b0b0; padding-left: 20px; border-left: 3px solid #2a2a2a; }
         .footer { background-color: #1e1e1e; text-align: center; padding: 40px 0; margin-top: -1px; border-bottom: none; }
+        
+        /* --- Modal Styles --- */
         .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.7); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s ease; }
         .modal.active { display: flex; justify-content: center; align-items: center; opacity: 1; }
-        .modal-content { background-color: #2a2a2a; padding: 30px; border: 1px solid #444; width: 90%; max-width: 320px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s ease; }
+        .modal-content { background-color: #2a2a2a; padding: 35px; border: 1px solid #444; width: 90%; max-width: 420px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s ease; }
         .modal.active .modal-content { transform: scale(1); }
         .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; transition: color 0.3s; cursor: pointer; }
         .close-btn:hover { color: #fff; }
-        .modal-content h3 { margin-top: 0; color: #ffffff; }
-        .modal-content img { max-width: 80%; height: auto; margin: 15px 0; border-radius: 8px; }
-        .modal-content p { color: #b0b0b0; font-size: 0.9em; }
+        .modal-content h3 { margin-top: 0; margin-bottom: 15px; color: #ffffff; font-size: 1.5em; }
+        .modal-content p { color: #b0b0b0; font-size: 0.95em; line-height: 1.8; text-align: left; }
+        .modal-contact-info { margin: 25px 0; text-align: left; }
+        .modal-contact-info .contact-item { background-color: #1e1e1e; padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #444; }
+        .modal-contact-info .contact-item strong { color: #00d4ff; display: block; margin-bottom: 5px; font-size: 1.1em; }
+        .modal-contact-info .contact-item code { color: #e0e0e0; font-size: 1em; word-break: break-all; }
+        .modal-contact-info .contact-item a.btn { margin-top: 15px; display: block; text-align: center; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5em; }
@@ -957,12 +963,30 @@
             <p>专为高性能业务而生的VPS与代理解决方案</p>
         </div>
     </footer>
-
-    <div id="qrModal" class="modal">
+    
+    <!-- ====================================================== -->
+    <!-- ============ 联系方式弹窗 - 已优化 ============ -->
+    <!-- ====================================================== -->
+    <div id="contactModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h3>扫码添加站长微信</h3>
-            <img src="lesson/wechat.jpg" alt="站长微信二维码">
+            <h3>联系站长定制</h3>
+            <p>
+                抱歉，由于站长微信当前因添加频繁受限，暂时无法通过扫码添加。为了能及时与您沟通，请选择以下最适合您的方式联系我：
+            </p>
+            <div class="modal-contact-info">
+                <div class="contact-item">
+                    <strong>1. 邮件联系 (推荐)</strong>
+                    <p>发送您的需求和您的联系方式 (微信/Telegram) 到我的邮箱，我会在第一时间主动添加您。</p>
+                    <code>terminos888@gmail.com</code>
+                </div>
+                 <div class="contact-item">
+                    <strong>2. 加入Telegram社群</strong>
+                    <p>点击下方按钮，直接加入我们的官方Telegram社群进行咨询和交流。</p>
+                    <a href="https://dajian.cyou/TG" target="_blank" class="btn">加入TG站长社群</a>
+                </div>
+            </div>
+             <p style="font-size: 0.9em; text-align: center; opacity: 0.8;">感谢您的理解与支持！</p>
         </div>
     </div>
 
@@ -971,8 +995,8 @@
             const tabs = document.querySelectorAll('.tab-button');
             const panels = document.querySelectorAll('.tab-panel');
             const contactButtons = document.querySelectorAll('.plan-cta-btn');
-            const modal = document.getElementById('qrModal');
-            const closeBtn = document.querySelector('.close-btn');
+            const modal = document.getElementById('contactModal'); // <--- ID 已修改
+            const closeBtn = modal.querySelector('.close-btn'); // <--- 从modal内部查找
 
             // Tab切换逻辑
             tabs.forEach(tab => {
