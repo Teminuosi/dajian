@@ -1,505 +1,416 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>完美网络课程 · 终端访问</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Fira+Code:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    /* --- 动画关键帧 --- */
-    @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-    @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
-    @keyframes card-fade-in { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    @keyframes text-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
-    @keyframes ultimate-flicker { 0%, 100% { opacity: 1; text-shadow: 0 0 10px #f0f; } 50% { opacity: 0.9; text-shadow: 0 0 15px #f0f; } }
-    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes modal-content-pop-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-
-    /* --- 基本设置 --- */
-    :root {
-        --main-glow: #0f0;
-        --secondary-glow: #ff9900;
-        --ultimate-glow: #f0f; /* Magenta for the ultimate offer */
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Fira Code', monospace; background-color: #0d0d0d; color: #eee; margin: 0; padding: 40px 20px; overflow-x: hidden; min-height: 100vh; }
-
-    /* --- 背景效果 --- */
-    .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
-    .matrix-column { position: absolute; top: 0; height: 100%; font-size: 16px; writing-mode: vertical-rl; text-orientation: upright; white-space: nowrap; user-select: none; opacity: 0.3; text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); animation: matrix-fall linear infinite; }
-    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px); animation: scanline 0.5s linear infinite; pointer-events: none; z-index: 1; }
-
-    /* --- 布局 & 卡片 --- */
-    .container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-        max-width: 1800px;
-        margin: auto;
-        gap: 30px;
-        position: relative;
-        z-index: 2;
-        align-items: stretch;
-    }
-    .column {
-        background: rgba(10, 25, 10, 0.6);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(0, 255, 0, 0.3);
-        border-radius: 8px;
-        box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1);
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        transition: all 0.4s ease;
-        opacity: 0;
-        animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-    }
-    .column:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.2);
-        border-color: rgba(0, 255, 0, 0.6);
-    }
-    .container .column:nth-child(1) { animation-delay: 0s; }
-    .container .column:nth-child(2) { animation-delay: 0.1s; }
-    .container .column:nth-child(3) { animation-delay: 0.2s; }
-    .container .column:nth-child(4) { animation-delay: 0.3s; }
-    .container .column:nth-child(5) { animation-delay: 0.4s; }
-
-    /* --- 文本样式 --- */
-    h1, h2, h3 { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px var(--main-glow); animation: text-flicker 3s infinite; }
-    h1 { font-size: 24px; color: #5f5; margin-bottom: 10px; }
-    h2 { font-size: 20px; color: var(--secondary-glow); text-shadow: 0 0 8px var(--secondary-glow); margin-bottom: 20px; }
-    h3 { font-size: 18px; color: #3f3; margin-top: 25px; padding-bottom: 10px; border-bottom: 1px dashed rgba(0, 255, 0, 0.3); }
-    ul { padding-left: 0; list-style-type: none; margin: 10px 0; }
-    ul li { line-height: 1.8; padding-left: 25px; position: relative; }
-    ul li::before { content: '>'; position: absolute; left: 0; color: var(--main-glow); animation: text-flicker 2s infinite alternate; }
-    
-    .advanced-course-list { counter-reset: lesson-counter; max-height: 280px; overflow-y: auto; padding-right: 15px; }
-    .advanced-course-list::-webkit-scrollbar { width: 4px; }
-    .advanced-course-list::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.1); }
-    .advanced-course-list::-webkit-scrollbar-thumb { background: var(--main-glow); }
-    .advanced-course-list li { padding-left: 45px; font-size: 14px; }
-    .advanced-course-list li::before { counter-increment: lesson-counter; content: '[' counter(lesson-counter, decimal-leading-zero) ']'; font-weight: 600; color: var(--secondary-glow); }
-    
-    .advanced-course-list li.hot-lesson { color: var(--secondary-glow); font-weight: 700; text-shadow: 0 0 5px var(--secondary-glow); }
-    .advanced-course-list li.hot-lesson::after { content: '🔥 HOT'; font-family: 'Noto Sans SC', sans-serif; font-size: 12px; margin-left: 10px; color: var(--secondary-glow); animation: text-flicker 1.5s infinite; }
-
-    .pitch-card-ultimate { border-color: var(--ultimate-glow); box-shadow: 0 0 30px var(--ultimate-glow), inset 0 0 15px rgba(255, 0, 255, 0.2); }
-    .pitch-card-ultimate:hover { border-color: #ff80ff; box-shadow: 0 0 50px var(--ultimate-glow), inset 0 0 20px rgba(255, 0, 255, 0.3); }
-    .pitch-card-ultimate h1 { color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); animation: ultimate-flicker 2s infinite; font-size: 26px; }
-    .pitch-card-ultimate p, .column p { font-size: 15px; line-height: 1.8; margin-bottom: 15px; text-align: left; }
-    .pitch-card-ultimate p strong, .column p strong { color: var(--secondary-glow); font-weight: 600; }
-    .highlight-box { background: rgba(255, 0, 255, 0.05); border-left: 3px solid var(--ultimate-glow); padding: 15px; margin: 20px 0; border-radius: 4px; }
-    .highlight-box h3 { margin-top: 0; border: none; font-size: 16px; color: #f5f; }
-    .highlight-box ul li::before { content: '✅'; color: var(--ultimate-glow); }
-    .knowledge-list li { font-size: 14px; line-height: 1.7; }
-    .knowledge-list li strong { color: var(--main-glow); }
-    .pitch-card-ultimate .payment-button, .pitch-card-ultimate .contact-trigger { background: #2a0a2a; border-color: var(--ultimate-glow); color: var(--ultimate-glow); text-shadow: 0 0 8px var(--ultimate-glow); }
-    .pitch-card-ultimate .payment-button:hover, .pitch-card-ultimate .contact-trigger:hover { background: var(--ultimate-glow); color: #000; box-shadow: 0 0 15px var(--ultimate-glow); }
-    .column .payment-button, .column .contact-trigger {
-        background: #0a2a0a; border: 1px solid var(--main-glow); color: var(--main-glow); padding: 12px 24px; font-family: 'Orbitron', sans-serif; font-size: 16px; border-radius: 4px; cursor: pointer; text-shadow: 0 0 8px var(--main-glow); transition: all 0.3s ease; width: 100%;
-    }
-    .column .payment-button:hover, .column .contact-trigger:hover {
-        background: var(--main-glow); color: #000; box-shadow: 0 0 15px var(--main-glow); text-shadow: none;
-    }
-
-    .payment-section { text-align: center; margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(0, 255, 0, 0.3); }
-    .payment-note { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(255, 0, 0, 0.5); padding: 10px; border-radius: 4px; color: #ff5555; font-weight: 600; margin-bottom: 15px; }
-    .bonus-offer-pro { background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.5); padding: 15px 20px; border-radius: 4px; margin-bottom: 20px; text-align: left; }
-    .bonus-offer-pro .bonus-title { color: var(--secondary-glow); font-size: 16px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--secondary-glow); animation: text-flicker 3s infinite; margin-bottom: 10px; }
-    .bonus-offer-pro p { font-size: 14px; color: #eee; line-height: 1.5; margin-bottom: 10px; }
-    .bonus-offer-pro p strong { color: var(--secondary-glow); font-weight: 600; }
-
-    .section-divider {
-        font-family: 'Orbitron', sans-serif; font-size: 2.5em; text-align: center; color: var(--main-glow); margin: 60px 0 20px 0; text-shadow: 0 0 10px var(--main-glow); animation: text-flicker 4s infinite; position: relative; z-index: 2;
-    }
-    .section-divider-subtitle {
-        font-family: 'Noto Sans SC', sans-serif; font-size: 1.1em; text-align: center; color: #ccc; margin: 0 auto 60px auto; max-width: 800px; position: relative; z-index: 2; line-height: 1.6;
-    }
-    
-    .about-me-section {
-        text-align: center; max-width: 800px; margin: -20px auto 60px auto; padding: 20px; background: rgba(10, 25, 10, 0.4); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 8px; z-index: 2; position: relative; opacity: 0; animation: card-fade-in 1s forwards; animation-delay: 0.2s;
-    }
-    .about-me-section p { font-family: 'Noto Sans SC', sans-serif; font-size: 17px; line-height: 1.9; color: #ccc; }
-    .highlight-text { color: var(--secondary-glow); font-weight: bold; text-shadow: 0 0 6px var(--secondary-glow); }
-    .pain-point-text { color: #ff8a8a; font-style: italic; }
-    .benefit-highlight { color: #5f5; text-shadow: 0 0 5px var(--main-glow); }
-    .who-is-this-for-box { background: rgba(0, 255, 0, 0.05); border-left: 3px solid var(--main-glow); padding: 15px 20px; margin: 25px 0; border-radius: 4px; }
-    .who-is-this-for-box h3 { margin-top: 0; border: none; font-size: 18px; color: #5f5; padding-bottom: 5px; }
-    .who-is-this-for-box ul li::before { content: '>>'; color: var(--main-glow); }
-    
-    /* --- 弹窗 (Modal) --- */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 0, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
-    .modal-overlay.active { display: block; }
-    .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; min-width: 320px; max-width: 90vw; background: #f4f4f4; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); border: 2px solid var(--main-glow); animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0; }
-    .modal-close-btn { position: absolute; top: 10px; right: 15px; font-size: 30px; color: #888; cursor: pointer; transition: transform 0.2s, color 0.2s; }
-    .modal-close-btn:hover { transform: scale(1.2); color: #000; }
-    .modal-title { font-family: 'Helvetica', sans-serif; font-size: 24px; font-weight: bold; color: #333; margin-bottom: 8px; animation: none; text-shadow: none; }
-    .modal-price { font-family: 'Helvetica', sans-serif; font-size: 22px; color: #e67e22; margin-bottom: 20px; animation: none; text-shadow: none; font-weight: bold; }
-    .qr-wrapper { display: inline-block; background: #ffffff; padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    .qr-wrapper img { width: 250px; height: 250px; display: block; }
-    .modal-reminder { font-family: 'Helvetica', sans-serif; font-size: 16px; color: #555; margin-top: 20px; animation: none; text-shadow: none; font-weight: 500;}
-    .modal-reminder span { color: #c0392b; font-weight: bold;}
-    .modal-reminder strong { color: #333; }
-    
-    /* --- ✅ 新增：联系弹窗专属样式 --- */
-    #contactModal .modal-content {
-        background: #0d0d0d;
-        border-color: var(--main-glow);
-        max-width: 600px; /* 适当加宽以容纳新内容 */
-    }
-    #contactModal .modal-title {
-        font-family: 'Orbitron', sans-serif;
-        color: var(--main-glow);
-        text-shadow: 0 0 8px var(--main-glow);
-    }
-    #contactModal .modal-close-btn { color: #5f5; }
-    #contactModal .modal-close-btn:hover { color: #fff; }
-    #contactModal .modal-reminder {
-        font-family: 'Noto Sans SC', sans-serif;
-        color: #ccc;
-        text-align: left;
-        line-height: 1.7;
-        margin-bottom: 25px;
-    }
-    .contact-option-box {
-        background: rgba(0, 255, 0, 0.05);
-        border: 1px solid rgba(0, 255, 0, 0.2);
-        border-radius: 6px;
-        padding: 20px;
-        margin-bottom: 20px;
-        text-align: left;
-    }
-    .contact-option-box h4 {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 18px;
-        color: #5f5;
-        margin-bottom: 10px;
-        animation: none;
-        text-shadow: 0 0 5px var(--main-glow);
-    }
-    .contact-option-box p {
-        font-family: 'Noto Sans SC', sans-serif;
-        font-size: 15px;
-        color: #ccc;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-    .contact-info {
-        background: #000;
-        padding: 10px 15px;
-        border-radius: 4px;
-        border: 1px dashed rgba(0, 255, 0, 0.4);
-        font-family: 'Fira Code', monospace;
-        color: var(--secondary-glow);
-        word-break: break-all;
-    }
-    .contact-info a { color: var(--secondary-glow); text-decoration: none; }
-    .tg-contact-btn {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        text-align: center;
-        text-decoration: none;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 16px;
-        font-weight: bold;
-        color: #000;
-        background: var(--main-glow);
-        border-radius: 4px;
-        text-shadow: none;
-        box-shadow: 0 0 15px var(--main-glow);
-        transition: all 0.3s ease;
-    }
-    .tg-contact-btn:hover {
-        background: #fff;
-        color: #000;
-        box-shadow: 0 0 25px #fff;
-    }
-
-    /* --- 页脚 --- */
-    .footer-contact { margin-top: 50px; text-align: center; font-size: 14px; color: #0c0; position: relative; z-index: 2; }
-    .footer-contact p { margin-bottom: 8px; }
-    .footer-contact strong { color: #5f5; }
-    .footer-contact a { color: #5f5; text-decoration: none; transition: all 0.3s; }
-    .footer-contact a:hover { color: var(--main-glow); text-shadow: 0 0 5px var(--main-glow); }
-  </style>
-</head>
-<body>
-
-  <div class="matrix-bg" id="matrix-bg"></div>
-  
-  <h1 class="section-divider">[// 解锁网络潜能 · 掌控数字世界 //]</h1>
-  <p class="section-divider-subtitle">从网络新手到技术专家，我们提供从入门到精通的每一种可能。</p>
-
-  <div class="about-me-section">
-      <p>
-          你好，我是站长 三月。多年来，我沉浸在网络技术的探索中，踩过无数的“坑”，也因此积累了丰富的实战经验。我创办这个课程的初衷很简单：
-          <strong class="highlight-text">帮助像我一样热爱技术、渴望拥有纯粹网络环境的朋友，用最低的成本、最少的时间，绕开所有弯路，直达目标。</strong>
-          在这里，你购买的不仅是课程，更是经过验证的成功路径和一对一的专业领航。
-      </p>
-  </div>
-  
-  <div class="container">
-
-    <!-- ✅ 新手入门1对1私教课 (优化版) -->
-    <div class="column pitch-card-ultimate">
-      <h1>[新手入门] 网络自由行1对1私教课</h1>
-      <h2>零基础保姆级教学 // 299元</h2>
-      <h3>[告别弯路 · 直达罗马]</h3>
-      <p>
-        你是否因为复杂的概念而感到困惑？是否 <span class="pain-point-text">尝试过无数免费教程，却依然在原地打转？</span> 是否在海量信息中迷失方向，最终只收获一堆无法使用的节点？本课程专为新手设计，<strong class="highlight-text">站长将通过1小时的语音+向日葵远程，1对1亲自带你</strong>，把所有理论变成你的实践，把所有困惑换成“原来如此”的恍然大悟。
-      </p>
-      <h3>[你将掌握的核心技能]</h3>
-      <ul class="knowledge-list">
-        <li><strong>【全平台通用】</strong>无论手机还是电脑，教你如何轻松配置和使用节点。</li>
-        <li><strong>【Socks5精通】</strong>深入理解并实操Socks5代理，解锁更多应用场景。</li>
-        <li><strong>【浏览器配置】</strong>掌握指纹浏览器的正确配置方法，确保环境的纯净与隔离。</li>
-        <li><strong>【直播/游戏加速】</strong>从零开始搭建自己的专属加速节点，无论是看海外高清直播，还是和朋友联机游戏，<span class="benefit-highlight">从此告别“加载中...”和卡顿。</span></li>
-        <li><strong>【网络环境洁癖】</strong>为你解答关于IP纯净度的所有疑问，让你在进行TikTok、电商等业务时，<span class="benefit-highlight">从源头避开99%的“坑”。</span></li>
-      </ul>
-
-      <div class="who-is-this-for-box" style="border-left-color: var(--ultimate-glow); background: rgba(255, 0, 255, 0.05);">
-        <h3 style="color: #f5f;">[这门课特别适合谁？]</h3>
-        <ul>
-          <li>> 电脑网络零基础，想快速入门的 <strong class="highlight-text">小白</strong>。</li>
-          <li>> 时间宝贵，不想在信息的海洋里“瞎折腾”的 <strong class="highlight-text">效率至上者</strong>。</li>
-          <li>> 尝试过多种方案但仍不理想，需要专家诊断的 <strong class="highlight-text">“问题少年”</strong>。</li>
-          <li>> 计划运营TikTok等海外业务，需要稳定网络的 <strong class="highlight-text">创业者</strong>。</li>
-        </ul>
-      </div>
-
-      <div class="payment-section">
-          <div class="payment-note">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
-          <button class="payment-button" data-price="299元">立即预约1对1指导 (¥299)</button>
-      </div>
-    </div>
-
-    <!-- ✅ 技术课程 (软路由列表恢复为完整版) -->
-    <div class="column">
-      <h1>[技术课程] 从VPS到软路由全攻略</h1>
-      <h2>高阶玩家系统课 // 99元起</h2>
-      <h3>[模块一：VPS入门篇 (¥99)]</h3>
-      <ul>
-        <li>【揭秘网络本质】<strong>数据包的朝圣之旅</strong>：亲眼见证一次完整的网络请求，让你从本质上理解网络。</li>
-        <li>【看清限制本质】<strong>迷雾中的狙击手</strong>：为什么你的请求会<span class="pain-point-text">“石沉大海”</span>？我们带你追踪消失的数据包，揭露无形之手。<strong><span class="benefit-highlight">只有看清它，你才能战胜它！</span></strong></li>
-        <li>【必学】解锁流媒体 + TikTok账号运营环境</li>
-        <li>【入门】SS / socket5 + 中转搭建</li>
-        <li>【进阶】指纹浏览器实战</li>
-        <li>【提升】Vmess/Vless + ws + reality多协议</li>
-        <li>【终极】Sing-Box 核心部署：构建高稳定性的终极网络核心。</li>
-      </ul>
-      <p style="font-size: 14px; margin-top: 10px;"><strong class="highlight-text">99元，你买到的不只是一堆命令，而是对现代网络运作原理的深刻理解，和亲手构建高可用网络环境的强大能力。</strong></p>
-      
-      <h3>[模块二：软路由进阶篇 (仅限¥499全套)]</h3>
-      <p>当你掌握了VPS，就如同拥有了海上的船。而软路由，则是为你打造一个 <strong class="highlight-text">全自动、智能化的母港</strong>。在模块二中，你将深入学习以下超过30个核心实战案例，成为真正的网络架构师：</p>
-      <ul class="advanced-course-list">
-        <li class="hot-lesson">【热门核心】专线搭建 (IEPL/IPLC/游戏加速)</li>
-        <li>【核心基础】软路由刷机：R2S、X86、万能刷机方法汇总</li>
-        <li>【核心基础】固件与系统：路由器降级与刷入OpenWrt系统实战</li>
-        <li>【核心基础】高级网络配置：一台路由配置多个Wi-Fi网络</li>
-        <li>【核心基础】高级网络配置：一个路由器分配多个IP地址</li>
-        <li>软路由+网络优化+完美出海+防DNS污染+双线+DDNS+HTTPS访问NAS+NGINX反代</li>
-        <li>SSR出海加速+双ADGuard防DNS污染，OpenClash、PassWall、SmartDNS整合</li>
-        <li>公网IP+DDNS+SSL+HTTPS反代配置</li>
-        <li>电信+移动双线双拨+多线冗余配置</li>
-        <li>mosDNS+双ADGuard彻底防DNS泄露</li>
-        <li>手机全球加速+NAS访问：ZeroTier/TailScale/WireGuard</li>
-        <li>晚高峰8K流畅播放：Hysteria2+IEPL+IPLC+Xray+HAProxy</li>
-        <li>远程访问NAS/桌面，小火箭+NekoBox分流全搞定</li>
-        <li>OpenClash终极优化+FakeIP+负载均衡配置模版</li>
-        <li>openClash主路由+Sun-Pannel订阅转换+Docker部署</li>
-        <li>OpenClash旁路由极速配置模版</li>
-        <li>爱快+OpenWRT+OpenClash配置详解</li>
-        <li>OpenClash+PassWall出海加速+远程桌面RDP</li>
-        <li>IPv6主路由+公网IP+远程桌面+全球加速</li>
-        <li>IPv6旁路由+公网访问NAS+手机出海</li>
-        <li>爱快+OpenClash+IPv6配置+公网远程</li>
-        <li>硬路由+旁路由+IPv6+远程访问</li>
-        <li>OpenClash订阅转换100%成功+Play商店修复</li>
-        <li>IPv6下Lucky配置+DDNS+HTTPS访问NAS</li>
-        <li>全屋WIFI6 Mesh+精准测速+无缝漫游</li>
-        <li>OpenClash+双ADGuard完美组合优化DNS</li>
-        <li>优化双AdGuard/Docker固定IP维护</li>
-        <li>旁路由+双AdGuard喂饭教程</li>
-        <li>实战DNS污染/泄露分析与解决</li>
-        <li>服务节点全红不断网+订阅聚合玩法</li>
-      </ul>
-
-      <div class="payment-section">
-        <div class="bonus-offer-pro">
-          <div class="bonus-title">🔥 [套餐A] 终极DIY全套 (¥499)</div>
-          <p>包含<strong>模块一</strong>和<strong>模块二</strong>的全部内容，从入门到精通，一步到位。购课即享永久更新权限。</p>
-          <button class="payment-button" data-price="499元">购买全套课程 (¥499)</button>
-        </div>
-        <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5); margin-top: 20px;">
-           <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">💡 [套餐B] 仅VPS入门篇 (¥99)</div>
-           <p>仅需学习<strong>模块一</strong>？此选项适合只想搞定基础VPS，不想折腾软路由的同学。</p>
-           <button class="payment-button" data-price="99元" style="background:#0a2a0a; border-color: var(--main-glow); color: var(--main-glow);">仅购买VPS入门篇 (¥99)</button>
-        </div>
-        <div class="payment-note" style="margin-top: 20px;">付款时请备注 <span style="color: #ffcccc;">邮箱</span>，资料将发送至 <span style="color: #ffcccc;">邮箱</span></div>
-      </div>
-    </div>
-
-    <!-- 成品路由 (优化版) -->
-    <div class="column pitch-card">
-      <h1>[即插即用] 高性能成品路由</h1>
-      <h2>专业定制 // 899元起</h2>
-      <h3>[告别折腾 · 一步到位]</h3>
-      <p>
-        厌倦了复杂的刷机和繁琐的配置？<span class="pain-point-text">担心自己DIY不稳定，浪费时间和金钱？</span> 我们的成品软路由，是为你 <strong class="highlight-text">节省数百小时研究时间的终极答案</strong>。由站长亲自采购、刷写、并经过7天7夜压力测试后才交付到你手中。<span class="benefit-highlight">你只需插上电源和网线，其他的一切，我们都已为你搞定。</span>
-      </p>
-      <h3>[核心功能与价值]</h3>
-      <ul>
-        <li><strong>【一机多IP，业务隔离】</strong>专为TikTok/跨境电商矩阵运营而生。每条业务线使用独立IP出口，互不影响，<span class="benefit-highlight">从根源上杜绝因关联而导致的封号风险。</span></li>
-        <li><strong>【多WIFI网络，场景分离】</strong>轻松创建多个Wi-Fi。一个给孩子上网课，一个给你的核心设备，一个给来访客人。彼此物理隔离，安全又便捷。</li>
-        <li><strong>【兼容自备节点】</strong>同样支持配置您自己购买的节点服务，提供最大限度的灵活性。</li>
-        <li><strong>【7x24小时稳定】</strong>经过严格的压力测试，确保长时间不间断运行，告别断流，稳定如山。</li>
-      </ul>
-      <div class="who-is-this-for-box">
-          <h3>[谁在用我们的路由？]</h3>
-          <ul>
-            <li>> 拥有超过10个TikTok账号的 <strong class="highlight-text">内容工作室</strong>。</li>
-            <li>> 对网络稳定性要求极高的 <strong class="highlight-text">跨境电商团队</strong>。</li>
-            <li>> 希望家庭网络一劳永逸的 <strong class="highlight-text">极客奶爸</strong>。</li>
-            <li>> 需要频繁远程办公和访问NAS的 <strong class="highlight-text">设计师/开发者</strong>。</li>
-          </ul>
-      </div>
-      <div class="payment-section">
-         <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5);">
-              <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">🛒 套餐与价格</div>
-              <p style="margin-bottom: 8px; font-size: 14px;"><strong>基础版 (899元):</strong> 适合个人及小型团队。</p>
-              <p style="font-size: 14px;"><strong>性能版 (1299元):</strong> 推荐TikTok矩阵及工作室使用。</p>
-         </div>
-         <p style="color:#0c0; margin-bottom: 15px;">购机含全年技术支持</p>
-         <button class="payment-button contact-trigger" style="background: #0f0; color: #000; text-shadow: none;">联系我们定制</button>
-      </div>
-    </div>
-    
-    <!-- 网站搭建 (优化版) -->
-    <div class="column">
-        <h1>[品牌门面] 定制你的赛博朋克数字名片</h1>
-        <h2>炫酷网站开发 // 399元起</h2>
-        <h3>[服务亮点]</h3>
-        <p style="font-size: 14px; line-height: 1.7; margin-bottom: 15px;">
-            在这个信息过载的时代，一个平庸的网站无法被人记住。是否想拥有一个<strong class="highlight-text">与本站风格类似，能让人过目不忘的炫酷主页</strong>，作为你的个人品牌、工作室或项目的“第一印象”？我们帮你把“想法”变成现实。
-        </p>
-        <h3>[技术栈核心]</h3>
-        <ul>
-            <li><strong>前端开发：</strong>实现动态矩阵背景、赛博朋克UI、以及流畅的交互动画。</li>
-            <li><strong>个人链接聚合页：</strong><span class="benefit-highlight">专为TikTok玩家设计</span>，打造一个集合您所有社交媒体、独立站链接的“数字名片”，提升引流效率。</li>
-            <li><strong>UI/UX设计：</strong>为您量身打造符合您品牌调性的视觉风格与用户体验。</li>
-            <li><strong>全端响应式：</strong>完美适配电脑、平板和手机等所有设备。</li>
-            <li><strong>后台集成：</strong>可根据需求，为您集成博客发布、作品展示等后台管理功能。</li>
-        </ul>
-        <p style="margin-top: 20px; font-size: 14px;"><strong class="benefit-highlight">我们交付的不仅是代码，更是一个能为你带来自豪感和业务咨询的数字艺术品。</strong></p>
-         <div class="payment-section">
-             <div class="bonus-offer-pro" style="border-color: rgba(0, 255, 0, 0.5);">
-                  <div class="bonus-title" style="color:#5f5; text-shadow: 0 0 8px #5f5;">📦 费用说明</div>
-                  <p style="margin-bottom: 8px; font-size: 14px;"><strong>开发费用: 399元起</strong> (根据最终需求复杂度报价)</p>
-                  <p style-="font-size: 14px;"><strong>服务器托管: 50元/月</strong> (包含域名及日常维护)</p>
-             </div>
-             <p style="color:#0c0; margin-bottom: 15px;">打造您的专属赛博空间</p>
-             <button class="payment-button contact-trigger" style="background: #0f0; color: #000; text-shadow: none;">立即咨询定制</button>
-        </div>
-    </div>
-  </div>
-
-  <div class="footer-contact">
-    <p>📬 [联系方式]</p>
-    <p>邮箱: <strong><a href="mailto:terminos888@gmail.com">terminos888@gmail.com</a></strong></p>
-    <p>Telegram: <strong><a href="https://t.me/sanyuedaohang" target="_blank">@sanyuedaohang</a></strong></p>
-  </div>
-  
-  <!-- 付款弹窗 -->
-  <div class="modal-overlay" id="paymentModal">
-    <div class="modal-content">
-      <span class="modal-close-btn" id="paymentModalCloseBtn">×</span>
-      <h3 class="modal-title">支付宝扫码支付</h3>
-      <p class="modal-price" id="modalPrice">--</p>
-      <div class="qr-wrapper">
-        <img alt="支付宝支付二维码" src="qrcode.jpg"/>
-      </div>
-      <p class="modal-reminder">请务必备注您的<span>邮箱地址</span></p>
-      <!-- <p class="modal-reminder">站长V ： Teminos</span></p> -->
-    </div>
-  </div>
-
-  <!-- ✅ 重构后的联系我们弹窗 -->
-  <div class="modal-overlay" id="contactModal">
-    <div class="modal-content">
-      <span class="modal-close-btn" id="contactModalCloseBtn">×</span>
-      <h3 class="modal-title">联系站长定制</h3>
-      <p class="modal-reminder">
-        抱歉，由于微信添加频繁受限，为了能更高效地与您沟通，请选择以下最适合您的方式联系我：
-      </p>
-
-      <div class="contact-option-box">
-          <h4>1. // 邮件联系</h4>
-          <p>请将您的具体需求、预算以及您的联系方式 (如Wechat/Phone Num) 发送至我的邮箱，我会在第一时间回复您。</p>
-          <div class="contact-info">
-              <a href="mailto:terminos888@gmail.com">terminos888@gmail.com</a>
-          </div>
-      </div>
-
-      <div class="contact-option-box">
-          <h4>2. // 加入Telegram社群 (推荐)</h4>
-          <p>点击下方按钮，加入我们的官方社群，可以直接在群内 @站长 或私信进行详细沟通，响应更及时。</p>
-          <a href="https://t.me/sanyuedaohang" target="_blank" rel="noopener noreferrer" class="tg-contact-btn">
-              <i class="fab fa-telegram-plane"></i> 点击加入TG社群
-          </a>
-      </div>
-    </div>
-  </div>
-  
-  <script>
-    // Matrix Background Effect
-    const matrixContainer = document.getElementById('matrix-bg');
-    if (matrixContainer) {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモョロヲゴゾドボポヴッン';
-        const columns = Math.floor(window.innerWidth / 16);
-        for (let i = 0; i < columns; i++) {
-            const col = document.createElement('div');
-            col.className = 'matrix-column';
-            let text = '';
-            for (let j = 0; j < 50; j++) { text += chars.charAt(Math.floor(Math.random() * chars.length)); }
-            col.innerText = text;
-            col.style.left = `${i * 16}px`;
-            col.style.animationDuration = `${Math.random() * 8 + 4}s`;
-            col.style.animationDelay = `${Math.random() * 5}s`;
-            matrixContainer.appendChild(col);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小白专属节点搭建 | 从入门到精通，站长1对1带你上手</title>
+    <meta name="description" content="站长1对1视频教学，15分钟带你搭建专属节点，20分钟配置全屋智能路由。选择你的专属方案，学不会，不收一分钱！">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { 
+            scroll-behavior: smooth; 
         }
-    }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            color: #b0b0b0;
+            max-width: 42rem;
+            margin: 0 auto 3rem auto;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            color: #ffffff;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            border: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.5);
+        }
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 0.75rem;
+            border: 1px solid #2a2a2a;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .recommended-badge {
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: linear-gradient(90deg, #007bff, #00d4ff);
+            color: white;
+            padding: 6px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            border-top-right-radius: 0.75rem;
+            border-bottom-left-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
+        }
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary .arrow-down { transform: rotate(180deg); }
 
-    // --- 弹窗控制逻辑 ---
-    const paymentButtons = document.querySelectorAll('.payment-button[data-price]');
-    const paymentModal = document.getElementById('paymentModal');
-    const paymentModalCloseBtn = document.getElementById('paymentModalCloseBtn');
-    const modalPriceEl = document.getElementById('modalPrice');
-    paymentButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const price = button.getAttribute('data-price');
-            if(modalPriceEl) modalPriceEl.textContent = `金额: ${price}`;
-            if(paymentModal) paymentModal.classList.add('active');
-        });
-    });
-    const closePaymentModal = () => { if(paymentModal) paymentModal.classList.remove('active'); };
-    if(paymentModalCloseBtn) paymentModalCloseBtn.addEventListener('click', closePaymentModal);
-    if(paymentModal) paymentModal.addEventListener('click', (event) => { if (event.target === paymentModal) closePaymentModal(); });
+        /* --- Modal Styles --- */
+        .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s ease; }
+        .modal.active { display: flex; justify-content: center; align-items: center; opacity: 1; }
+        .modal-content { background-color: #2a2a2a; padding: 35px; border: 1px solid #444; width: 90%; max-width: 450px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s ease; }
+        .modal.active .modal-content { transform: scale(1); }
+        .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; transition: color 0.3s; cursor: pointer; }
+        .close-btn:hover { color: #fff; }
+        .modal-content h3 { margin-top: 0; margin-bottom: 15px; color: #ffffff; font-size: 1.5em; }
+        .modal-content p { color: #b0b0b0; font-size: 0.95em; line-height: 1.8; text-align: left; }
+        .modal-contact-info { margin: 25px 0; text-align: left; }
+        .modal-contact-info .contact-item { background-color: #1e1e1e; padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #444; }
+        .modal-contact-info .contact-item strong { color: #00d4ff; display: block; margin-bottom: 5px; font-size: 1.1em; }
+        .modal-contact-info .contact-item code { color: #e0e0e0; font-size: 1em; word-break: break-all; background-color: #121212; padding: 4px 8px; border-radius: 4px; display: block; }
+        .modal-contact-info .contact-item a.btn-primary { margin-top: 15px; display: block; text-align: center; }
 
-    const contactButtons = document.querySelectorAll('.contact-trigger');
-    const contactModal = document.getElementById('contactModal');
-    const contactModalCloseBtn = document.getElementById('contactModalCloseBtn');
+    </style>
+</head>
+<body class="text-gray-300 font-sans">
+
+    <!-- 1. 首屏 -->
+    <header class="bg-gray-900/50">
+        <div class="container mx-auto px-6 py-24 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+                别再花冤枉钱了！<br class="hidden md:block">站长1V1带你，<span class="gradient-text">15分钟彻底搞定</span>网络！
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                我们不卖节点，只教你如何成为自己网络的主人。一次学习，终身受益。<br>
+                <strong class="text-yellow-400">学不会？我们无条件退款！</strong>
+            </p>
+            <div class="mt-10">
+                <a href="#pricing" class="btn-primary text-lg">
+                    立即选择上手方案
+                </a>
+            </div>
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-gray-200">
+                <div class="flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    <span class="mt-2 font-semibold">15分钟极速上手</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    <span class="mt-2 font-semibold">站长1对1亲授</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01" /></svg>
+                    <span class="mt-2 font-semibold">告别月费依赖</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span class="mt-2 font-semibold">学不会全额退款</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. 痛点板块 -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-white">你是否正面临这些<span class="text-yellow-400">网络困境</span>？</h2>
+                <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                    <div class="card flex items-center p-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400 mr-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span class="text-gray-300">网上教程天花乱坠，浪费时间还学不会？</span>
+                    </div>
+                    <div class="card flex items-center p-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400 mr-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span class="text-gray-300">购买的服务又贵又不稳，关键时刻掉链子？</span>
+                    </div>
+                    <div class="card flex items-center p-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400 mr-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span class="text-gray-300">担心账号安全，害怕IP关联导致心血白费？</span>
+                    </div>
+                    <div class="card flex items-center p-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-400 mr-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span class="text-gray-300">家里设备多网络就卡，想让不同应用走不同网络？</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 教学理念板块 -->
+        <section class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-white">我们的核心：不是卖课，而是<span class="gradient-text">带你上路</span></h2>
+                <p class="section-subtitle">录播课是你的知识宝库，但我们的服务核心是——<strong class="text-white">站长1对1带你快速解决问题，立刻就能用！</strong></p>
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-6xl mx-auto">
+                    <div class="card p-8">
+                        <div class="flex items-center text-cyan-400 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                            <h3 class="text-2xl font-bold text-white ml-3">1对1快速上手 (核心服务)</h3>
+                        </div>
+                        <p class="text-gray-400">我们知道你的时间宝贵。所以，站长会通过远程视频，<strong class="text-white">像朋友一样</strong>，手把手带你完成所有关键操作，确保你当场学会，当场能用。</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center"><span class="text-cyan-400 font-bold mr-2">✓</span> <strong class="text-white">15分钟</strong>，亲手搭好你的专属节点！</li>
+                            <li class="flex items-center"><span class="text-cyan-400 font-bold mr-2">✓</span> <strong class="text-white">20分钟</strong>，搞定全屋智能网络改造！</li>
+                        </ul>
+                        <p class="mt-4 text-yellow-400 font-semibold">我们的目标只有一个：让你在最短时间内，彻底掌握这项技能。</p>
+                    </div>
+                     <div class="card p-8">
+                        <div class="flex items-center text-cyan-400 mb-4">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            <h3 class="text-2xl font-bold text-white ml-3">附赠录播课程 (知识宝库)</h3>
+                        </div>
+                        <p class="text-gray-400">当你上手后，如果想知道“为什么”，想探索更多玩法，这个包含<strong class="text-white">30节精讲的录播课程库</strong>就是为你准备的“武功秘籍”。</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center"><span class="text-cyan-400 font-bold mr-2">✓</span> 随时回顾：忘记步骤？随时打开视频复习。</li>
+                            <li class="flex items-center"><span class="text-cyan-400 font-bold mr-2">✓</span> 深入探索：理解原理，成为真正的专家。</li>
+                            <li class="flex items-center"><span class="text-cyan-400 font-bold mr-2">✓</span> 终身学习：课程内容持续更新，永久有效。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 对比板块 -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-white">你的钱花对了吗？<br>从<span class="text-red-400">“韭菜”</span>到<span class="text-green-400">“站长”</span>的本质区别</h2>
+                <p class="section-subtitle">停止无效投入，看清问题的根源。</p>
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+                    <!-- 左侧：购买成品服务 -->
+                    <div class="card p-8 text-center flex flex-col border-red-500/50">
+                        <h3 class="text-2xl font-bold text-red-400">购买成品服务</h3>
+                        <p class="text-gray-400 mt-2">当“韭菜”的日常</p>
+                        <div class="my-6 flex-grow flex items-center justify-center">
+                             <span class="text-4xl font-bold text-white">付出隐形成本</span>
+                        </div>
+                        <ul class="space-y-3 text-left text-gray-400 text-lg">
+                            <li class="flex"><span class="mr-3 text-red-400 font-bold text-2xl">×</span> IP多人共享，易被墙、易关联</li>
+                            <li class="flex"><span class="mr-3 text-red-400 font-bold text-2xl">×</span> 线路质量未知，高峰期卡顿</li>
+                            <li class="flex"><span class="mr-3 text-red-400 font-bold text-2xl">×</span> 数据安全无保障，隐私存疑</li>
+                            <li class="flex"><span class="mr-3 text-red-400 font-bold text-2xl">×</span> 随时可能跑路，售后无门</li>
+                        </ul>
+                    </div>
+                    <!-- 右侧：自己搭建 -->
+                    <div class="card p-8 text-center flex flex-col border-2 border-green-500/70 transform md:scale-105">
+                        <h3 class="text-2xl font-bold text-green-400">学会自己搭建</h3>
+                        <p class="text-gray-400 mt-2">当“站长”的快乐</p>
+                        <div class="my-6 flex-grow flex items-center justify-center">
+                            <span class="text-5xl font-bold text-white">约 4</span>
+                            <span class="text-xl text-gray-400 self-end mb-1 ml-2">美元/月</span>
+                        </div>
+                        <ul class="space-y-3 text-left text-gray-300 text-lg">
+                            <li class="flex"><span class="mr-3 text-green-400 font-bold text-2xl">✓</span> <strong class="text-white">独享纯净IP</strong>，安全稳定</li>
+                            <li class="flex"><span class="mr-3 text-green-400 font-bold text-2xl">✓</span> <strong class="text-white">掌控所有线路</strong>，网速起飞</li>
+                            <li class="flex"><span class="mr-3 text-green-400 font-bold text-2xl">✓</span> <strong class="text-white">数据自己做主</strong>，隐私无忧</li>
+                            <li class="flex"><span class="mr-3 text-green-400 font-bold text-2xl">✓</span> <strong class="text-white">技能终身受益</strong>，告别月费</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 成为站长板块 -->
+        <section class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-6 text-center max-w-3xl">
+                <h2 class="section-title text-white">不止于自用：你也能成为“站长”，<span class="gradient-text">开启副业之路</span></h2>
+                <p class="mt-6 text-lg md:text-xl text-gray-400 leading-relaxed">
+                    当你彻底掌握这门技术，你就不再仅仅是使用者。你可以轻松配置、打包自己的专属节点和线路，<strong class="text-white">出售给有需要的人</strong>，将一次性的学习投入，变成持续的收入来源。
+                    <br><br>
+                    <span class="text-xl md:text-2xl font-bold text-yellow-300 bg-gray-800 px-4 py-2 rounded-lg border border-gray-700">从“消费者” ➔ 成为 “服务商”</span>
+                </p>
+            </div>
+        </section>
+
+
+        <!-- 6. 定价与套餐 -->
+        <section id="pricing" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-white">选择你的“极速上手”方案</h2>
+                <p class="section-subtitle">所有方案均享受“学不会退款”保障与终身受益更新，让你零风险尝试。</p>
+                <div class="flex flex-wrap justify-center items-stretch gap-8 max-w-6xl mx-auto">
+                    
+                    <!-- 基础套餐 -->
+                    <div class="w-full max-w-md card flex flex-col">
+                        <h3 class="text-2xl font-bold text-white text-center">基础套餐 · 小白入门</h3>
+                        <p class="mt-2 text-gray-400 text-center">站长1对1带你，15分钟快速上手</p>
+                        <div class="my-8 text-center">
+                            <span class="text-5xl font-bold text-white">¥299</span>
+                            <span class="text-xl text-gray-500 line-through ml-2">¥699</span>
+                        </div>
+                        <p class="font-semibold text-white mb-4">在1对1教学中，你将当场学会：</p>
+                        <ul class="space-y-3 text-lg mb-8 flex-grow text-gray-300">
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>从VPS选择、连接到脚本安装，15分钟完成自建流程。</span></li>
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>掌握Tiktok/游戏/直播等专属环境配置。</span></li>
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>搞定全平台客户端的配置与使用。</span></li>
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>附赠基础录播课，学完不怕忘，随时回顾。</span></li>
+                            <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>学会自建和打包节点，开启商人副业之路（月成本可低至约4美元）。</span></li>
+                        </ul>
+                         <div class="border-t border-gray-700 pt-4 mt-4">
+                            <p class="font-semibold text-gray-500 mb-4">不包含的服务：</p>
+                            <ul class="space-y-3 text-lg text-gray-500">
+                                <li class="flex items-start"><span class="mr-3">✕</span> <span>1对1软路由配置教学</span></li>
+                                <li class="flex items-start"><span class="mr-3">✕</span> <span>独家“神仙线路”寻找秘籍</span></li>
+                                <li class="flex items-start"><span class="mr-3">✕</span> <span>附赠30+节高级录播课</span></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="contact-trigger mt-8 w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                            选择基础版
+                        </a>
+                    </div>
+                    
+                    <!-- 进阶套餐 -->
+                    <div class="w-full max-w-md card flex flex-col border-2 border-cyan-500 relative overflow-hidden">
+                        <div class="recommended-badge">站长力荐</div>
+                        <h3 class="text-2xl font-bold text-cyan-400 text-center">进阶套餐 · 一步到位</h3>
+                        <p class="mt-2 text-gray-400 text-center">从节点到全屋智能路由，一劳永逸</p>
+                        <div class="my-8 text-center">
+                            <span class="text-5xl font-bold text-white">¥599</span>
+                            <span class="text-xl text-gray-500 line-through ml-2">¥1299</span>
+                        </div>
+                        <p class="font-semibold text-white mb-4">你将获得全部1对1指导与终身服务：</p>
+                        <ul class="space-y-3 text-lg mb-8 flex-grow text-gray-300">
+                           <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <strong>包含基础套餐全部内容</strong></li>
+                           <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <strong>增加: 1对1软路由配置教学（含硬件选购、刷机指导）。</strong></li>
+                           <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <strong>实现: 全屋设备智能分流（如多Wi-Fi多IP、防DNS泄露等）。</strong></li>
+                           <li class="flex items-start"><span class="text-yellow-400 mr-3 mt-1">✓</span> <strong class="text-yellow-300">传授: 独家“神仙线路”寻找与优化秘籍。</strong></li>
+                           <li class="flex items-start"><span class="text-cyan-400 mr-3 mt-1">✓</span> <strong class="text-cyan-400">附赠: 30+节高级录播课 (永久更新，终身受益)。</strong></li>
+                           <li class="pt-2">
+                               <details class="group">
+                                   <summary class="text-cyan-400 hover:text-cyan-300 transition-colors duration-200 text-base font-semibold flex items-center cursor-pointer">
+                                       <span class="arrow-down transition-transform duration-300 mr-1">▼</span> <span>点击查看高级课程库目录</span>
+                                   </summary>
+                                   <div class="mt-3 bg-gray-900/50 p-4 rounded-md border border-gray-700 text-sm">
+                                        
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-gray-400">
+                                            <!-- <p class="font-bold text-yellow-300 mb-2">【热门核心】专线搭建 (IEPL/IPLC)。</p> -->
+                                            <span class="font-bold text-yellow-300 mb-2">● 专线搭建 (IEPL/IPLC)</span>
+                                            <span>● 软路由刷机: R2S/X86</span><span>● OpenWrt系统与固件</span><span>● 一台路由多个Wi-Fi</span><span>● 一个路由器多个IP</span><span>● 完美出海+防DNS污染</span><span>● 公网IP+DDNS+HTTPS</span><span>● 电信+移动双线双拨</span><span>● mosDNS防DNS泄露</span><span>● 手机全球加速+NAS访问</span><span>● 晚高峰8K流畅播放</span><span>● OpenClash终极优化</span><span>● 旁路由极速配置模版</span><span>● 爱快+OpenWRT组合</span><span>● IPv6主/旁路由配置</span><span>● 全屋WIFI6 Mesh漫游</span><span>● 双AdGuard完美优化</span><span>● 订阅聚合与转换玩法</span>
+                                        </div>
+                                        <p class="text-xs text-gray-600 mt-2">*列表持续更新中...</p>
+                                   </div>
+                               </details>
+                           </li>
+                        </ul>
+                        <a href="#" class="contact-trigger btn-primary mt-8 w-full text-center py-3">
+                            我要一步到位！
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FAQ -->
+        <section class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="section-title text-white text-center mb-12">还有疑虑？看看这里</h2>
+                <div class="space-y-4">
+                    <details class="card p-6 group">
+                        <summary class="flex justify-between items-center font-semibold text-lg text-white">
+                            我完全是电脑小白，真的能在15分钟学会吗？
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 arrow-down transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </summary>
+                        <p class="mt-4 text-gray-400">完全可以，甚至更快！这正是1对1教学的价值所在。我们会跳过所有复杂理论，用大白话手把手带你操作，就像给朋友远程装电脑一样简单。我们的承诺是“当场教会”，保证你能独立操作。</p>
+                    </details>
+                    <details class="card p-6 group">
+                        <summary class="flex justify-between items-center font-semibold text-lg text-white">
+                            进阶课的30+节课我需要全部看完吗？
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 arrow-down transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </summary>
+                        <p class="mt-4 text-gray-400">完全不需要！请记住，<strong class="text-white">1对1带你上手才是核心服务</strong>。附赠的30+节录播课是你的“知识武器库”，是在你已经能熟练使用后，想要“知其所以然”或者探索更高阶玩法时，才需要去翻阅的。你无需一次性学完，它们会永久有效，随时等你探索。</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-10 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <p>Copyright © 2024-2025 小白专属节点搭建. All Rights Reserved.</p>
+        </div>
+    </footer>
     
-    const openContactModal = () => { if(contactModal) contactModal.classList.add('active'); };
-    const closeContactModal = () => { if(contactModal) contactModal.classList.remove('active'); };
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>联系站长上课</h3>
+            <p>
+                抱歉，由于站长微信当前因添加频繁受限，暂时无法通过扫码添加。为了能及时与您沟通，请选择以下最适合您的方式联系我：
+            </p>
+            <div class="modal-contact-info">
+                <div class="contact-item">
+                    <strong>1. 邮件联系</strong>
+                    <p>发送您的需求和您的联系方式 (微信/Telegram) 到我的邮箱，我会在第一时间主动添加您。</p>
+                    <code>terminos888@gmail.com</code>
+                </div>
+                 <div class="contact-item">
+                    <strong>2. 加入Telegram社群(推荐)</strong>
+                    <p>点击下方按钮，直接加入我们的官方Telegram社群进行咨询和交流。</p>
+                    <a href="https://dajian.cyou/TG" target="_blank" class="btn-primary">加入TG学习社群</a>
+                </div>
+            </div>
+             <p style="font-size: 0.9em; text-align: center; opacity: 0.8;">感谢您的理解与支持！</p>
+        </div>
+    </div>
 
-    contactButtons.forEach(button => { button.addEventListener('click', openContactModal); });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal Logic
+            const contactButtons = document.querySelectorAll('.contact-trigger');
+            const modal = document.getElementById('contactModal');
+            
+            if (modal) {
+                const closeBtn = modal.querySelector('.close-btn');
 
-    if(contactModalCloseBtn) contactModalCloseBtn.addEventListener('click', closeContactModal);
-    if(contactModal) contactModal.addEventListener('click', (event) => { if (event.target === contactModal) closeContactModal(); });
-  </script>
+                function openModal(e) { 
+                    e.preventDefault();
+                    modal.classList.add('active'); 
+                }
+                function closeModal() { 
+                    modal.classList.remove('active'); 
+                }
+
+                contactButtons.forEach(button => button.addEventListener('click', openModal));
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeModal);
+                }
+
+                modal.addEventListener('click', e => { 
+                    if (e.target === modal) {
+                        closeModal(); 
+                    }
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>

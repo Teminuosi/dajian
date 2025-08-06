@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>终极网络核心 · 定制化高性能软路由</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Fira+Code:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    /* --- 动画关键帧 --- */
+    @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+    @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
+    @keyframes card-fade-in { from { opacity: 0; transform: translateY(50px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes text-flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+    @keyframes ultimate-flicker { 0%, 100% { opacity: 1; text-shadow: 0 0 10px #f0f; } 50% { opacity: 0.9; text-shadow: 0 0 15px #f0f; } }
+    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes modal-content-pop-in { from { opacity: 0; transform: translate(-50%, -50%) scale(0.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+
+    /* --- 基本设置 --- */
+    :root {
+        --main-glow: #0f0;
+        --secondary-glow: #ff9900;
+        --ultimate-glow: #f0f; 
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Fira Code', monospace; background-color: #0d0d0d; color: #eee; margin: 0; padding: 40px 20px; overflow-x: hidden; min-height: 100vh; }
+
+    /* --- 背景效果 --- */
+    .matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+    .matrix-column { position: absolute; top: 0; height: 100%; font-size: 16px; writing-mode: vertical-rl; text-orientation: upright; white-space: nowrap; user-select: none; opacity: 0.3; text-shadow: 0 0 5px rgba(0, 255, 0, 0.7); animation: matrix-fall linear infinite; }
+    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px); animation: scanline 0.5s linear infinite; pointer-events: none; z-index: 1; }
+
+    /* --- 布局 & 卡片 (优化为单卡片居中) --- */
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        max-width: 900px; /* 调整为适合单个卡片的宽度 */
+        margin: auto;
+        gap: 30px;
+        position: relative;
+        z-index: 2;
+    }
+    .column {
+        background: rgba(10, 25, 10, 0.65);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 10px rgba(0, 255, 0, 0.1);
+        padding: 40px; /* 增加内边距 */
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+        opacity: 0;
+        animation: card-fade-in 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        flex: 1;
+    }
+    .column:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 0 35px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.25);
+        border-color: rgba(0, 255, 0, 0.7);
+    }
+
+    /* --- 文本样式 --- */
+    h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 8px var(--main-glow); animation: text-flicker 3s infinite; }
+    h1 { font-size: 28px; color: #5f5; margin-bottom: 10px; text-align: center;}
+    h2 { font-size: 22px; color: var(--secondary-glow); text-shadow: 0 0 8px var(--secondary-glow); margin-bottom: 25px; text-align: center; font-family: 'Noto Sans SC', sans-serif;}
+    h3 { font-size: 20px; color: #3f3; margin-top: 30px; padding-bottom: 10px; border-bottom: 1px dashed rgba(0, 255, 0, 0.4); }
+    ul { padding-left: 0; list-style-type: none; margin: 15px 0; }
+    ul li { line-height: 2; padding-left: 30px; position: relative; font-size: 16px; }
+    ul li::before { content: '⚡'; position: absolute; left: 0; color: var(--main-glow); animation: text-flicker 2s infinite alternate; }
+    .column p { font-size: 16px; line-height: 1.9; margin-bottom: 20px; text-align: left; font-family: 'Noto Sans SC', sans-serif; color: #ddd; }
+    .column p strong { color: var(--secondary-glow); font-weight: 700; }
+    
+    .highlight-text { color: var(--secondary-glow); font-weight: bold; text-shadow: 0 0 6px var(--secondary-glow); }
+    .pain-point-text { color: #ff8a8a; font-style: italic; }
+    .benefit-highlight { color: #5f5; text-shadow: 0 0 5px var(--main-glow); font-weight: bold; }
+
+    .who-is-this-for-box { background: rgba(0, 255, 0, 0.05); border-left: 4px solid var(--main-glow); padding: 20px 25px; margin: 30px 0; border-radius: 4px; }
+    .who-is-this-for-box h3 { margin-top: 0; border: none; font-size: 20px; color: #5f5; padding-bottom: 10px; }
+    .who-is-this-for-box ul li::before { content: '>>'; color: var(--main-glow); }
+
+    /* --- 付费与行动号召 --- */
+    .payment-section { text-align: center; margin-top: auto; padding-top: 25px; border-top: 1px dashed rgba(0, 255, 0, 0.4); }
+    .contact-trigger {
+        background: var(--main-glow); border: 1px solid var(--main-glow); color: #000; padding: 15px 30px; font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: bold; border-radius: 5px; cursor: pointer; text-shadow: none; transition: all 0.3s ease; width: 100%;
+        box-shadow: 0 0 15px var(--main-glow);
+    }
+    .contact-trigger:hover {
+        background: #fff; color: #000; box-shadow: 0 0 25px #fff, 0 0 50px var(--main-glow); transform: scale(1.05);
+    }
+    .bonus-offer-pro { background: rgba(255, 153, 0, 0.1); border: 1px solid rgba(255, 153, 0, 0.5); padding: 20px 25px; border-radius: 6px; margin-bottom: 25px; text-align: left; }
+    .bonus-offer-pro .bonus-title { color: var(--secondary-glow); font-size: 18px; font-weight: bold; font-family: 'Orbitron', sans-serif; text-shadow: 0 0 5px var(--secondary-glow); animation: text-flicker 3s infinite; margin-bottom: 15px; }
+    .bonus-offer-pro p { font-size: 15px; color: #eee; line-height: 1.7; margin-bottom: 10px; }
+    .bonus-offer-pro p strong { color: var(--secondary-glow); font-weight: 600; }
+    .support-note { color:#0c0; margin-bottom: 20px; font-weight: bold; font-size: 16px; }
+
+    /* --- 页面标题与页脚 --- */
+    .section-divider { font-family: 'Orbitron', sans-serif; font-size: 2.8em; text-align: center; color: var(--main-glow); margin: 40px 0 20px 0; text-shadow: 0 0 15px var(--main-glow); animation: text-flicker 4s infinite; position: relative; z-index: 2; }
+    .section-divider-subtitle { font-family: 'Noto Sans SC', sans-serif; font-size: 1.2em; text-align: center; color: #ccc; margin: 0 auto 60px auto; max-width: 800px; position: relative; z-index: 2; line-height: 1.7; }
+    .footer-contact { margin-top: 60px; text-align: center; font-size: 14px; color: #0c0; position: relative; z-index: 2; }
+    .footer-contact p { margin-bottom: 8px; }
+    .footer-contact strong { color: #5f5; }
+    .footer-contact a { color: #5f5; text-decoration: none; transition: all 0.3s; }
+    .footer-contact a:hover { color: var(--main-glow); text-shadow: 0 0 5px var(--main-glow); }
+    
+    /* --- 弹窗 (Modal) --- */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 20, 0, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; z-index: 1000; animation: modal-fade-in 0.3s ease; }
+    .modal-overlay.active { display: block; }
+    .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; min-width: 320px; max-width: 600px; background: #0d0d0d; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 0 25px rgba(0, 255, 0, 0.5); border: 2px solid var(--main-glow); animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0; }
+    .modal-close-btn { position: absolute; top: 10px; right: 15px; font-size: 30px; color: #5f5; cursor: pointer; transition: transform 0.2s, color 0.2s; }
+    .modal-close-btn:hover { transform: scale(1.2); color: #fff; }
+    .modal-title { font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--main-glow); margin-bottom: 15px; animation: none; text-shadow: 0 0 8px var(--main-glow); }
+    .modal-reminder { font-family: 'Noto Sans SC', sans-serif; font-size: 16px; color: #ccc; margin-bottom: 25px; text-align: left; line-height: 1.7; }
+    .contact-option-box { background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 6px; padding: 20px; margin-bottom: 20px; text-align: left; }
+    .contact-option-box h4 { font-family: 'Orbitron', sans-serif; font-size: 18px; color: #5f5; margin-bottom: 10px; animation: none; text-shadow: 0 0 5px var(--main-glow); }
+    .contact-option-box p { font-family: 'Noto Sans SC', sans-serif; font-size: 15px; color: #ccc; line-height: 1.6; margin-bottom: 15px; }
+    .contact-info { background: #000; padding: 10px 15px; border-radius: 4px; border: 1px dashed rgba(0, 255, 0, 0.4); font-family: 'Fira Code', monospace; color: var(--secondary-glow); word-break: break-all; }
+    .contact-info a { color: var(--secondary-glow); text-decoration: none; }
+    .tg-contact-btn { display: block; width: 100%; padding: 12px; text-align: center; text-decoration: none; font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: bold; color: #000; background: var(--main-glow); border-radius: 4px; text-shadow: none; box-shadow: 0 0 15px var(--main-glow); transition: all 0.3s ease; }
+    .tg-contact-btn:hover { background: #fff; color: #000; box-shadow: 0 0 25px #fff; }
+  </style>
+</head>
+<body>
+
+  <div class="matrix-bg" id="matrix-bg"></div>
+  
+  <h1 class="section-divider">[// 终极网络核心 · 一步到位 //]</h1>
+  <p class="section-divider-subtitle">告别一切网络烦恼。我们为您呈现的不仅是一台设备，而是一个经过千锤百炼、稳定如山的专属网络解决方案。即插即用，性能全开。</p>
+
+  <div class="container">
+
+    <!-- ✅ 高性能成品路由专属卡片 -->
+    <div class="column pitch-card">
+      <h1>[即插即用] 高性能成品软路由</h1>
+      <h2>专业定制 · 终身技术支持</h2>
+      
+      <h3>[你是否正面临这些困境？]</h3>
+      <p>
+        你是否<span class="pain-point-text">厌倦了复杂的刷机教程和繁琐的命令行配置？</span>是否担心自己DIY不稳定，<span class="pain-point-text">浪费了大量宝贵的时间和金钱后，换来的却是频繁的断流和卡顿？</span>是否在运营TikTok或跨境电商时，因为网络环境问题而<span class="pain-point-text">屡遭封号，功亏一篑？</span>
+      </p>
+      <p>
+        <strong>这些我们都懂。</strong> 我们的成品软路由，正是为了终结这一切“折腾”而生。它是为你 <strong class="highlight-text">节省数百小时研究与试错时间的终极答案</strong>。每一台设备都由站长亲自采购顶级硬件、刷写深度优化的系统、并经过长达 <strong class="highlight-text">7天7夜的全场景压力测试</strong> 后，才资格交付到你手中。
+      </p>
+      <p>
+        <span class="benefit-highlight">你所需要做的，仅仅是插上电源和网线。其他的一切，我们都已为你臻至完美。</span>
+      </p>
+
+      <h3>[核心价值 · 不只是快]</h3>
+      <ul>
+        <li><strong>【企业级稳定性】</strong>我们只选用市场验证的工控级主板与高性能CPU，确保7x24小时不间断运行。无论是4K流媒体、高强度游戏还是多设备同时在线，从此告别“断流”二字。</li>
+        <li><strong>【业务级IP隔离】</strong>专为TikTok/跨境电商矩阵运营而生。轻松实现一机多IP，让每个业务线都拥有独立的IP出口，<span class="benefit-highlight">从网络层彻底杜绝因IP关联导致的封号风险。</span></li>
+        <li><strong>【场景化网络分离】</strong>一键创建多个Wi-Fi网络。一个<strong class="highlight-text">“家庭娱乐”</strong>网络，一个<strong class="highlight-text">“办公专用”</strong>网络，一个<strong class="highlight-text">“访客网络”</strong>，甚至一个<strong class="highlight-text">“儿童上网”</strong>网络。彼此物理隔离，安全、高速又便捷。</li>
+        <li><strong>【全球网络无缝通达】</strong>深度优化的系统内核，配合合理的策略配置，无论是观看海外高清直播，还是与海外朋友联机游戏，都能享受<span class="benefit-highlight">如丝般顺滑的低延迟体验</span>。</li>
+        <li><strong>【兼容并包的灵活性】</strong>系统原生支持配置您自己购买的任何节点服务，为您提供最大限度的自由与灵活性，我们负责打好地基，您来决定上层建筑。</li>
+      </ul>
+
+      <div class="who-is-this-for-box">
+          <h3>[我们的路由为谁而造？]</h3>
+          <ul>
+            <li>> 对网络稳定性、安全性有极致要求的 <strong class="highlight-text">跨境电商团队与TikTok工作室</strong>。</li>
+            <li>> 希望家庭网络一劳永逸，让所有设备（电视、游戏机、手机）都能完美运行的 <strong class="highlight-text">极客与影音发烧友</strong>。</li>
+            <li>> 需要频繁远程办公、访问公司内网或家中NAS的 <strong class="highlight-text">设计师、开发者及商务人士</strong>。</li>
+            <li>> 时间宝贵，不愿在技术细节上浪费生命，追求 <strong class="highlight-text">“即插即用”高效解决方案</strong>的精英人士。</li>
+          </ul>
+      </div>
+
+      <div class="payment-section">
+         <div class="bonus-offer-pro">
+              <div class="bonus-title">🛒 定制套餐与价格</div>
+              <p>我们的软路由根据性能和接口配置，提供不同版本以满足您的精确需求。</p>
+              <p style="margin-bottom: 8px;"><strong>基础版 (899元起):</strong> 性能强劲，满足绝大多数个人、家庭及小型团队的全部需求。</p>
+              <p><strong>性能版 (1299元起):</strong> 搭载更强悍的处理器与更多网络端口，专为高负载的TikTok矩阵运营及中型工作室使用，轻松应对未来挑战。</p>
+         </div>
+         <p class="support-note">购机即含全年一对一技术护航</p>
+         <button class="contact-trigger contact-trigger">
+            <i class="fa-solid fa-bolt"></i>
+            立即联系站长 · 定制您的网络核心
+        </button>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="footer-contact">
+    <p>📬 [联系方式]</p>
+    <p>邮箱: <strong><a href="mailto:terminos888@gmail.com">terminos888@gmail.com</a></strong></p>
+    <p>Telegram: <strong><a href="https://t.me/sanyuedaohang" target="_blank">@sanyuedaohang</a></strong></p>
+  </div>
+  
+  <!-- ✅ 联系我们弹窗 -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-content">
+      <span class="modal-close-btn" id="contactModalCloseBtn">×</span>
+      <h3 class="modal-title">联系站长定制</h3>
+      <p class="modal-reminder">
+        你好！为了给您提供最高效、最专业的咨询服务，请通过以下方式联系我。由于微信添加好友限制，推荐使用Telegram或邮件，响应更及时。
+      </p>
+
+      <div class="contact-option-box">
+          <h4>1. // Telegram社群 (推荐)</h4>
+          <p>点击下方按钮，加入我们的官方Telegram社群。您可以在群内直接 @站长 或添加我为好友进行私聊。这里有最快的响应速度和活跃的技术讨论氛围。</p>
+          <a href="https://t.me/sanyuedaohang" target="_blank" rel="noopener noreferrer" class="tg-contact-btn">
+              <i class="fab fa-telegram-plane"></i> 点击加入TG社群
+          </a>
+      </div>
+
+      <div class="contact-option-box">
+          <h4>2. // 邮件联系</h4>
+          <p>请将您的具体需求 (例如：用途、预算、设备数量等) 以及您的联系方式 (如Wechat/Phone) 发送至我的邮箱。我会在24小时内仔细阅读并回复您。</p>
+          <div class="contact-info">
+              <a href="mailto:terminos888@gmail.com">terminos888@gmail.com</a>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const matrixContainer = document.getElementById('matrix-bg');
+    
+    // ✅ 将创建动画的逻辑封装成一个函数
+    function createMatrix() {
+        // 如果容器不存在，则直接返回
+        if (!matrixContainer) return;
+
+        // ✅ 在每次创建前，清空旧的列，防止重叠
+        matrixContainer.innerHTML = '';
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモョロヲゴゾドボポヴッン';
+        
+        // ✅ 根据当前窗口宽度计算需要多少列
+        const columns = Math.floor(window.innerWidth / 16);
+
+        for (let i = 0; i < columns; i++) {
+            const col = document.createElement('div');
+            col.className = 'matrix-column';
+            let text = '';
+            for (let j = 0; j < 50; j++) { text += chars.charAt(Math.floor(Math.random() * chars.length)); }
+            col.innerText = text;
+            col.style.left = `${i * 16}px`;
+            col.style.animationDuration = `${Math.random() * 8 + 4}s`;
+            col.style.animationDelay = `${Math.random() * 5}s`;
+            matrixContainer.appendChild(col);
+        }
+    }
+
+    // ✅ 页面加载时，立即执行一次
+    createMatrix();
+
+    // ✅ 当窗口大小改变时，再次执行，重新绘制
+    window.addEventListener('resize', createMatrix);
+
+
+    // --- 弹窗控制逻辑 (这部分保持不变) ---
+    const contactButtons = document.querySelectorAll('.contact-trigger');
+    const contactModal = document.getElementById('contactModal');
+    const contactModalCloseBtn = document.getElementById('contactModalCloseBtn');
+    
+    const openContactModal = () => { if(contactModal) contactModal.classList.add('active'); };
+    const closeContactModal = () => { if(contactModal) contactModal.classList.remove('active'); };
+
+    contactButtons.forEach(button => { button.addEventListener('click', openContactModal); });
+
+    if(contactModalCloseBtn) contactModalCloseBtn.addEventListener('click', closeContactModal);
+    if(contactModal) contactModal.addEventListener('click', (event) => { if (event.target === contactModal) closeContactModal(); });
+  </script>
+</body>
+</html>
