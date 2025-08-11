@@ -115,8 +115,7 @@
         .resource-pillar h2 { font-family: 'Orbitron', sans-serif; font-size: 1.2em; color: var(--primary-accent); margin: 0 0 20px 0; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
         .resource-card-list { display: flex; flex-direction: column; gap: 12px; }
 
-        .resource-card, .resource-card-wrapper { background-color: rgba(10, 13, 20, 0.6); border: 1px solid transparent; border-radius: 8px; text-decoration: none; color: var(--text-color); display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; flex-wrap: nowrap; }
-        .resource-card { padding: 15px; }
+        .resource-card { background-color: rgba(10, 13, 20, 0.6); border: 1px solid transparent; border-radius: 8px; text-decoration: none; color: var(--text-color); display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; flex-wrap: nowrap; padding: 15px; }
         .resource-card:hover { background-color: rgba(0, 191, 255, 0.1); border-color: var(--primary-accent); transform: translateY(-2px); color: #fff; }
         .resource-card .icon { font-size: 1.5rem; color: var(--primary-accent); opacity: 0.7; transition: all 0.3s ease; width: 30px; text-align: center; flex-shrink: 0; }
         .resource-card span { font-size: 0.9rem; }
@@ -147,6 +146,122 @@
         .contact-info span { font-size: 0.85rem; opacity: 0.7; }
         
         @media (max-width: 1400px) { .side-contact-card { display: none; } }
+
+        /* --- Modal Styles --- */
+        .modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 13, 20, 0.8);
+            backdrop-filter: blur(10px);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-container.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-accent);
+            box-shadow: 0 0 30px var(--glow-color);
+            border-radius: 12px;
+            padding: 30px 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-container.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h3 {
+            font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+            color: var(--primary-accent);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .close-button:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+            color: var(--primary-accent);
+        }
+
+        .modal-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .modal-btn i {
+            margin-right: 10px;
+        }
+
+        .modal-btn.instructions {
+            background-color: transparent;
+            border-color: var(--highlight-border-color);
+            color: var(--highlight-accent);
+        }
+
+        .modal-btn.instructions:hover {
+            background-color: var(--highlight-accent);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--highlight-glow-color);
+        }
+
+        .modal-btn.purchase {
+            background-color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .modal-btn.purchase:hover {
+            background-color: transparent;
+            color: var(--primary-accent);
+            transform: scale(1.03);
+        }
+
+        #residentialIpTrigger {
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -212,7 +327,16 @@
                 <div class="resource-pillar">
                     <h2><i class="fas fa-satellite-dish"></i> TikTok 运营策略</h2>
                     <div class="resource-card-list">
-                        <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card"><div class="icon">🚀</div><span>专线机场(24小时试用)</span></a>
+                        <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card"><div class="icon">🚀</div><span>专线机场(试用 + 可用于中转)</span></a>
+                        <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="resource-card"><div class="icon">💻</div><span>TK运营 VPS - 66云 </span></a>
+                        <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="resource-card"><div class="icon">💻</div><span>TK运营 VPS - Lisa</span></a>
+                        
+                        <!-- 住宅IP - 修改为触发弹窗 -->
+                        <div id="residentialIpTrigger" class="resource-card">
+                            <div class="icon">🏠</div>
+                            <span>住宅IP socks5</span>
+                        </div>
+                        <a href="https://sms-man.com/cn?ref=ZfPQwjsHSGQu" target="_blank" class="resource-card"><div class="icon">🥶</div><span>接码平台</span></a>
                         <a href="https://www.duoplus.cn/share/tNVaXc" target="_blank" class="resource-card"><div class="icon">📱</div><span>云手机推荐（TK养号）</span></a>
                         <a href="https://share.adspower.net/BpVkZk" target="_blank" class="resource-card"><div class="icon">🔒</div><span>Ads多环境指纹浏览器</span></a>
                     </div>
@@ -259,6 +383,23 @@
         </section>
     </div>
 
+    <!-- 住宅IP 弹窗 Modal -->
+    <div id="residentialIpModal" class="modal-container">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>住宅IP · 操作选择</h3>
+            <p style="margin-bottom: 25px; opacity: 0.8; font-size: 0.95rem;">首次使用建议先阅读说明文档。</p>
+            <div class="modal-button-group">
+                <a href="https://pan.quark.cn/s/262adc3249ec" target="_blank" class="modal-btn instructions">
+                    <i class="fas fa-file-alt"></i> 使用说明
+                </a>
+                <a href="https://www.kookeey.com/register.html?aff=33435631" target="_blank" class="modal-btn purchase">
+                    <i class="fas fa-shopping-cart"></i> 前往购买
+                </a>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。</p>
     </footer>
@@ -269,6 +410,44 @@
             <strong>TG交流群</strong>
         </div>
     </a>
+
+    <script>
+        // 获取弹窗相关元素
+        const residentialIpModal = document.getElementById('residentialIpModal');
+        const residentialIpTrigger = document.getElementById('residentialIpTrigger');
+        const closeModalButton = residentialIpModal.querySelector('.close-button');
+
+        // 打开弹窗的函数
+        const openModal = () => {
+            residentialIpModal.classList.add('show');
+        };
+
+        // 关闭弹窗的函数
+        const closeModal = () => {
+            residentialIpModal.classList.remove('show');
+        };
+
+        // 事件监听
+        // 点击“住宅IP socks5”卡片，打开弹窗
+        residentialIpTrigger.addEventListener('click', openModal);
+
+        // 点击弹窗右上角的关闭按钮，关闭弹窗
+        closeModalButton.addEventListener('click', closeModal);
+
+        // 点击弹窗的背景遮罩层，关闭弹窗
+        residentialIpModal.addEventListener('click', (event) => {
+            if (event.target === residentialIpModal) {
+                closeModal();
+            }
+        });
+
+        // 按下 'Escape' 键，关闭弹窗
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && residentialIpModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+    </script>
     
 </body>
 </html>
