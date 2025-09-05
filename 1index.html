@@ -19,11 +19,6 @@
             --glow-color: rgba(0, 191, 255, 0.5);
             --highlight-glow-color: rgba(255, 215, 0, 0.6);
             --highlight-border-color: rgba(255, 215, 0, 0.4);
-
-            /* ✅ 新增：为新产品定义的专属颜色 */
-            --new-product-accent: #F021B5; /* 赛博品红 */
-            --new-product-glow-color: rgba(240, 33, 181, 0.6);
-            --new-product-border-color: rgba(240, 33, 181, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,8 +29,9 @@
             font-family: 'Noto Sans SC', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
+            /* ✅ 将背景网格点颜色也调整为蓝色系，与AI模块辉光更协调 */
             background-image: 
-                radial-gradient(var(--border-color) 1px, transparent 1px);
+                radial-gradient(rgba(0, 191, 255, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
             background-attachment: fixed;
             display: flex;
@@ -54,7 +50,6 @@
         /* --- HERO SECTION UNIFIED --- */
         .hero-grid-container {
             display: grid;
-            /* ✅ 修改：从3列变为4列以容纳新产品 */
             grid-template-columns: repeat(4, 1fr);
             gap: 25px;
             margin-top: 40px;
@@ -95,16 +90,19 @@
         .hero-card.highlight .cta-button { background-color: var(--highlight-accent); color: var(--bg-color); box-shadow: 0 0 20px var(--highlight-glow-color); border: 1px solid var(--highlight-accent); }
         .hero-card.highlight .cta-button:hover { background-color: transparent; color: var(--highlight-accent); transform: scale(1.05); }
 
-        /* ✅ 新增：火爆上新卡片样式 */
-        .hero-card.new-product {
-            border-color: var(--new-product-border-color);
-            box-shadow: 0 0 40px var(--new-product-glow-color);
+        /* ✅ 修改：AI产品卡片样式，颜色全部换成蓝色 */
+        .hero-card.ai-product {
+            border-color: var(--border-color);
+            box-shadow: 0 0 25px var(--glow-color), 0 0 45px rgba(0, 191, 255, 0.3);
+            cursor: pointer;
         }
-        .hero-card.new-product:hover { box-shadow: 0 8px 50px var(--new-product-glow-color); }
-        .hero-card.new-product .hero-icon { color: var(--new-product-accent); text-shadow: 0 0 15px var(--new-product-glow-color); }
-        .hero-card.new-product .hero-title { color: var(--new-product-accent); }
-        .hero-card.new-product .cta-button { background-color: var(--new-product-accent); color: var(--bg-color); box-shadow: 0 0 20px var(--new-product-glow-color); border: 1px solid var(--new-product-accent); }
-        .hero-card.new-product .cta-button:hover { background-color: transparent; color: var(--new-product-accent); transform: scale(1.05); }
+        .hero-card.ai-product:hover { 
+            box-shadow: 0 0 35px var(--glow-color), 0 0 60px rgba(0, 191, 255, 0.5); 
+        }
+        .hero-card.ai-product .hero-icon { color: var(--primary-accent); text-shadow: 0 0 15px var(--glow-color); }
+        .hero-card.ai-product .hero-title { color: var(--primary-accent); }
+        .hero-card.ai-product .cta-button { background-color: var(--primary-accent); color: var(--bg-color); box-shadow: 0 0 20px var(--glow-color); border: 1px solid var(--primary-accent); }
+        .hero-card.ai-product .cta-button:hover { background-color: transparent; color: var(--primary-accent); transform: scale(1.05); }
 
 
         .resources-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-color); opacity: 0.8; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; display: inline-block; }
@@ -261,6 +259,78 @@
         #residentialIpTrigger {
             cursor: pointer;
         }
+        
+        /* --- AI弹窗内部选项样式 --- */
+        .modal-options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .modal-option-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            background-color: rgba(10, 13, 20, 0.6);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .modal-option-card:hover {
+            border-color: var(--primary-accent);
+            background-color: rgba(0, 191, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .modal-option-card::after {
+            content: '›';
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-color);
+            opacity: 0.5;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+        }
+
+        .modal-option-card:hover::after {
+            opacity: 1;
+            color: var(--primary-accent);
+            transform: translateY(-50%) translateX(3px);
+        }
+
+        .modal-option-icon {
+            font-size: 2.2rem;
+            flex-shrink: 0;
+        }
+        
+        .modal-option-text {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .modal-option-title {
+            font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .modal-option-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
 
     </style>
 </head>
@@ -276,14 +346,14 @@
         <!-- 核心业务模块 -->
         <div class="hero-grid-container">
             
-            <!-- ✅ 新增：AI神器卡片 -->
-            <div class="hero-card new-product">
-                <div class="hero-icon"><i class="fas fa-robot"></i></div>
-                <h2 class="hero-title">AI视频 · 自动化神器</h2>
-                <p class="hero-subtitle">全自动视频剪辑工作流，解放你的生产力，一键生成爆款视频，开启副业新模式。</p>
-                <a href="https://3yuedaohang.com/n8n" target="_blank" class="cta-button">
-                    <i class="fas fa-rocket"></i> 进入神器主页
-                </a>
+            <!-- ✅ 修改: AI神器卡片，更换为蓝色系，更新全部文案 -->
+            <div class="hero-card ai-product" id="aiVideoTrigger">
+                <div class="hero-icon"><i class="fas fa-brain"></i></div>
+                <h2 class="hero-title">AI智能创作引擎</h2>
+                <p class="hero-subtitle">集成先进的AI视频生成与剪辑能力，从零创作或二次剪辑，全方位赋能您的内容生产。</p>
+                <div class="cta-button">
+                    <i class="fas fa-tools"></i> 探索AI创作工具
+                </div>
             </div>
 
             <!-- 模块一：搭建课程 -->
@@ -331,21 +401,21 @@
                         <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card  highlight-card"><div class="icon">🚀</div><span>专线机场(试用 + 可用于中转)</span></a>
                         <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="resource-card  highlight-card"><div class="icon">🏠</div><span>美国真实 ATT 家庭宽带</span></a>
                                <!-- 住宅IP - 修改为触发弹窗 -->
-                               <div id="residentialIpTrigger" class="resource-card  highlight-card">
-                                <div class="icon">🏠</div>
-                                <span>住宅IP socks5</span>
-                            </div>
-                        <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="resource-card  highlight-card"><div class="icon">🌐</div><span>中转线路</span></a>
-                        <a href="cn2/banwagong.html" target="_blank" class="resource-card"><div class="icon">⚡</div><span>CN2 GIA 专线</span></a>
-                        <a href="https://666clouds.com/aff.php?aff=2809" target="_blank" class="resource-card"><div class="icon">🖥️</div><span>TK运营 VPS - 66云  </span></a>
-                        <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="resource-card"><div class="icon">🖥️</div><span>TK运营 VPS - Lisa </span></a>
+                               <!-- <div id="residentialIpTrigger" class="resource-card  highlight-card">
+                                    <div class="icon">🏠</div>
+                                    <span>住宅IP socks5</span>
+                               </div> -->
+                        <!-- <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="resource-card  highlight-card"><div class="icon">🌐</div><span>中转线路</span></a> -->
+                        <a href="cn2/banwagong.html" target="_blank" class="resource-card highlight-card"><div class="icon">⚡</div><span>CN2 GIA 专线</span></a>
+                        <a href="https://666clouds.com/aff.php?aff=2809 " target="_blank" class="resource-card highlight-card"><div class="icon">🖥️</div><span>TK运营 VPS - 66云  </span></a>
+                        <!-- <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="resource-card"><div class="icon">🖥️</div><span>TK运营 VPS - Lisa </span></a> -->
                     
                         
                  
                         <a href="https://sms-man.com/cn?ref=ZfPQwjsHSGQu" target="_blank" class="resource-card"><div class="icon">🥶</div><span>接码平台</span></a>
                         <a href="https://www.duoplus.cn/share/tNVaXc" target="_blank" class="resource-card"><div class="icon">📱</div><span>云手机推荐（TK养号）</span></a>
                         <a href="https://share.adspower.net/BpVkZk" target="_blank" class="resource-card"><div class="icon">🔒</div><span>Ads多环境指纹浏览器</span></a>
-                        <a href="https://nf.video/OXYNE" target="_blank" class="resource-card"><div class="icon">🌑</div><span> AI/影视充值 </span></a>
+                        <!-- <a href="https://nf.video/OXYNE" target="_blank" class="resource-card"><div class="icon">🌑</div><span> AI/影视充值 </span></a> -->
                     </div>
                 </div>
 
@@ -356,7 +426,6 @@
                         <a href="nange.html" target="_blank" class="resource-card"> <div class="icon">🎯</div> <span>跨越投流方案</span> </a>
                         <a href="tk-direct.html" target="_blank" class="resource-card"><div class="icon">💧</div><span>TK环境指南</span></a>
                         <a href="ip-explain.html" target="_blank" class="resource-card"><div class="icon">🔥</div><span>IP节点解析</span></a>
-                        <!-- <a href="https://pan.quark.cn/s/e03a8dc5b265" target="_blank" class="resource-card"><div class="icon">🎁</div><span>抖音免费课程</span></a> -->
                     </div>
                 </div>
                 <div class="resource-pillar">
@@ -390,6 +459,31 @@
         </section>
     </div>
 
+    <!-- ✅ 修改: AI 视频弹窗 Modal，更新全部文案 -->
+    <div id="aiVideoModal" class="modal-container">
+        <div class="modal-content" style="max-width: 550px;">
+            <span class="close-button">&times;</span>
+            <h3 style="color: var(--primary-accent);">AI智能创作工具箱</h3>
+            <p style="margin-bottom: 25px; opacity: 0.8; font-size: 0.95rem;">请根据您的创作需求，选择合适的AI工具。我们提供从原创生成到二次剪辑的全套解决方案。</p>
+            <div class="modal-options-group">
+                <a href="https://3yuedaohang.com/n8n-2" target="_blank" class="modal-option-card">
+                    <div class="modal-option-icon" style="color: #00BFFF;"><i class="fas fa-magic-sparkles"></i></div>
+                    <div class="modal-option-text">
+                        <strong class="modal-option-title">原创视频生成器</strong>
+                        <span class="modal-option-desc">输入您的核心创意或关键词，AI将全自动完成内容构思、素材匹配、配音合成，一键生成高质量原创视频。</span>
+                    </div>
+                </a>
+                <a href="https://3yuedaohang.com/n8n" target="_blank" class="modal-option-card">
+                    <div class="modal-option-icon" style="color: var(--primary-accent);"><i class="fas fa-cut"></i></div>
+                    <div class="modal-option-text">
+                        <strong class="modal-option-title">智能视频剪辑器</strong>
+                        <span class="modal-option-desc">上传您的视频素材，AI可自动识别精彩片段、添加字幕、匹配背景音乐，快速产出适合多平台的二创内容。</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- 住宅IP 弹窗 Modal -->
     <div id="residentialIpModal" class="modal-container">
         <div class="modal-content">
@@ -400,10 +494,6 @@
                 <a href="https://pan.quark.cn/s/262adc3249ec" target="_blank" class="modal-btn instructions">
                     <i class="fas fa-file-alt"></i> 使用说明
                 </a>
-               
-                <!-- <a href="https://www.proxystore.net/?ref=28502" target="_blank" class="modal-btn purchase">
-                    <i class="fas fa-shopping-cart"></i> 美国真实运营商家庭宽带 (ProxyStore)
-                </a> -->
                 <a href="https://www.kookeey.com/register.html?aff=33435631" target="_blank" class="modal-btn purchase">
                     <i class="fas fa-shopping-cart"></i> 高流量住宅IP (Kookeey)
                 </a>
@@ -426,39 +516,39 @@
     </a>
 
     <script>
-        // 获取弹窗相关元素
+        // --- 住宅IP Modal Logic ---
         const residentialIpModal = document.getElementById('residentialIpModal');
         const residentialIpTrigger = document.getElementById('residentialIpTrigger');
         const closeModalButton = residentialIpModal.querySelector('.close-button');
-
-        // 打开弹窗的函数
-        const openModal = () => {
-            residentialIpModal.classList.add('show');
-        };
-
-        // 关闭弹窗的函数
-        const closeModal = () => {
-            residentialIpModal.classList.remove('show');
-        };
-
-        // 事件监听
-        // 点击“住宅IP socks5”卡片，打开弹窗
+        const openModal = () => { residentialIpModal.classList.add('show'); };
+        const closeModal = () => { residentialIpModal.classList.remove('show'); };
         residentialIpTrigger.addEventListener('click', openModal);
-
-        // 点击弹窗右上角的关闭按钮，关闭弹窗
         closeModalButton.addEventListener('click', closeModal);
-
-        // 点击弹窗的背景遮罩层，关闭弹窗
         residentialIpModal.addEventListener('click', (event) => {
-            if (event.target === residentialIpModal) {
-                closeModal();
-            }
+            if (event.target === residentialIpModal) { closeModal(); }
         });
 
-        // 按下 'Escape' 键，关闭弹窗
+        // --- AI 视频 Modal Logic ---
+        const aiVideoModal = document.getElementById('aiVideoModal');
+        const aiVideoTrigger = document.getElementById('aiVideoTrigger');
+        const closeAiModalButton = aiVideoModal.querySelector('.close-button');
+        const openAiModal = () => { aiVideoModal.classList.add('show'); };
+        const closeAiModal = () => { aiVideoModal.classList.remove('show'); };
+        aiVideoTrigger.addEventListener('click', openAiModal);
+        closeAiModalButton.addEventListener('click', closeAiModal);
+        aiVideoModal.addEventListener('click', (event) => {
+            if (event.target === aiVideoModal) { closeAiModal(); }
+        });
+
+        // --- 统一的键盘 'Escape' 事件监听 ---
         document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && residentialIpModal.classList.contains('show')) {
-                closeModal();
+            if (event.key === 'Escape') {
+                if (residentialIpModal.classList.contains('show')) {
+                    closeModal();
+                }
+                if (aiVideoModal.classList.contains('show')) {
+                    closeAiModal();
+                }
             }
         });
     </script>

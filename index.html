@@ -3,555 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>三月 · 跨境网络核心</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>站长网络工坊 | 您的专属网络解决方案</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #0A0D14;
-            --primary-accent: #00BFFF; /* 电光蓝 */
-            --highlight-accent: #FFD700; /* 高亮金 */
-            --text-color: #E0E5F0;
-            --card-bg: rgba(22, 28, 41, 0.7);
-            --border-color: rgba(0, 191, 255, 0.2);
-            --glow-color: rgba(0, 191, 255, 0.5);
-            --highlight-glow-color: rgba(255, 215, 0, 0.6);
-            --highlight-border-color: rgba(255, 215, 0, 0.4);
+        @keyframes background-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            /* ✅ 将背景网格点颜色也调整为蓝色系，与AI模块辉光更协调 */
-            background-image: 
-                radial-gradient(rgba(0, 191, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            background-attachment: fixed;
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: #191729;
+            color: #e0e0e0;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-        
-        .top-nav { width: 100%; padding: 20px 0; text-align: center; background-color: rgba(10, 13, 20, 0.5); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000; }
-        .top-nav a { color: var(--primary-accent); text-decoration: none; border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 50px; transition: all 0.3s ease; font-size: 0.9rem; }
-        .top-nav a:hover { background-color: var(--primary-accent); color: var(--bg-color); box-shadow: 0 0 15px var(--glow-color); }
-        .top-nav a i { margin-right: 8px; }
-
-        .container { width: 100%; max-width: 1400px; text-align: center; padding: 40px 20px; }
-
-        /* --- HERO SECTION UNIFIED --- */
-        .hero-grid-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-top: 40px;
-            margin-bottom: 60px;
+            overflow-x: hidden;
+            background: linear-gradient(125deg, #191729, #242240, #191729);
+            background-size: 200% 200%;
+            animation: background-pan 30s ease infinite;
         }
 
-        .hero-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color); /* 默认边框颜色 */
-            border-radius: 12px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
+        .main-container {
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-card:hover {
-            transform: translateY(-8px);
+            padding: 40px 20px;
+            z-index: 2;
         }
 
-        .hero-card .hero-icon { font-size: 2.5rem; margin-bottom: 20px; }
-        .hero-card .hero-title { font-family: 'Orbitron', 'Noto Sans SC', sans-serif; font-weight: 700; font-size: 1.5rem; margin-bottom: 10px; }
-        .hero-card .hero-subtitle { font-size: 0.95rem; opacity: 0.8; margin-bottom: 25px; flex-grow: 1; }
-        .hero-card .cta-button { display: inline-block; font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; padding: 12px 30px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; margin-top: auto; }
-        
-        /* 高亮卡片样式 */
-        .hero-card.highlight {
-            border-color: var(--highlight-border-color);
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
-        }
-        .hero-card.highlight:hover { box-shadow: 0 8px 50px rgba(255, 215, 0, 0.4); }
-        .hero-card.highlight .hero-icon { color: var(--highlight-accent); text-shadow: 0 0 15px var(--highlight-glow-color); }
-        .hero-card.highlight .hero-title { color: var(--highlight-accent); }
-        .hero-card.highlight .cta-button { background-color: var(--highlight-accent); color: var(--bg-color); box-shadow: 0 0 20px var(--highlight-glow-color); border: 1px solid var(--highlight-accent); }
-        .hero-card.highlight .cta-button:hover { background-color: transparent; color: var(--highlight-accent); transform: scale(1.05); }
-
-        /* ✅ 修改：AI产品卡片样式，颜色全部换成蓝色 */
-        .hero-card.ai-product {
-            border-color: var(--border-color);
-            box-shadow: 0 0 25px var(--glow-color), 0 0 45px rgba(0, 191, 255, 0.3);
-            cursor: pointer;
-        }
-        .hero-card.ai-product:hover { 
-            box-shadow: 0 0 35px var(--glow-color), 0 0 60px rgba(0, 191, 255, 0.5); 
-        }
-        .hero-card.ai-product .hero-icon { color: var(--primary-accent); text-shadow: 0 0 15px var(--glow-color); }
-        .hero-card.ai-product .hero-title { color: var(--primary-accent); }
-        .hero-card.ai-product .cta-button { background-color: var(--primary-accent); color: var(--bg-color); box-shadow: 0 0 20px var(--glow-color); border: 1px solid var(--primary-accent); }
-        .hero-card.ai-product .cta-button:hover { background-color: transparent; color: var(--primary-accent); transform: scale(1.05); }
-
-
-        .resources-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--text-color); opacity: 0.8; margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; display: inline-block; }
-        
-        .resource-pillars-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; text-align: left; }
-
-        .resource-pillar { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; backdrop-filter: blur(8px); display: flex; flex-direction: column; }
-        .resource-pillar h2 { font-family: 'Orbitron', sans-serif; font-size: 1.2em; color: var(--primary-accent); margin: 0 0 20px 0; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px; }
-        .resource-card-list { display: flex; flex-direction: column; gap: 12px; }
-
-        .resource-card { background-color: rgba(10, 13, 20, 0.6); border: 1px solid transparent; border-radius: 8px; text-decoration: none; color: var(--text-color); display: flex; align-items: center; gap: 15px; transition: all 0.3s ease; flex-wrap: nowrap; padding: 15px; }
-        .resource-card:hover { background-color: rgba(0, 191, 255, 0.1); border-color: var(--primary-accent); transform: translateY(-2px); color: #fff; }
-        .resource-card .icon { font-size: 1.5rem; color: var(--primary-accent); opacity: 0.7; transition: all 0.3s ease; width: 30px; text-align: center; flex-shrink: 0; }
-        .resource-card span { font-size: 0.9rem; }
-        .resource-card:hover .icon { opacity: 1; transform: scale(1.1); }
-        .highlight-card { border: 1px solid var(--highlight-border-color); box-shadow: 0 0 15px var(--highlight-glow-color); }
-        .highlight-card .icon, .highlight-card span { color: #FFD700; font-weight: bold; }
-        
-        footer { margin-top: 60px; opacity: 0.6; font-size: 0.9rem; padding: 20px; }
-        
-        @media (max-width: 1200px) {
-            .hero-grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 768px) {
-            .container { padding: 20px 15px; }
-            .hero-grid-container { grid-template-columns: 1fr; }
-            .resource-pillars-container { grid-template-columns: 1fr; } 
-        }
-
-        .side-contact-card { position: fixed; top: 50%; transform: translateY(-50%); background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px 25px; backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: var(--text-color); }
-        .side-contact-card.right { right: 40px; }
-        .side-contact-card:hover { transform: translateY(-50%) scale(1.05); border-color: var(--primary-accent); box-shadow: 0 0 20px var(--glow-color); }
-        .side-contact-card i { font-size: 2.5rem; color: var(--primary-accent); transition: color 0.3s; }
-        .side-contact-card:hover i { color: #fff; }
-        .contact-info { display: flex; flex-direction: column; }
-        .contact-info strong { font-size: 1rem; font-weight: 700; color: #fff; }
-        .contact-info span { font-size: 0.85rem; opacity: 0.7; }
-        
-        @media (max-width: 1400px) { .side-contact-card { display: none; } }
-
-        /* --- Modal Styles --- */
-        .modal-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(10, 13, 20, 0.8);
-            backdrop-filter: blur(10px);
-            display: none; /* Hidden by default */
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-container.show {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--primary-accent);
-            box-shadow: 0 0 30px var(--glow-color);
-            border-radius: 12px;
-            padding: 30px 40px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-container.show .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-content h3 {
-            font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
-            color: var(--primary-accent);
-            font-size: 1.5rem;
+        .header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            color: #ffffff;
             margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
-        .close-button {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            color: var(--text-color);
-            opacity: 0.7;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .header p {
+            font-size: 1.1em;
+            color: #a09cc2;
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            line-height: 1.7;
         }
 
-        .close-button:hover {
-            opacity: 1;
-            transform: rotate(90deg);
-            color: var(--primary-accent);
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: stretch; /* 让网格项等高 */
         }
 
-        .modal-button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .modal-btn {
-            display: block;
-            padding: 12px 20px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .modal-btn i {
-            margin-right: 10px;
-        }
-
-        .modal-btn.instructions {
-            background-color: transparent;
-            border-color: var(--highlight-border-color);
-            color: var(--highlight-accent);
-        }
-
-        .modal-btn.instructions:hover {
-            background-color: var(--highlight-accent);
-            color: var(--bg-color);
-            box-shadow: 0 0 20px var(--highlight-glow-color);
-        }
-
-        .modal-btn.purchase {
-            background-color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            color: var(--bg-color);
-            box-shadow: 0 0 20px var(--glow-color);
-        }
-
-        .modal-btn.purchase:hover {
-            background-color: transparent;
-            color: var(--primary-accent);
-            transform: scale(1.03);
-        }
-
-        #residentialIpTrigger {
-            cursor: pointer;
-        }
-        
-        /* --- AI弹窗内部选项样式 --- */
-        .modal-options-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
+        .solution-card {
+            background: rgba(36, 34, 64, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 35px;
             text-align: left;
-        }
-
-        .modal-option-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text-color);
-            background-color: rgba(10, 13, 20, 0.6);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex; /* 关键改动：启用Flexbox */
+            flex-direction: column; /* 关键改动：垂直布局 */
             position: relative;
         }
 
-        .modal-option-card:hover {
-            border-color: var(--primary-accent);
-            background-color: rgba(0, 191, 255, 0.1);
-            transform: translateY(-3px);
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.25);
         }
         
-        .modal-option-card::after {
-            content: '›';
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--text-color);
-            opacity: 0.5;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-        }
-
-        .modal-option-card:hover::after {
-            opacity: 1;
-            color: var(--primary-accent);
-            transform: translateY(-50%) translateX(3px);
-        }
-
-        .modal-option-icon {
-            font-size: 2.2rem;
-            flex-shrink: 0;
-        }
-        
-        .modal-option-text {
+        .card-icon {
+            font-size: 2em;
+            height: 50px;
+            width: 50px;
             display: flex;
-            flex-direction: column;
-            gap: 5px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .icon-nodes { background-color: rgba(0, 191, 255, 0.1); color: #00bfff; }
+        .icon-router { background-color: rgba(224, 0, 255, 0.1); color: #e000ff; }
+        .icon-courses { background-color: rgba(255, 193, 7, 0.1); color: #ffc107; }
+
+        .card-content {
+            display: flex; /* 关键改动：内部也启用Flexbox */
+            flex-direction: column; /* 关键改动：垂直布局 */
+            flex-grow: 1; /* 关键改动：让内容区填满剩余空间 */
         }
 
-        .modal-option-title {
-            font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
+        .card-content h2 {
+            font-size: 1.8em;
+            margin: 0 0 10px 0;
             color: #fff;
         }
-
-        .modal-option-desc {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            line-height: 1.5;
+        
+        .for-who {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #a09cc2;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .card-content p {
+            color: #a09cc2;
+            font-size: 1em;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+        
+        .btn {
+            display: block;
+            background: rgba(50, 47, 83, 0.8);
+            color: #c0bde8;
+            padding: 13px 0;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
+            margin-top: auto; /* 关键改动：自动将按钮推到底部 */
+            padding-top: 15px; /* 增加一点内边距让文字更居中 */
+            padding-bottom: 15px;
+        }
+        
+        /* 增加一个容器来包裹按钮，确保margin-top生效 */
+        .card-footer {
+            margin-top: auto; /* 将整个footer推到底部 */
+            padding-top: 30px; /* 按钮与上方文字的间距 */
         }
 
+
+        .nodes-btn:hover { background-color: #00bfff; color: #fff; }
+        .router-btn:hover { background-color: #e000ff; color: #fff; }
+        .courses-btn:hover { background-color: #ffc107; color: #111; }
+        
+        .footer {
+            margin-top: 60px;
+            font-size: 0.9em;
+            color: #4a476b;
+        }
+        
+        @media (max-width: 1024px) {
+            .solutions-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2.5em; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <a href="https://3yuedaohang.com" target="_blank">
-            <i class="fas fa-home"></i> 返回主导航
-        </a>
-    </nav>
+    <div class="main-container">
+        <header class="header">
+            <h1>解锁您的网络潜能</h1>
+            <p>无论您需要即插即用的专业节点、一劳永逸的终极路由，还是从零到一的搭建秘籍，在这里都能找到最佳答案。</p>
+        </header>
 
-    <div class="container">
-        <!-- 核心业务模块 -->
-        <div class="hero-grid-container">
-            
-            <!-- ✅ 修改: AI神器卡片，更换为蓝色系，更新全部文案 -->
-            <div class="hero-card ai-product" id="aiVideoTrigger">
-                <div class="hero-icon"><i class="fas fa-brain"></i></div>
-                <h2 class="hero-title">AI智能创作引擎</h2>
-                <p class="hero-subtitle">集成先进的AI视频生成与剪辑能力，从零创作或二次剪辑，全方位赋能您的内容生产。</p>
-                <div class="cta-button">
-                    <i class="fas fa-tools"></i> 探索AI创作工具
+        <main class="solutions-grid">
+            <!-- 模块一: 卖节点 -->
+            <div class="solution-card">
+                <div class="card-icon icon-nodes"><i class="fas fa-globe"></i></div>
+                <div class="card-content">
+                    <h2>TK网络</h2>
+                    <span class="for-who">专为TikTok、FacelBook等流媒体运营/直播、跨境电商与稳定业务运营者</span>
+                    <p>还在为0播放烦恼？多人共享的“公共”节点正是罪魁祸首。我们提供100%独享原生IP，确保环境纯净如新，经大量TikTok实测数据极佳，助您轻松撬动自然流量。</p>
+                </div>
+                <div class="card-footer">
+                    <a href="ziying.html" class="btn nodes-btn">了解详情 & 购买</a>
                 </div>
             </div>
 
-            <!-- 模块一：搭建课程 -->
-            <div class="hero-card highlight">
-                <div class="hero-icon"><i class="fas fa-user-graduate"></i></div>
-                <h2 class="hero-title">从零到一 · 网络搭建课</h2>
-                <p class="hero-subtitle">站长1V1远程教学，带你彻底掌握从VPS到软路由的全套核心技术，一次学习，终身受益。</p>
-                <a href="lesson/index.html" target="_blank" class="cta-button">
-                    <i class="fas fa-unlock-alt"></i> 查看课程详情
-                </a>
+            <!-- 模块二: 卖软路由 -->
+            <div class="solution-card">
+                <div class="card-icon icon-router"><i class="fas fa-server"></i></div>
+                <div class="card-content">
+                    <h2>软路由</h2>
+                    <span class="for-who">为多账户矩阵运营、追求极致效率与网络安全的精英团队</span>
+                    <p>还在手动切换IP？一台设备，搞定所有！我们的定制路由能创建多个隔离Wi-Fi，每个Wi-Fi自动绑定不同国家的独享IP。让您的多台设备瞬间化身“本地人”，将伪装度拉满。</p>
+                </div>
+                <div class="card-footer">
+                    <a href="lesson/ly.html" class="btn router-btn">了解详情 & 定制</a>
+                </div>
             </div>
 
-            <!-- 模块二：站长自营VPS -->
-            <div class="hero-card highlight">
-                <div class="hero-icon"><i class="fas fa-star"></i></div>
-                <h2 class="hero-title">站长自营 · 双ISP原生VPS</h2>
-                <p class="hero-subtitle">美/日/台/港/英/德/韩/泰等多地区可选，大带宽、独享IP，为高端业务与稳定连接而生。</p>
-                <a href="ziying.html" target="_blank" class="cta-button">
-                    <i class="fas fa-server"></i> 查看VPS详情
-                </a>
+            <!-- 模块三: 卖课 -->
+            <div class="solution-card">
+                <div class="card-icon icon-courses"><i class="fas fa-graduation-cap"></i></div>
+                <div class="card-content">
+                    <h2>节点搭建课程</h2>
+                    <span class="for-who">为渴望掌握核心技术、实现网络自由并节省长期成本的探索者</span>
+                    <p>与其月月付费，不如成为技术的主人。站长1对1亲授，15分钟带你快速上手，亲手搭建高速节点。这不仅是省钱的终极秘诀，更是开启副业、帮助他人的硬核技能。</p>
+                </div>
+                 <div class="card-footer">
+                    <a href="lesson/index.html" class="btn courses-btn">了解详情 & 学习</a>
+                </div>
             </div>
-
-            <!-- 模块三：成品软路由 -->
-            <div class="hero-card highlight">
-                <div class="hero-icon"><i class="fas fa-hdd"></i></div>
-                <h2 class="hero-title">即插即用 · 成品软路由</h2>
-                <p class="hero-subtitle">为你节省数百小时的研究与测试时间。专业配置、严格测试，到手即用，提供全年技术支持。</p>
-                <a href="lesson/ly.html" target="_blank" class="cta-button">
-                    <i class="fas fa-cogs"></i> 了解详情与定制
-                </a>
-            </div>
-
-        </div>
-
-        <!-- 辅助资源 -->
-        <section class="resources-section">
-            <h2 class="resources-title">配套资源矩阵</h2>
-            <div class="resource-pillars-container">
-
-                <!-- 分类一：TikTok 运营策略 -->
-                <div class="resource-pillar">
-                    <h2><i class="fas fa-satellite-dish"></i> TikTok 运营策略</h2>
-                    <div class="resource-card-list">
-                        <a href="https://accboyytbsydh.acceboy.com" target="_blank" class="resource-card  highlight-card"><div class="icon">👥</div><span>各类账号购买（应有尽有）</span></a>
-                        <a href="https://st1.hosbb.com/#/register?code=0uqD01qw" target="_blank" class="resource-card  highlight-card"><div class="icon">🚀</div><span>专线机场(试用 + 可用于中转)</span></a>
-                        <a href="https://www.vircs.com/welcome?vcd=1d1b3b78" target="_blank" class="resource-card  highlight-card"><div class="icon">🏠</div><span>美国真实 ATT 家庭宽带</span></a>
-                               <!-- 住宅IP - 修改为触发弹窗 -->
-                               <!-- <div id="residentialIpTrigger" class="resource-card  highlight-card">
-                                    <div class="icon">🏠</div>
-                                    <span>住宅IP socks5</span>
-                               </div> -->
-                        <!-- <a href="https://gorelay.net/#register/YAXRFFIVEW" target="_blank" class="resource-card  highlight-card"><div class="icon">🌐</div><span>中转线路</span></a> -->
-                        <a href="cn2/banwagong.html" target="_blank" class="resource-card highlight-card"><div class="icon">⚡</div><span>CN2 GIA 专线</span></a>
-                        <a href="https://666clouds.com/aff.php?aff=2809 " target="_blank" class="resource-card highlight-card"><div class="icon">🖥️</div><span>TK运营 VPS - 66云  </span></a>
-                        <!-- <a href="https://lisahost.com/aff.php?aff=5553" target="_blank" class="resource-card"><div class="icon">🖥️</div><span>TK运营 VPS - Lisa </span></a> -->
-                    
-                        
-                 
-                        <a href="https://sms-man.com/cn?ref=ZfPQwjsHSGQu" target="_blank" class="resource-card"><div class="icon">🥶</div><span>接码平台</span></a>
-                        <a href="https://www.duoplus.cn/share/tNVaXc" target="_blank" class="resource-card"><div class="icon">📱</div><span>云手机推荐（TK养号）</span></a>
-                        <a href="https://share.adspower.net/BpVkZk" target="_blank" class="resource-card"><div class="icon">🔒</div><span>Ads多环境指纹浏览器</span></a>
-                        <!-- <a href="https://nf.video/OXYNE" target="_blank" class="resource-card"><div class="icon">🌑</div><span> AI/影视充值 </span></a> -->
-                    </div>
-                </div>
-
-                <!-- 其他分类 -->
-                <div class="resource-pillar">
-                    <h2><i class="fas fa-book-open"></i> 其他教程与指南</h2>
-                    <div class="resource-card-list">
-                        <a href="nange.html" target="_blank" class="resource-card"> <div class="icon">🎯</div> <span>跨越投流方案</span> </a>
-                        <a href="tk-direct.html" target="_blank" class="resource-card"><div class="icon">💧</div><span>TK环境指南</span></a>
-                        <a href="ip-explain.html" target="_blank" class="resource-card"><div class="icon">🔥</div><span>IP节点解析</span></a>
-                    </div>
-                </div>
-                <div class="resource-pillar">
-                    <h2><i class="fas fa-search-location"></i> 查询检测工具</h2>
-                    <div class="resource-card-list">
-                        <a href="https://zh.wikipedia.org/wiki/ISO_3166-1" target="_blank" class="resource-card"><div class="icon">🌍</div><span>国家代码查询</span></a>
-                        <a href="https://fofa.info/result?qbase64=ZG9tYWluPSJuaWNldGsudG9wIiAmJiBjb3VudHJ5PSJNWSI%3D" target="_blank" class="resource-card"><div class="icon">🔭</div><span>FOFA网络空间搜索</span></a>
-                        <a href="https://ipinfo.io/1.9.4.221?lookup_source=search-bar#block-asn" target="_blank" class="resource-card"><div class="icon">📍</div><span>IPInfo.io 详细信息</span></a>
-                        <a href="https://ping0.cc/ip/" target="_blank" class="resource-card"><div class="icon">🧭</div><span>Ping0.cc IP检测</span></a>
-                        <a href="https://whoer.net/zh" target="_blank" class="resource-card"><div class="icon">🕵️</div><span>Whoer 匿名度评估</span></a>
-                        <a href="https://scamalytics.com/ip/" target="_blank" class="resource-card"><div class="icon">⚠️</div><span>Scamalytics 欺诈值</span></a>
-                        <a href="https://ping.pe/" target="_blank" class="resource-card"><div class="icon">🧱</div><span>Ping.pe 被墙检测</span></a>
-                        <a href="https://tools.ipip.net/traceroute.php" target="_blank" class="resource-card"><div class="icon">🗺️</div><span>路由追踪</span></a>
-                        <a href="https.whatsmydns.net/" target="_blank" class="resource-card"><div class="icon">🌐</div><span>域名解析查询</span></a>
-                        <a href="https://ipleak.net/" target="_blank" class="resource-card"><div class="icon">💧</div><span>Ipleak DNS泄漏查询</span></a>
-                    </div>
-                </div>
-                <div class="resource-pillar">
-                    <h2><i class="fas fa-tools"></i> 测速与常用工具</h2>
-                    <div class="resource-card-list">
-                        <a href="https://www.speedtest.net/" target="_blank" class="resource-card"><div class="icon">💨</div><span>SpeedTest 测速</span></a>
-                        <a href="https://speed.cloudflare.com/" target="_blank" class="resource-card"><div class="icon">☁️</div><span>Cloudflare 测速</span></a>
-                        <a href="https://fast.com/" target="_blank" class="resource-card"><div class="icon">🎬</div><span>Netflix Fast 测速</span></a>
-                        <a href="https://github.com/2dust/v2rayN/releases/tag/7.12.7" target="_blank" class="resource-card"><div class="icon">💻</div><span>V2rayN (windows)</span></a>
-                        <a href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/tag/1.3.9" target="_blank" class="resource-card"><div class="icon">📱</div><span>NekoBox (安卓)</span></a>
-                        <a href="https://www.hostbuf.com/t/988.html" target="_blank" class="resource-card"><div class="icon">🐚</div><span>Finalshell SSH工具</span></a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
+        </main>
+        
+        <footer class="footer">
+            <p>Copyright © 2024-2025 站长网络工坊. All Rights Reserved.</p>
+        </footer>
     </div>
-
-    <!-- ✅ 修改: AI 视频弹窗 Modal，更新全部文案 -->
-    <div id="aiVideoModal" class="modal-container">
-        <div class="modal-content" style="max-width: 550px;">
-            <span class="close-button">&times;</span>
-            <h3 style="color: var(--primary-accent);">AI智能创作工具箱</h3>
-            <p style="margin-bottom: 25px; opacity: 0.8; font-size: 0.95rem;">请根据您的创作需求，选择合适的AI工具。我们提供从原创生成到二次剪辑的全套解决方案。</p>
-            <div class="modal-options-group">
-                <a href="https://3yuedaohang.com/n8n-2" target="_blank" class="modal-option-card">
-                    <div class="modal-option-icon" style="color: #00BFFF;"><i class="fas fa-magic-sparkles"></i></div>
-                    <div class="modal-option-text">
-                        <strong class="modal-option-title">原创视频生成器</strong>
-                        <span class="modal-option-desc">输入您的核心创意或关键词，AI将全自动完成内容构思、素材匹配、配音合成，一键生成高质量原创视频。</span>
-                    </div>
-                </a>
-                <a href="https://3yuedaohang.com/n8n" target="_blank" class="modal-option-card">
-                    <div class="modal-option-icon" style="color: var(--primary-accent);"><i class="fas fa-cut"></i></div>
-                    <div class="modal-option-text">
-                        <strong class="modal-option-title">智能视频剪辑器</strong>
-                        <span class="modal-option-desc">上传您的视频素材，AI可自动识别精彩片段、添加字幕、匹配背景音乐，快速产出适合多平台的二创内容。</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 住宅IP 弹窗 Modal -->
-    <div id="residentialIpModal" class="modal-container">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3>住宅IP · 操作选择</h3>
-            <p style="margin-bottom: 25px; opacity: 0.8; font-size: 0.95rem;">首次使用建议先阅读说明文档。</p>
-            <div class="modal-button-group">
-                <a href="https://pan.quark.cn/s/262adc3249ec" target="_blank" class="modal-btn instructions">
-                    <i class="fas fa-file-alt"></i> 使用说明
-                </a>
-                <a href="https://www.kookeey.com/register.html?aff=33435631" target="_blank" class="modal-btn purchase">
-                    <i class="fas fa-shopping-cart"></i> 高流量住宅IP (Kookeey)
-                </a>
-                <a href="https://www.lycheeip.com/home/ip?affId=r9Ku04aWaA" target="_blank" class="modal-btn purchase">
-                    <i class="fas fa-shopping-cart"></i> 可直播住宅IP (LycheeIP)
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>📌 当前页面地址为 <strong>dajian.cyou</strong>，建议收藏本页防止失联。</p>
-    </footer>
-
-    <a href="TG.html" target="_blank" class="side-contact-card right">
-        <i class="fab fa-telegram-plane"></i>
-        <div class="contact-info">
-            <strong>TG交流群</strong>
-        </div>
-    </a>
-
-    <script>
-        // --- 住宅IP Modal Logic ---
-        const residentialIpModal = document.getElementById('residentialIpModal');
-        const residentialIpTrigger = document.getElementById('residentialIpTrigger');
-        const closeModalButton = residentialIpModal.querySelector('.close-button');
-        const openModal = () => { residentialIpModal.classList.add('show'); };
-        const closeModal = () => { residentialIpModal.classList.remove('show'); };
-        residentialIpTrigger.addEventListener('click', openModal);
-        closeModalButton.addEventListener('click', closeModal);
-        residentialIpModal.addEventListener('click', (event) => {
-            if (event.target === residentialIpModal) { closeModal(); }
-        });
-
-        // --- AI 视频 Modal Logic ---
-        const aiVideoModal = document.getElementById('aiVideoModal');
-        const aiVideoTrigger = document.getElementById('aiVideoTrigger');
-        const closeAiModalButton = aiVideoModal.querySelector('.close-button');
-        const openAiModal = () => { aiVideoModal.classList.add('show'); };
-        const closeAiModal = () => { aiVideoModal.classList.remove('show'); };
-        aiVideoTrigger.addEventListener('click', openAiModal);
-        closeAiModalButton.addEventListener('click', closeAiModal);
-        aiVideoModal.addEventListener('click', (event) => {
-            if (event.target === aiVideoModal) { closeAiModal(); }
-        });
-
-        // --- 统一的键盘 'Escape' 事件监听 ---
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                if (residentialIpModal.classList.contains('show')) {
-                    closeModal();
-                }
-                if (aiVideoModal.classList.contains('show')) {
-                    closeAiModal();
-                }
-            }
-        });
-    </script>
     
 </body>
 </html>
