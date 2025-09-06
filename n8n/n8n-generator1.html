@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N8N自动化爆款视频生成器 - 1对1带教服务</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --primary-color: #4A90E2; /* 专业蓝 */
+            --dark-color: #2c3e50; /* 深灰蓝 */
+            --light-color: #f8f9fa;
+            --gray-color: #5a6a7a;
+            --bg-color: #ffffff;
+            --card-bg: #fff;
+            --border-color: #e9ecef;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--dark-color);
+            line-height: 1.8;
+            font-size: 17px;
+            scroll-behavior: smooth;
+        }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
+        h1, h2, h3, h4 { font-weight: 700; line-height: 1.4; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 38px; font-weight: 900; margin-bottom: 15px; }
+        .section-header p { font-size: 18px; color: var(--gray-color); max-width: 750px; margin: 0 auto; }
+        
+        .hero-section { text-align: center; padding: 100px 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .hero-section h1 { font-size: 52px; font-weight: 900; margin-bottom: 20px; }
+        .hero-section .subtitle { font-size: 20px; color: var(--gray-color); margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .cta-button { display: inline-block; background: var(--primary-color); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 20px; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(74, 144, 226, 0.3); border: none; cursor: pointer; }
+        .cta-button:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 8px 30px rgba(74, 144, 226, 0.4); }
+
+        .demo-gallery .table-of-contents { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 60px; padding: 0; list-style: none; }
+        .table-of-contents a { text-decoration: none; color: var(--primary-color); background-color: #eaf2fb; padding: 8px 18px; border-radius: 20px; font-weight: 500; transition: all 0.2s ease; font-size: 15px; }
+        .table-of-contents a:hover { background-color: var(--primary-color); color: #fff; transform: translateY(-2px); }
+        
+        .demo-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; margin-bottom: 50px; padding: 35px; box-shadow: 0 8px 40px rgba(0,0,0,0.07); overflow: hidden; }
+        .demo-card h3 { font-size: 28px; margin: 0 0 10px; }
+        .demo-card .scene-description { color: var(--gray-color); margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .demo-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: flex-start; }
+        
+        .video-gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .video-player { width: 100%; background-color: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .video-player video { width: 100%; display: block; }
+        
+        .video-container-horizontal { display: flex; flex-direction: column; gap: 20px; }
+        .video-player-horizontal { width: 100%; background-color: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); aspect-ratio: 16 / 9; }
+        .video-player-horizontal video { width: 100%; height: 100%; display: block; object-fit: contain; }
+
+        .tech-specs ul { list-style: none; padding: 0; margin: 0; }
+        .tech-specs li { margin-bottom: 15px; font-size: 16px; display: flex; }
+        .tech-specs .spec-label { font-weight: 700; color: var(--dark-color); display: inline-block; width: 85px; flex-shrink: 0; }
+        .tech-specs a { color: var(--primary-color); text-decoration: none; word-break: break-all; }
+        .tech-specs a:hover { text-decoration: underline; }
+        .prompt-box { background-color: var(--light-color); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; font-size: 14px; color: var(--gray-color); line-height: 1.7; margin-top: 15px; white-space: pre-wrap; word-wrap: break-word; max-height: 200px; overflow-y: auto; }
+        .prompt-box strong { color: var(--dark-color); }
+
+        #what-you-get { background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%); }
+        .what-you-get-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { background: var(--card-bg); padding: 30px; border-radius: 12px; text-align: center; border: 1px solid var(--border-color); transition: transform 0.2s, box-shadow 0.2s; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+        .feature-card .icon { font-size: 48px; color: var(--primary-color); }
+        .feature-card h3 { font-size: 22px; margin: 15px 0 10px 0; }
+        .feature-card p { color: var(--gray-color); font-size: 16px; }
+        
+        .cta-button-small { padding: 16px 30px; font-size: 18px; width: 100%; box-sizing: border-box; }
+        
+        #faq { background-color: var(--light-color); }
+        .faq-item { background-color: var(--bg-color); padding: 20px 25px; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--border-color); }
+        .faq-item h4 { margin: 0 0 10px 0; font-size: 18px; }
+        .faq-item p { margin: 0; line-height: 1.9; color: var(--gray-color); }
+
+        .pricing-container { max-width: 480px; margin: 0 auto; }
+        .pricing-card-unified { background: #fff; padding: 40px; border-radius: 16px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid var(--border-color); }
+        .pricing-card-unified .card-header { margin-bottom: 25px; }
+        .pricing-card-unified h3 { font-size: 28px; margin-bottom: 10px; }
+        .pricing-card-unified .card-description { color: var(--gray-color); font-size: 17px; margin-bottom: 0; }
+        .price-option { padding: 25px 0; }
+        .price-option .price { font-size: 52px; font-weight: 900; color: var(--dark-color); margin-bottom: 8px; line-height: 1.1; }
+        .price-option .option-title { font-size: 20px; font-weight: 700; color: var(--dark-color); }
+        .price-option .option-description { font-size: 16px; color: var(--gray-color); margin-top: 6px; margin-bottom: 0; }
+        .option-divider { height: 1px; background-color: var(--border-color); width: 100%; }
+        .pricing-card-unified .cta-button { margin-top: 30px; width: 100%; }
+        
+        #n8n-workflow-intro .demo-card ul { list-style: disc; padding-left: 25px; margin-bottom: 20px; }
+        #n8n-workflow-intro .demo-card li { margin-bottom: 8px; font-size: 16px; color: var(--gray-color); }
+        #n8n-workflow-intro .demo-card h4 { font-size: 24px; margin-bottom: 15px; color: var(--dark-color); }
+        #n8n-workflow-intro .feature-card .icon { font-size: 36px; margin-bottom: 15px; }
+        #n8n-workflow-intro .feature-card h3 { font-size: 20px; margin-top: 0; }
+        #n8n-workflow-intro .feature-card p { font-size: 15px; line-height: 1.7; }
+        
+        @media (max-width: 900px) { .demo-content { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { body { font-size: 16px; } .hero-section h1 { font-size: 38px; } }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="hero-section">
+        <h1>告别繁琐剪辑，AI帮你搞定一切</h1>
+        <p class="subtitle">这不仅仅是一个工具，更是一套完整的“自动化视频生产线”。你只需提供创意和方向，剩下的交给AI，让你从重复性劳动中彻底解放，专注于内容本身！</p>
+        <a href="#pricing" class="cta-button">获取工作流 + 1对1教学</a>
+    </header>
+
+    <main>
+        <section id="gallery" class="container demo-gallery">
+            <div class="section-header"><h2>眼见为实：见证AI的创作力</h2><p>我们用这套工作流制作了10种不同风格的视频。选择一个你感兴趣的场景，亲眼见证它的威力，并查看生成它的完整“配方”！</p></div>
+            <ul class="table-of-contents"><li><a href="#demo-1">纪录片动物世界</a></li><li><a href="#demo-2">情侣故事</a></li><li><a href="#demo-3">国风古诗</a></li><li><a href="#demo-4">毛线治愈</a></li><li><a href="#demo-5">微缩工作</a></li><li><a href="#demo-6">清新人物</a></li><li><a href="#demo-7">科幻宇宙飞船</a></li><li><a href="#demo-8">海边风景</a></li><li><a href="#demo-9">城市地标</a></li><li><a href="#demo-10">行驶火车</a></li></ul>
+            
+            <div id="demo-1" class="demo-card"><h3>1. 纪录片动物世界场景</h3><p class="scene-description">仿照 bbc 非洲动物纪录片生成一组介绍非洲大草原上的狮子的场景，画面纪实风格，展示原始真实的画面风格以及动物之王狮子的原始风貌。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/02f7cab9-bccd-45c3-9b99-ce43a1d2c614_output.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=struct&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/cfdb5f58c6ad450c850219e362655ab9?from=feed&versionUuid=afbf6e6f1cbe4bdf849032d9159dc6d4" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/dongwu.MP3" target="_blank">点击试听</a></li><li><span class="spec-label">参考视频:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/dongwushijie.mp4" target="_blank">点击观看</a></li></ul><div class="prompt-box"><strong>模型示例提示词：</strong><br>Film Photography,A tree on the wasteland,half cut down and only a section of it,stood a crow,and there were many crows hovering in the sky in the distance,</div></div></div></div>
+            <div id="demo-2" class="demo-card"><h3>2. 情侣故事场景</h3><p class="scene-description">设计一对城市男女从相遇、相知、相爱到相伴的美妙爱情；以及年轻夫妇结婚、怀孕、生子、孩子长大的温馨场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/aiqingxiangyu.mp4"></video></div><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/aiqing.mp4"></video></div><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/shijianmeihao.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=sd&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/b7ace400d93d42a69656022ba06dd171?from=personal_page&versionUuid=10880f7e4a06400e88c059886e9bc363" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/aiqing.mp3" target="_blank">点击试听</a></li><li><span class="spec-label">参考视频:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/aiqingshipin.mp4" target="_blank">点击观看</a></li><li><span class="spec-label">触发词:</span>3D</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>3D,A pixel-style little man in a Japanese boy style,with no decorations on his hair,wearing a black top and a black watch,sitting on the bed and looking at his phone with one hand while hugging a long-haired girl with his other hand...</div></div></div></div>
+            <!-- ... 其他DEMO卡片保持不变 ... -->
+            <div id="demo-3" class="demo-card"><h3>3. 国风古诗场景</h3><p class="scene-description">根据古诗《枫桥夜泊》的意境，设计一套包含季节变换和伤感故事的国风场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/gushisiji.mp4"></video></div><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/gushi.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=sd&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/dc988112616a487cac1f4165fb0082d9?from=search&versionUuid=42929705b20c49d38fe559aafd50593a" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/gushici.mp3" target="_blank">点击试听</a></li><li><span class="spec-label">参考图:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/gushi.png" target="_blank">点击查看</a></li><li><span class="spec-label">触发词:</span>classical Chinese poem</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>A CGI image of a cute,chubby Asian boy with a bun hairstyle,wearing a traditional white robe,reading an open book under a lantern-lit wooden table.</div></div></div></div>
+            <div id="demo-4" class="demo-card"><h3>4. 毛线治愈场景</h3><p class="scene-description">设计一组治愈的一年不同季节变换的场景，展示不同风景的温馨的画面感觉。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/animal.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=sd&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/a1354dd29b284104b637dd1e598f4397?from=personal_page&versionUuid=a2c012d7afbd4322816a72cfc73d42af" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/animal.mp3" target="_blank">点击试听</a></li><li><span class="spec-label">参考视频:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/Animal%20Crossing%20New%20Horizons%20Accolades.mp4" target="_blank">点击观看</a></li><li><span class="spec-label">触发词:</span>wool yarn</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>wool yarn fuzzy,resembling a plush toy,the image is very detailed and realistic.</div></div></div></div>
+            <div id="demo-5" class="demo-card"><h3>5. 微缩工作场景</h3><p class="scene-description">设计一套农作物从种植到收获的施工的微缩系列场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/xiaomai.mp4"></video></div><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/xiguazhongzhi.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=struct&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/b3652d06eeb44385a2adba6beb04796f?from=search&versionUuid=2694fe3f638b4cd9a7c8fd9fd017cc42" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/dolce_nonna.mp3" target="_blank">点击试听</a></li><li><span class="spec-label">参考视频:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/Tiktok.mp4" target="_blank">点击观看</a></li><li><span class="spec-label">触发词:</span>Miniature Photography Scene</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>Miniature world,This photograph showcases a vibrant,miniature garden scene.</div></div></div></div>
+            <div id="demo-6" class="demo-card"><h3>6. 清新人物场景</h3><p class="scene-description">设计一位女孩日常写真的场景，场景丰富，日系韩系小清晰摄影场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/6ff79037-72a3-4961-b410-21bc90b37bcb_output_0.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=sd&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/dc490078cda9409fbd0312177cc3195b?from=personal_page&versionUuid=197c104e305f422a82d8b4cf6cd3518b" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/qingxin_audio.mp3" target="_blank">点击试听</a></li><li><span class="spec-label">参考视频:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/qingxin.mp4" target="_blank">点击观看</a></li><li><span class="spec-label">触发词:</span>photograph</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>photograph,A photograph of a young Asian woman with short,tousled auburn hair.</div></div></div></div>
+            <div id="demo-7" class="demo-card"><h3>7. 科幻宇宙飞船场景</h3><p class="scene-description">设计一套宇宙飞船翱翔太空的场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/feichuan.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=sd&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/f5efed2219624ceeaf028e8bf6d46c9d?from=search&versionUuid=e8758dabba5945118f14062e960c156f" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/menghuan.mp3" target="_blank">点击试听</a></li><li><span class="spec-label">参考图:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/yuzhoufeichuan.png" target="_blank">点击查看</a></li><li><span class="spec-label">触发词:</span>spaceship</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>spaceship. This is a highly detailed CGI illustration depicting a futuristic spacecraft.</div></div></div></div>
+            <div id="demo-8" class="demo-card"><h3>8. 海边风景场景</h3><p class="scene-description">设计一套全世界知名旅游热门海滩岛屿的微缩系列场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/seaside.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=struct&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/9e2a33da25534f98952e37aa22eb517d?from=search&versionUuid=dc01538105fa4580a385da706a5f43d3" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/seaside.MP3" target="_blank">点击试听</a></li><li><span class="spec-label">参考图:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/seaside.png" target="_blank">点击查看</a></li><li><span class="spec-label">触发词:</span>Miniature_Island</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>Miniature_Island,A serene island paradise with a luxurious resort.</div></div></div></div>
+            <div id="demo-9" class="demo-card"><h3>9. 城市地标场景</h3><p class="scene-description">设计一套全世界最为知名城市的著名地标的系列场景。</p><div class="demo-content"><div class="video-gallery-grid"><div class="video-player"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/%E5%9C%B0%E6%A0%87.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=struct&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/54f1624416fd4528af499b962ead9651?from=feed&versionUuid=f9fe030e8c4f4fb7a9c4a9bcab114f45" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/zhiyuyinyue.MP3" target="_blank">点击试听</a></li><li><span class="spec-label">参考图:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/bali.png" target="_blank">点击查看</a></li><li><span class="spec-label">触发词:</span>FRESH IDEAS Stylized Miniature Cityscape Model</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>Vibrant urban landscape of Paris,France: a digital art illustration of the future.</div></div></div></div>
+            <div id="demo-10" class="demo-card"><h3>10. 行驶火车场景</h3><p class="scene-description">设计一系列火车从画面右边向左侧行驶窗外的场景，窗外的风景向右移动。</p><div class="demo-content"><div class="video-container-horizontal"><div class="video-player-horizontal"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/1.mp4"></video></div><div class="video-player-horizontal"><video controls playsinline loop src="https://xiangyugongzuoliu.com/wp-content/uploads/2025/05/kehuan.mp4"></video></div></div><div class="tech-specs"><h4>- 生成配方 -</h4><ul><li><span class="spec-label">主模型:</span><a href="https://www.liblib.art/modelinfo/488cd9d58cd4421b9e8000373d7da123?from=sd&versionUuid=412b427ddb674b4dbab9e5abd5ae6057" target="_blank">点击查看</a></li><li><span class="spec-label">Lora:</span><a href="https://www.liblib.art/modelinfo/6561a2b3e59843a4addff534e5e69e95?from=personal_page&versionUuid=d9d2f1fe44924e438f536bc31cad29e0" target="_blank">点击查看</a></li><li><span class="spec-label">配乐:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/huoche.MP3" target="_blank">点击试听</a></li><li><span class="spec-label">参考视频:</span><a href="https://pub-b65afb21c951453a872a026d19411abe.r2.dev/huochexingshi.mp4" target="_blank">点击观看</a></li><li><span class="spec-label">触发词:</span>3D</li></ul><div class="prompt-box"><strong>示例提示词:</strong><br>3D,Supercoolvision,New consumption,gradient background,wearing a down jacket.</div></div></div></div>
+        </section>
+
+        <section id="n8n-workflow-intro" class="container">
+            <div class="section-header"><h2>深入了解：N8N工作流揭秘</h2><p>N8N不仅仅是一个工具，它是一个强大的开源自动化平台。在这里，我们将带你了解如何通过它，将创意转化为现实。</p></div>
+            <div class="demo-card"><h3>什么是N8N工作流？</h3><p class="scene-description">N8N是一个免费、开源的自动化工具，让你通过可视化界面，将各种应用和服务连接起来，实现工作流程的自动化。</p><div class="feature-card" style="text-align: left; margin-top: 30px;"><div class="icon" style="float: left; margin-right: 20px;"><i class="fas fa-project-diagram"></i></div><h3 style="margin-top: 0;">为什么选择N8N？</h3><p style="margin-bottom: 0;">N8N提供了极高的灵活性和可定制性，支持数百种应用集成，并且可以部署在您自己的服务器上，完全掌控数据。</p></div></div>
+            <div class="demo-card"><h3>你的智能视频工厂：操作演示</h3><p class="scene-description">通过我们为您定制的N8N工作流，生成爆款视频变得前所未有的简单。</p><div class="demo-content" style="grid-template-columns: 1fr; gap: 40px;"><div><h4>1. 简洁直观的填写界面</h4><p>告别复杂的参数设置！我们已将所有核心功能封装，您只需在以下界面中填写关键信息。</p><ul><li><strong>视频主题：</strong> 您的视频核心创意。</li><li><strong>提示词示例：</strong> 描述您希望看到的画面内容和风格。</li><li><strong>场景数量：</strong> 决定视频的时长。</li><li><strong>mp4：</strong> 上传一个参考视频，AI将学习其风格。</li></ul></div><div style="text-align: center;"><img src="image/N2-1.png" alt="N8N工作流视频生成器填写界面" style="max-width: 100%; border-radius: 8px;"></div></div></div>
+            <div class="demo-card"><h3>2. 幕后奥秘：自动化流程一览</h3><p class="scene-description">这张图展示了N8N工作流的强大逻辑。每一个节点都代表一个自动化步骤。</p><div style="text-align: center;"><img src="image/n2-2.png" alt="N8N工作流自动化流程图" style="max-width: 100%; border-radius: 8px;"></div><p style="margin-top: 30px;">您无需理解这些复杂的连接，只需知道它们确保了您的视频从创意到成品，都能高效、精准地生成。</p></div>
+            <div class="demo-card"><h3>N8N vs. 扣子（Coze）等智能体工具：核心优势</h3><p class="scene-description">在众多自动化工具中，N8N凭借其独特的优势脱颖而出。</p><div class="what-you-get-grid"><div class="feature-card" style="text-align: left;"><div class="icon"><i class="fas fa-lock"></i></div><h3>数据主权与隐私</h3><p>N8N可以部署在您的私人服务器，让您完全掌控所有数据。</p></div><div class="feature-card" style="text-align: left;"><div class="icon"><i class="fas fa-globe"></i></div><h3>高度国际化与API支持</h3><p>N8N原生支持连接全球各类API服务，集成最新的AI模型。</p></div><div class="feature-card" style="text-align: left;"><div class="icon"><i class="fas fa-code-branch"></i></div><h3>极致灵活与可定制</h3><p>N8N的开源特性和节点式设计，意味着您可以无限扩展其功能。</p></div><div class="feature-card" style="text-align: left;"><div class="icon"><i class="fas fa-server"></i></div><h3>摆脱平台限制</h3><p>在N8N上构建的工作流，不依赖任何单一平台的规则变动。</p></div><div class="feature-card" style="text-align: left;"><div class="icon"><i class="fas fa-dollar-sign"></i></div><h3>成本效益</h3><p>N8N的开源特性使得基础使用成本极低，能显著降低运营成本。</p></div><div class="feature-card" style="text-align: left;"><div class="icon"><i class="fas fa-rocket"></i></div><h3>持续创新潜力</h3><p>作为一个活跃的开源社区项目，N8N功能更新迭代迅速。</p></div></div></div>
+        </section>
+
+        <section id="what-you-get" class="container">
+            <div class="section-header"><h2>你获得的，是一整套“成功解决方案”</h2><p>我们提供的不是冷冰冰的软件，而是一次完整的赋能，确保你能够真正把这套强大的工具用起来，并创造价值。</p></div>
+            <div class="what-you-get-grid"><div class="feature-card"><div class="icon"><i class="fas fa-cogs"></i></div><h3>核心工作流文件</h3><p>全套N8N工作流文件，可直接导入你的环境。</p></div><div class="feature-card"><div class="icon"><i class="fas fa-book-open"></i></div><h3>10套完整配方</h3><p>所有演示视频的参数、模型、Prompt，开箱即用。</p></div><div class="feature-card"><div class="icon"><i class="fas fa-hands-helping"></i></div><h3>1对1远程包教会</h3><p>手把手带你完成部署，确保你100%成功运行。</p></div><div class="feature-card"><div class="icon"><i class="fas fa-video"></i></div><h3>“保姆级”教程</h3><p>超详细的视频和图文教程，供你随时复习和查阅。</p></div><div class="feature-card"><div class="icon"><i class="fas fa-sync-alt"></i></div><h3>永久免费更新</h3><p>未来工作流的功能升级和新增的风格模板，你都能免费获取。</p></div><div class="feature-card"><div class="icon"><i class="fas fa-users"></i></div><h3>专属交流社群</h3><p>加入内部群，与其他创作者交流玩法和变现经验。</p></div></div>
+        </section>
+
+        <section id="pricing" class="container">
+            <div class="section-header"><h2>选择最适合你的方案</h2><p>一次投入，永久受益。这套自动化系统为你节省的时间和精力，价值远超于此。</p></div>
+            <div class="pricing-container">
+                <div class="pricing-card-unified">
+                    <div class="card-header"><h3>视频创作神器包</h3><p class="card-description">掌握核心视频自动化技术，快速提升内容生产效率。</p></div>
+                    <div class="price-option"><div class="price">¥599</div><div class="option-title">基础配置版</div><p class="option-description">(适合有基础，会自己配置)</p></div>
+                    <div class="option-divider"></div>
+                    <div class="price-option"><div class="price">¥799</div><div class="option-title">一键部署版</div><p class="option-description">(打开即用，适合小白)</p></div>
+                    <button class="cta-button cta-button-small buy-now-button contact-trigger">立即获取</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="container">
+            <div class="section-header"><h2>还有疑问？看这里</h2></div>
+            <div class="faq-list">
+                 <div class="faq-item"><h4>Q: 599元的“基础版”和799元的“一键部署版”有什么区别？</h4><p>A: <strong>核心区别在于服务深度。</strong> 两个版本都包含同样的工作流文件、配方和教程。 <br>- <strong>599元基础版</strong> 适合有一定动手能力的用户，你需要根据我们的教程自行完成API Key申请、环境配置等步骤。 <br>- <strong>799元一键部署版</strong> 则包含了我们的“1对1远程服务”，我们会手把手带你完成所有配置，确保你拿到的是一个“打开就能用”的成品，特别适合不想在技术细节上花费时间的小白用户。</p></div>
+                <div class="faq-item"><h4>Q: 我是电脑小白，应该选哪个？</h4><p>A: 我们强烈推荐您选择 **799元的“一键部署版”**。这是最省心、最无忧的选择。“1对1远程包教会”服务就是专门为您这类用户设计的，确保您100%能成功用上这套强大的工具。</p></div>
+                <div class="faq-item"><h4>Q: 运行这个工作流需要准备什么？</h4><p>A: 主要需要一个Google账号和一张双币卡（用于免费验证部分AI服务）。无论您选择哪个版本，我们都会提供完整的教程，指导你完成所有准备工作。</p></div>
+                 <div class="faq-item"><h4>Q: 我是电脑小白，真的能学会吗？</h4><p>A: 完全可以！“1对1远程包教会”就是为你准备的。我们不会只丢给你一堆教程，而是会和你预约时间，通过远程桌面软件，一步一步地看着你、带着你操作，直到你的工作流成功运行起来。我们的目标是确保100%的客户都能成功使用。</p></div>
+                 <div class="faq-item"><h4>Q: 这两套工作流有什么区别？我应该怎么选？</h4><p>A: <strong>【视频创作神器包】</strong>专注于解决视频内容的自动化生成。<strong>【全能自动化大师包】</strong>则额外包含了我们的<strong>[在此填写第二套工作流名称]</strong>，它专注于解决<strong>[在此填写第二套工作流的核心目标]</strong>的问题。如果你想一次性打通“内容生产”到“增长变现”的全链路，大师包是性价比最高的选择。</p></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../js/modal-loader.js"></script>
+</body>
+</html>
