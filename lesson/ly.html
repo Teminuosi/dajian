@@ -40,8 +40,6 @@
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes modal-content-pop-in { from { transform: scale(0.95); } to { transform: scale(1); } }
 
     /* --- 各区块通用样式 --- */
     .section {
@@ -158,7 +156,6 @@
     .pricing-card.recommended {
         border-color: var(--primary-color);
         box-shadow: var(--card-glow);
-        /* transform: scale(1.05); */
     }
     .pricing-card h3 { font-size: 1.8em; font-weight: 600; text-align: center; margin-bottom: 10px; }
     .pricing-card .price { font-size: 3em; font-weight: 700; text-align: center; margin-bottom: 30px; }
@@ -183,43 +180,9 @@
     }
     .cta-button:hover { background-color: var(--primary-hover); transform: scale(1.02); }
 
-    /* --- 弹窗样式 --- */
-    .modal-overlay { 
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-        background: rgba(13, 17, 23, 0.8); backdrop-filter: blur(8px);
-        display: none; align-items: center; justify-content: center;
-        z-index: 1000; animation: modal-fade-in 0.3s ease;
-    }
-    .modal-overlay.active { display: flex; }
-    .modal-content { 
-        width: 90%; max-width: 500px; background: var(--bg-dark-2);
-        border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; 
-        animation: modal-content-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-    }
-    .modal-close-btn { 
-        position: absolute; top: 15px; right: 15px; font-size: 24px; color: var(--text-muted);
-        cursor: pointer; transition: transform 0.2s, color 0.2s; border: none; background: none;
-    }
-    .modal-close-btn:hover { transform: rotate(90deg); color: var(--text-light); }
-    .modal-title { font-size: 1.6em; color: var(--text-light); margin-bottom: 15px; text-align: center; }
-    .modal-content > p { text-align: left; margin-bottom: 25px; color: var(--text-muted); }
-    .contact-option-box { margin-bottom: 15px; }
-    .contact-option-box h4 { font-size: 1.1em; margin-bottom: 10px; color: var(--primary-color); }
-    .contact-option-box a { 
-        display: block; padding: 12px 15px; background: var(--bg-dark-1);
-        border: 1px solid var(--border-color); border-radius: 8px; text-decoration: none;
-        color: var(--text-muted); transition: all 0.3s;
-    }
-    .contact-option-box a:hover { 
-        background-color: rgba(0, 123, 255, 0.1); color: var(--text-light); border-color: var(--primary-color);
-    }
-    .contact-option-box h4 i { margin-right: 8px; }
-
     /* --- 响应式设计 --- */
     @media (max-width: 992px) {
         .pricing-grid { grid-template-columns: 1fr; }
-        .pricing-card.recommended { transform: scale(1); }
     }
     @media (max-width: 768px) {
         .section { padding: 60px 0; }
@@ -327,39 +290,8 @@
         </div>
     </section>
   </main>
-
-  <!-- 联系弹窗 -->
-  <div class="modal-overlay" id="contactModal">
-    <div class="modal-content">
-      <button class="modal-close-btn" id="contactModalCloseBtn">&times;</button>
-      <h3 class="modal-title">联系我们，即刻定制</h3>
-      <p>你好！为了给您提供最高效、最专业的咨询服务，请通过以下方式联系我。由于微信添加好友限制，推荐使用Telegram或邮件，响应更及时。</p>
-      <div class="contact-option-box">
-          <h4><i class="fab fa-telegram-plane"></i> Telegram社群 (推荐)</h4>
-          <a href="https://t.me/sanyuedaohang" target="_blank" rel="noopener noreferrer">点击加入TG社群，享受最快响应</a>
-      </div>
-      <div class="contact-option-box">
-          <h4><i class="fas fa-envelope"></i> 邮件联系</h4>
-          <a href="mailto:terminos888@gmail.com">terminos888@gmail.com</a>
-      </div>
-    </div>
-  </div>
   
-  <script>
-    const contactButtons = document.querySelectorAll('.contact-trigger');
-    const contactModal = document.getElementById('contactModal');
-    const contactModalCloseBtn = document.getElementById('contactModalCloseBtn');
-    
-    const openContactModal = () => { if(contactModal) contactModal.classList.add('active'); };
-    const closeContactModal = () => { if(contactModal) contactModal.classList.remove('active'); };
-
-    contactButtons.forEach(button => { button.addEventListener('click', openContactModal); });
-    if(contactModalCloseBtn) contactModalCloseBtn.addEventListener('click', closeContactModal);
-    if(contactModal) {
-        contactModal.addEventListener('click', (event) => { 
-            if (event.target === contactModal) closeContactModal(); 
-        });
-    }
-  </script>
+  <!-- 引入最终的在线弹窗加载器 -->
+  <script src="../js/modal-loader.js"></script>
 </body>
 </html>

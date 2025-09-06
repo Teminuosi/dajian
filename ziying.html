@@ -70,7 +70,6 @@
         .feature-icon { font-size: 3em; margin-bottom: 20px; color: #007bff; }
         .feature-item h3 { margin-bottom: 15px; font-size: 1.4em; }
         .feature-item p { color: #b0b0b0; font-size: 0.95em; }
-        
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -193,29 +192,12 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Removed .ip-report-module, .ip-report-title, .ip-report-content, .ip-report-summary styles */
         
         .glossary-section { background-color: #1e1e1e; }
         .glossary-dl { max-width: 800px; margin: 0 auto; text-align: left; }
         .glossary-dl dt { font-size: 1.3em; font-weight: bold; color: #00d4ff; margin-top: 20px; }
         .glossary-dl dd { margin-left: 0; color: #b0b0b0; padding-left: 20px; border-left: 3px solid #2a2a2a; }
         .footer { background-color: #1e1e1e; text-align: center; padding: 40px 0; margin-top: -1px; border-bottom: none; }
-        
-        /* --- Modal Styles --- */
-        .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.7); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s ease; }
-        .modal.active { display: flex; justify-content: center; align-items: center; opacity: 1; }
-        .modal-content { background-color: #2a2a2a; padding: 35px; border: 1px solid #444; width: 90%; max-width: 420px; border-radius: 15px; text-align: center; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s ease; }
-        .modal.active .modal-content { transform: scale(1); }
-        .close-btn { color: #aaa; position: absolute; top: 10px; right: 20px; font-size: 28px; font-weight: bold; transition: color 0.3s; cursor: pointer; }
-        .close-btn:hover { color: #fff; }
-        .modal-content h3 { margin-top: 0; margin-bottom: 15px; color: #ffffff; font-size: 1.5em; }
-        .modal-content p { color: #b0b0b0; font-size: 0.95em; line-height: 1.8; text-align: left; }
-        .modal-contact-info { margin: 25px 0; text-align: left; }
-        .modal-contact-info .contact-item { background-color: #1e1e1e; padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #444; }
-        .modal-contact-info .contact-item strong { color: #00d4ff; display: block; margin-bottom: 5px; font-size: 1.1em; }
-        .modal-contact-info .contact-item code { color: #e0e0e0; font-size: 1em; word-break: break-all; }
-        .modal-contact-info .contact-item a.btn { margin-top: 15px; display: block; text-align: center; }
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5em; }
@@ -260,1144 +242,104 @@
         <section id="pricing-details" class="section">
             <div class="container">
                 <h2 class="section-title">全球精选VPS节点套餐</h2>
-                <!-- <p class="section-subtitle">VPS拥有完整的服务器控制权，性能强大，适合直播等高要求场景。我们的VPS拥有优质国际带宽，可直接连接。如需极致速度，您也可 <strong style="color: #00d4ff;">自行配置中转服务</strong> 作为性能增强方案。</p> -->
                 <p class="section-subtitle">VPS拥有完整的服务器控制权，性能强大，适合直播等高要求场景。我们的VPS均配备优质国际带宽，大部分地区可直接连接。请注意，根据您的本地网络情况或所选线路特性，<strong style="color: #00d4ff;">部分套餐可能需要自行配置中转服务</strong>，以获得最佳的直播推流效果和连接稳定性。</p>
 
-                <!-- Tab切换导航 -->
-                <div class="tabs-nav">
-                    <button class="tab-button active" data-tab="us">
-                        <img src="https://flagcdn.com/w160/us.png" alt="美国国旗">
-                        <span>美国</span>
-                    </button>
-                    <button class="tab-button" data-tab="hk">
-                        <img src="https://flagcdn.com/w160/hk.png" alt="香港旗帜">
-                        <span>香港</span>
-                    </button>
-                     <button class="tab-button" data-tab="ae">
-                        <img src="https://flagcdn.com/w160/ae.png" alt="阿联酋旗帜">
-                        <span>阿联酋</span>
-                    </button>
-                     <button class="tab-button" data-tab="ca">
-                        <img src="https://flagcdn.com/w160/ca.png" alt="加拿大旗帜">
-                        <span>加拿大</span>
-                    </button>
-                    <button class="tab-button" data-tab="tw">
-                        <img src="https://flagcdn.com/w160/tw.png" alt="台湾旗帜">
-                        <span>台湾</span>
-                    </button>
-                     <button class="tab-button" data-tab="sg">
-                        <img src="https://flagcdn.com/w160/sg.png" alt="新加坡旗帜">
-                        <span>新加坡</span>
-                    </button>
-                    <button class="tab-button" data-tab="gb">
-                        <img src="https://flagcdn.com/w160/gb.png" alt="英国国旗">
-                        <span>英国</span>
-                    </button>
-                     <button class="tab-button" data-tab="es">
-                        <img src="https://flagcdn.com/w160/es.png" alt="西班牙旗帜">
-                        <span>西班牙</span>
-                    </button>
-                     <button class="tab-button" data-tab="fr">
-                        <img src="https://flagcdn.com/w160/fr.png" alt="法国旗帜">
-                        <span>法国</span>
-                    </button>
-                    <button class="tab-button" data-tab="de">
-                        <img src="https://flagcdn.com/w160/de.png" alt="德国国旗">
-                        <span>德国</span>
-                    </button>
-                    <button class="tab-button" data-tab="jp">
-                        <img src="https://flagcdn.com/w160/jp.png" alt="日本国旗">
-                        <span>日本</span>
-                    </button>
-                     <button class="tab-button" data-tab="id">
-                        <img src="https://flagcdn.com/w160/id.png" alt="印度尼西亚旗帜">
-                        <span>印度尼西亚</span>
-                    </button>
-                     <button class="tab-button" data-tab="ph">
-                        <img src="https://flagcdn.com/w160/ph.png" alt="菲律宾旗帜">
-                        <span>菲律宾</span>
-                    </button>
-                    <button class="tab-button" data-tab="th">
-                        <img src="https://flagcdn.com/w160/th.png" alt="泰国国旗">
-                        <span>泰国</span>
-                    </button>
-                    <button class="tab-button" data-tab="my">
-                        <img src="https://flagcdn.com/w160/my.png" alt="马来西亚国旗">
-                        <span>马来西亚</span>
-                    </button>
-                     <button class="tab-button" data-tab="vn">
-                        <img src="https://flagcdn.com/w160/vn.png" alt="越南旗帜">
-                        <span>越南</span>
-                    </button>
-                     <button class="tab-button" data-tab="kr">
-                        <img src="https://flagcdn.com/w160/kr.png" alt="韩国旗帜">
-                        <span>韩国</span>
-                    </button>
-                </div>
+                <div class="tabs-nav"><button class="tab-button active" data-tab="us"><img src="https://flagcdn.com/w160/us.png" alt="美国国旗"><span>美国</span></button><button class="tab-button" data-tab="hk"><img src="https://flagcdn.com/w160/hk.png" alt="香港旗帜"><span>香港</span></button><button class="tab-button" data-tab="ae"><img src="https://flagcdn.com/w160/ae.png" alt="阿联酋旗帜"><span>阿联酋</span></button><button class="tab-button" data-tab="ca"><img src="https://flagcdn.com/w160/ca.png" alt="加拿大旗帜"><span>加拿大</span></button><button class="tab-button" data-tab="tw"><img src="https://flagcdn.com/w160/tw.png" alt="台湾旗帜"><span>台湾</span></button><button class="tab-button" data-tab="sg"><img src="https://flagcdn.com/w160/sg.png" alt="新加坡旗帜"><span>新加坡</span></button><button class="tab-button" data-tab="gb"><img src="https://flagcdn.com/w160/gb.png" alt="英国国旗"><span>英国</span></button><button class="tab-button" data-tab="es"><img src="https://flagcdn.com/w160/es.png" alt="西班牙旗帜"><span>西班牙</span></button><button class="tab-button" data-tab="fr"><img src="https://flagcdn.com/w160/fr.png" alt="法国旗帜"><span>法国</span></button><button class="tab-button" data-tab="de"><img src="https://flagcdn.com/w160/de.png" alt="德国国旗"><span>德国</span></button><button class="tab-button" data-tab="jp"><img src="https://flagcdn.com/w160/jp.png" alt="日本国旗"><span>日本</span></button><button class="tab-button" data-tab="id"><img src="https://flagcdn.com/w160/id.png" alt="印度尼西亚旗帜"><span>印度尼西亚</span></button><button class="tab-button" data-tab="ph"><img src="https://flagcdn.com/w160/ph.png" alt="菲律宾旗帜"><span>菲律宾</span></button><button class="tab-button" data-tab="th"><img src="https://flagcdn.com/w160/th.png" alt="泰国国旗"><span>泰国</span></button><button class="tab-button" data-tab="my"><img src="https://flagcdn.com/w160/my.png" alt="马来西亚国旗"><span>马来西亚</span></button><button class="tab-button" data-tab="vn"><img src="https://flagcdn.com/w160/vn.png" alt="越南旗帜"><span>越南</span></button><button class="tab-button" data-tab="kr"><img src="https://flagcdn.com/w160/kr.png" alt="韩国旗帜"><span>韩国</span></button></div>
 
-                <!-- Tab内容面板 -->
                 <div class="tabs-content">
-                    <!-- 美国 -->
-                    <div id="us" class="tab-panel active">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">美国原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">美国原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">美国高性能直播专线</h3>
-                                <div class="plan-price">¥150<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                     <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 40G NVMe SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 香港 -->
-                    <div id="hk" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">香港原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 香港原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">香港原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 香港原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 基础运营，发视频起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">香港IEPL直播专线</h3>
-                                <div class="plan-price">¥150<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps IEPL中转</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T (2倍率)</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 香港高性能中转IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，数据表现优秀</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 阿联酋 -->
-                    <div id="ae" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">阿联酋原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 阿联酋原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">阿联酋原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 阿联酋原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 发视频/起号，数据表现良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">阿联酋TikTok直播专线</h3>
-                                <div class="plan-price">¥200<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 阿联酋原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，数据表现极佳</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 加拿大 -->
-                    <div id="ca" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">加拿大原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 加拿大原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">加拿大原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 加拿大原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 发视频/起号，非优化线路建议中转</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">加拿大高性能直播专线</h3>
-                                <div class="plan-price">¥200<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                     <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G NVMe SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 加拿大原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，提供稳定推流</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 台湾 -->
-                    <div id="tw" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 家庭宽带 -->
-                           <!-- <div class="dark-pricing-card">
-                                <h3 class="plan-title">台湾HiNet原生家宽</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G NVMe SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 2000G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> HiNet家宽 / 原生IP / 双ISP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 台湾中华电信IP，支持Tiktok运营</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div> -->
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">台湾直播专线</h3>
-                                <div class="plan-price">¥200<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                     <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 40G NVMe SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> HiNet家宽 / 原生IP / 双ISP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，高流畅度</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 新加坡 -->
-                    <div id="sg" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 家庭宽带 -->
-                           <!-- <div class="dark-pricing-card">
-                                <h3 class="plan-title">新加坡原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 新加坡原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合发视频/起号，纯净度高</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div> -->
-                            <!-- 直播线路 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">新加坡家宽直播专线</h3>
-                                <div class="plan-price">¥200<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 新加坡原生家宽IPv4 x1</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 直播优化，支持移动设备直连</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 英国 -->
-                    <div id="gb" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">英国BGP家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">英国BGP家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                             <div class="dark-pricing-card">
-                                <h3 class="plan-title">英国BGP直播专线</h3>
-                                <div class="plan-price">¥150<sub>/月</sub></div>
-                                 <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 40G NVMe SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 西班牙 -->
-                    <div id="es" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 家庭宽带 -->
-                           <!-- <div class="dark-pricing-card">
-                                <h3 class="plan-title">西班牙原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 西班牙原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，纯净度高</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div> -->
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">西班牙TikTok直播专线</h3>
-                                <div class="plan-price">¥180<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 西班牙原生家宽IPv4 x1</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，提供稳定推流</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 法国 -->
-                    <div id="fr" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">法国原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 法国原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">法国原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 法国原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，纯净度高</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">法国TikTok直播专线</h3>
-                                <div class="plan-price">¥170<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 法国原生家宽IPv4 x1</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，提供稳定推流</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 德国 -->
-                    <div id="de" class="tab-panel">
-                        <div class="pricing-grid">
-                            <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">德国BGP家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 家庭宽带 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">德国BGP家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                             <div class="dark-pricing-card">
-                                <h3 class="plan-title">德国BGP直播专线</h3>
-                                <div class="plan-price">¥170<sub>/月</sub></div>
-                                 <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 40G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
- 
-                    <!-- 日本 -->
-                   <div id="jp" class="tab-panel">
-                        <div class="pricing-grid">
-                            <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">日本双ISP宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 家庭宽带 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">日本双ISP宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                             <!-- <div class="dark-pricing-card">
-                                <h3 class="plan-title">日本双ISP直播专线</h3>
-                                <div class="plan-price">¥150<sub>/月</sub></div>
-                                 <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200M上100M下</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 2000G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div> -->
-                        </div>
-                    </div>
-                
-                    <!-- 印度尼西亚 -->
-                    <div id="id" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">印度尼西亚原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 印尼原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">印度尼西亚原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 印尼原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，部分移动网络友好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">印度尼西亚TikTok直播专线</h3>
-                                <div class="plan-price">¥170<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 印尼原生家宽IPv4 x1</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，联通电信可能需中转</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 菲律宾 -->
-                    <div id="ph" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 家庭宽带 -->
-                           <!-- <div class="dark-pricing-card">
-                                <h3 class="plan-title">菲律宾原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1000G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 菲律宾原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，纯净度高</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div> -->
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">菲律宾TikTok直播专线</h3>
-                                <div class="plan-price">¥170<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 菲律宾原生IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，部分区域可能需中转</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 泰国 -->
-                    <div id="th" class="tab-panel">
-                        <div class="pricing-grid">
-                            <!-- 家庭宽带 -->
-                           <!-- <div class="dark-pricing-card">
-                                <h3 class="plan-title">泰国原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1000G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div> -->
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">泰国BGP直播专线</h3>
-                                <div class="plan-price">¥170<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 运营商原生IP, 双ISP住宅IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 支持泰国TikTok, IP纯净</div></li>
-                                    <li class="feature-category">-- 重要说明 --</li>
-                                    <li><div class="feature-text"><strong>禁止:</strong> 严禁机场接入</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 马来西亚 -->
-                    <div id="my" class="tab-panel">
-                        <div class="pricing-grid">
-                            <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">马来西亚TM原生家宽 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G RAM</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps 共享</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 1个 TM静态家宽IPV4</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>开通:</strong> 手动审核, 24小时内开通</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 家庭宽带 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">马来西亚TM原生家宽</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G RAM</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps 共享</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 1个 TM静态家宽IPV4</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 发视频/起号，纯净度高</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>开通:</strong> 手动审核, 24小时内开通</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                             <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">马来西亚TM直播专线</h3>
-                                <div class="plan-price">¥200<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G RAM</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps 共享</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 1个 TM静态家宽IPV4</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，流畅稳定</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>开通:</strong> 手动审核, 24小时内开通</div></li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 越南 -->
-                    <div id="vn" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">越南原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 越南原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">越南原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 越南原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，联通移动网络良好</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">越南TikTok直播专线</h3>
-                                <div class="plan-price">¥170<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 越南原生IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，电信用户可能需中转</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 韩国 -->
-                    <div id="kr" class="tab-panel">
-                        <div class="pricing-grid">
-                           <!-- 入门版 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">韩国原生家庭宽带 - 入门版</h3>
-                                <div class="plan-price">¥69<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 200G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 韩国原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                           <!-- 家庭宽带 -->
-                           <div class="dark-pricing-card">
-                                <h3 class="plan-title">韩国原生家庭宽带</h3>
-                                <div class="plan-price">¥99<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 1核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 500G</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 韩国原生独享IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，纯净度高</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                            <!-- 直播线路 -->
-                            <div class="dark-pricing-card">
-                                <h3 class="plan-title">韩国原生家宽直播专线</h3>
-                                <div class="plan-price">¥150<sub>/月</sub></div>
-                                <ul class="plan-features">
-                                    <li class="feature-category">-- 核心配置 --</li>
-                                    <li><div class="feature-text"><strong>CPU:</strong> 2核</div></li>
-                                    <li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li>
-                                    <li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li>
-                                    <li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li>
-                                    <li><div class="feature-text"><strong>流量:</strong> 1T</div></li>
-                                    <li class="feature-category">-- IP质量与平台支持 --</li>
-                                    <li><div class="feature-text"><strong>IP类型:</strong> 韩国原生家宽IP</div></li>
-                                    <li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，三网直连无需中转</div></li>
-                                    <li class="feature-category">-- 管理与服务 --</li>
-                                    <li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li>
-                                </ul>
-                                <button class="btn plan-cta-btn">立即联系定制</button>
-                            </div>
-                        </div>
-                    </div>
-
+                    <div id="us" class="tab-panel active"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">美国原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">美国原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">美国高性能直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 40G NVMe SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="hk" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">香港原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 香港原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">香港原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 香港原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 基础运营，发视频起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">香港IEPL直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps IEPL中转</div></li><li><div class="feature-text"><strong>流量:</strong> 1T (2倍率)</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 香港高性能中转IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，数据表现优秀</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="ae" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">阿联酋原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 阿联酋原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">阿联酋原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 阿联酋原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 发视频/起号，数据表现良好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">阿联酋TikTok直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 阿联酋原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，数据表现极佳</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="ca" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">加拿大原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 加拿大原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">加拿大原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 加拿大原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 发视频/起号，非优化线路建议中转</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">加拿大高性能直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G NVMe SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 加拿大原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，提供稳定推流</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="tw" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">台湾直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 40G NVMe SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> HiNet家宽 / 原生IP / 双ISP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，高流畅度</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="sg" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">新加坡家宽直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 新加坡原生家宽IPv4 x1</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 直播优化，支持移动设备直连</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="gb" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">英国BGP家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">英国BGP家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">英国BGP直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 40G NVMe SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="es" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">西班牙TikTok直播专线</h3><div class="plan-price">¥180<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 西班牙原生家宽IPv4 x1</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，提供稳定推流</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="fr" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">法国原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 法国原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">法国原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 法国原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，纯净度高</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">法国TikTok直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 法国原生家宽IPv4 x1</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，提供稳定推流</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="de" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">德国BGP家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">德国BGP家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">德国BGP直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 40G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP / 原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，直播数据表现极佳</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="jp" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">日本双ISP宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">日本双ISP宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 双ISP独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 经大量实测，数据表现良好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>独立面板:</strong> 提供独立控制面板</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="id" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">印度尼西亚原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 印尼原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">印度尼西亚原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 印尼原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，部分移动网络友好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">印度尼西亚TikTok直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 印尼原生家宽IPv4 x1</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，联通电信可能需中转</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="ph" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">菲律宾TikTok直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 菲律宾原生IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，部分区域可能需中转</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="th" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">泰国BGP直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 运营商原生IP, 双ISP住宅IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 支持泰国TikTok, IP纯净</div></li><li class="feature-category">-- 重要说明 --</li><li><div class="feature-text"><strong>禁止:</strong> 严禁机场接入</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="my" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">马来西亚TM原生家宽 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G RAM</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps 共享</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 1个 TM静态家宽IPV4</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>开通:</strong> 手动审核, 24小时内开通</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">马来西亚TM原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G RAM</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps 共享</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 1个 TM静态家宽IPV4</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 发视频/起号，纯净度高</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>开通:</strong> 手动审核, 24小时内开通</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">马来西亚TM直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G RAM</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps 共享</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 1个 TM静态家宽IPV4</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，流畅稳定</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>开通:</strong> 手动审核, 24小时内开通</div></li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="vn" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">越南原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 越南原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">越南原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 越南原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，联通移动网络良好</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">越南TikTok直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 越南原生IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，电信用户可能需中转</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
+                    <div id="kr" class="tab-panel"><div class="pricing-grid">
+                        <div class="dark-pricing-card"><h3 class="plan-title">韩国原生家庭宽带 - 入门版</h3><div class="plan-price">¥69<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 50Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 200G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 韩国原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 适合基础运营, 发视频/起号</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">韩国原生家庭宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 1核</div></li><li><div class="feature-text"><strong>内存:</strong> 1G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 10G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 100Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 500G</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 韩国原生独享IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> TikTok视频/起号，纯净度高</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                        <div class="dark-pricing-card"><h3 class="plan-title">韩国原生家宽直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><div class="feature-text"><strong>CPU:</strong> 2核</div></li><li><div class="feature-text"><strong>内存:</strong> 2G DDR4</div></li><li><div class="feature-text"><strong>硬盘:</strong> 20G SSD</div></li><li><div class="feature-text"><strong>带宽:</strong> 200Mbps</div></li><li><div class="feature-text"><strong>流量:</strong> 1T</div></li><li class="feature-category">-- IP质量与平台支持 --</li><li><div class="feature-text"><strong>IP类型:</strong> 韩国原生家宽IP</div></li><li><div class="feature-text"><strong>TikTok支持:</strong> 专为直播优化，三网直连无需中转</div></li><li class="feature-category">-- 管理与服务 --</li><li><div class="feature-text"><strong>金牌支持:</strong> 站长一对一技术支持</div></li></ul><button class="btn plan-cta-btn contact-trigger">立即联系定制</button></div>
+                    </div></div>
                 </div>
             </div>
         </section>
 
-         <!-- 术语科普模块 -->
-        <section id="glossary" class="section">
-            <div class="container">
-                <h2 class="section-title">线路术语小课堂</h2>
-                <p class="section-subtitle">了解这些，帮您更好地选择适合自己业务的线路，钱要花在刀刃上！</p>
-                <dl class="glossary-dl">
-                    <dt>BGP (边界网关协议)</dt>
-                    <dd>您可以把它想象成一个“智能导航系统”。当您的数据要从国内访问国外的服务器时，BGP会自动选择一条最快、最不拥堵的路线。这意味着延迟更低、速度更快、网络更稳定，尤其适合对网络质量要求高的直播和游戏业务。</dd>
-                    <dt>HiNet (中华电信)</dt>
-                    <dd>台湾最大的电信运营商。HiNet的线路品质非常高，特别是连接中国大陆时速度和稳定性都很好。其原生IP在台湾地区的业务运营中（如电商、游戏、直播）拥有得天独厚的优势。</dd>
-                    <dt>IEPL (国际专线)</dt>
-                    <dd>国际以太网专线，提供端到端的二层连接服务。它通常提供更稳定、低延迟且独享的带宽，非常适合对网络质量有极高要求的跨境业务，如金融交易、企业数据传输、以及需要避免公共网络拥堵的直播和游戏。</dd>
-                    <dt>CN2 GIA / CUII / CMIN2</dt>
-                    <dd>这三者分别是中国电信、中国联通、中国移动推出的最高等级的国际优化线路。如果您或您的客户主要在中国大陆，选择这几类线路可以获得媲美内网的极速、稳定体验，当然成本也相对较高。</dd>
-                </dl>
-            </div>
-        </section>
+        <section id="glossary" class="section"><div class="container"><h2 class="section-title">线路术语小课堂</h2><p class="section-subtitle">了解这些，帮您更好地选择适合自己业务的线路，钱要花在刀刃上！</p><dl class="glossary-dl"><dt>BGP (边界网关协议)</dt><dd>您可以把它想象成一个“智能导航系统”。当您的数据要从国内访问国外的服务器时，BGP会自动选择一条最快、最不拥堵的路线。这意味着延迟更低、速度更快、网络更稳定，尤其适合对网络质量要求高的直播和游戏业务。</dd><dt>HiNet (中华电信)</dt><dd>台湾最大的电信运营商。HiNet的线路品质非常高，特别是连接中国大陆时速度和稳定性都很好。其原生IP在台湾地区的业务运营中（如电商、游戏、直播）拥有得天独厚的优势。</dd><dt>IEPL (国际专线)</dt><dd>国际以太网专线，提供端到端的二层连接服务。它通常提供更稳定、低延迟且独享的带宽，非常适合对网络质量有极高要求的跨境业务，如金融交易、企业数据传输、以及需要避免公共网络拥堵的直播和游戏。</dd><dt>CN2 GIA / CUII / CMIN2</dt><dd>这三者分别是中国电信、中国联通、中国移动推出的最高等级的国际优化线路。如果您或您的客户主要在中国大陆，选择这几类线路可以获得媲美内网的极速、稳定体验，当然成本也相对较高。</dd></dl></div></section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>Copyright © 2024-2025 站长自营. All Rights Reserved.</p>
-            <p>专为高性能业务而生的VPS解决方案</p>
-        </div>
-    </footer>
+    <footer class="footer"><div class="container"><p>Copyright © 2024-2025 站长自营. All Rights Reserved.</p><p>专为高性能业务而生的VPS解决方案</p></div></footer>
     
-    <!-- ====================================================== -->
-    <!-- ============ 联系方式弹窗 - 已优化 ============ -->
-    <!-- ====================================================== -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>联系站长定制</h3>
-            <p>
-                抱歉，由于站长微信当前因添加频繁受限，暂时无法通过扫码添加。为了能及时与您沟通，请选择以下最适合您的方式联系我：
-            </p>
-            <div class="modal-contact-info">
-                <div class="contact-item">
-                    <strong>1. 邮件联系 </strong>
-                    <p>发送您的需求和您的联系方式 (微信/Telegram) 到我的邮箱，我会在第一时间主动添加您。</p>
-                    <code>terminos888@gmail.com</code>
-                </div>
-                 <div class="contact-item">
-                    <strong>2. 加入Telegram社群(推荐)</strong>
-                    <p>点击下方按钮，直接加入我们的官方Telegram社群进行咨询和交流。</p>
-                    <a href="https://dajian.cyou/TG" target="_blank" class="btn">加入TG站长社群</a>
-                </div>
-            </div>
-             <p style="font-size: 0.9em; text-align: center; opacity: 0.8;">感谢您的理解与支持！</p>
-        </div>
-    </div>
-
+    <script src="js/modal-loader.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const tabs = document.querySelectorAll('.tab-button');
             const panels = document.querySelectorAll('.tab-panel');
-            const contactButtons = document.querySelectorAll('.plan-cta-btn');
-            const modal = document.getElementById('contactModal'); 
-            const closeBtn = modal.querySelector('.close-btn'); 
 
-            // Tab切换逻辑
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     tabs.forEach(t => t.classList.remove('active'));
                     panels.forEach(p => p.classList.remove('active'));
-
                     tab.classList.add('active');
                     const targetPanel = document.getElementById(tab.dataset.tab);
                     if (targetPanel) {
@@ -1405,16 +347,7 @@
                     }
                 });
             });
-
-            // 弹窗逻辑
-            function openModal() { if (modal) modal.classList.add('active'); }
-            function closeModal() { if (modal) modal.classList.remove('active'); }
-
-            contactButtons.forEach(button => button.addEventListener('click', openModal));
-            if (closeBtn) closeBtn.addEventListener('click', closeModal);
-            if (modal) modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
             
-            // 平滑滚动到锚点
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -1426,16 +359,6 @@
                     }
                 });
             });
-
-            // Set the first tab active by default if none are active
-            const firstTab = document.querySelector('.tabs-nav .tab-button');
-            const firstPanel = document.querySelector('.tabs-content .tab-panel');
-            if (firstTab && !document.querySelector('.tabs-nav .tab-button.active')) {
-                firstTab.classList.add('active');
-            }
-            if (firstPanel && !document.querySelector('.tabs-content .tab-panel.active')) {
-                firstPanel.classList.add('active');
-            }
         });
     </script>
 </body>

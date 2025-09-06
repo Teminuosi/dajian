@@ -270,9 +270,10 @@
                             <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>**线路选择**：根据你的业务推荐最佳网络线路方案。</span></li>
                             <li class="flex items-start"><span class="text-green-400 mr-3 mt-1">✓</span> <span>**专属服务**：全程1对1远程协助，解决你的特定问题。</span></li>
                         </ul>
-                        <a href="#" class="contact-trigger mt-auto w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                        <!-- <a href="#" class="contact-trigger mt-auto w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                             选择电商入门
-                        </a>
+                        </a> -->
+                        <button class="cta-button contact-trigger btn-primary mt-auto w-full text-center py-3">选择电商入门</button>
                     </div>
                     
                     <!-- 入门实战套餐 -->
@@ -300,9 +301,10 @@
                                 <li class="flex items-start"><span class="mr-3">✕</span> <span>30+节高级录播课程库</span></li>
                             </ul>
                         </div>
-                        <a href="#" class="contact-trigger mt-auto w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                        <!-- <a href="#" class="contact-trigger mt-auto w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                             选择入门版
-                        </a>
+                        </a> -->
+                        <button class="cta-button contact-trigger btn-primary mt-auto w-full text-center py-3">选择入门版</button>
                     </div>
                     
                     <!-- 旗舰全能套餐 -->
@@ -337,9 +339,10 @@
                                </details>
                            </li>
                         </ul>
-                        <a href="#" class="contact-trigger btn-primary mt-auto w-full text-center py-3">
+                        <!-- <a href="#" class="contact-trigger btn-primary mt-auto w-full text-center py-3">
                             我要一步到位！
-                        </a>
+                        </a> -->
+                        <button class="cta-button contact-trigger btn-primary mt-auto w-full text-center py-3">我要一部到位</button>
                     </div>
                 </div>
             </div>
@@ -377,7 +380,7 @@
     </footer>
     
     <!-- Contact Modal -->
-    <div id="contactModal" class="modal">
+    <!-- <div id="contactModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h3>联系站长上课</h3>
@@ -398,9 +401,11 @@
             </div>
              <p style="font-size: 0.9em; text-align: center; opacity: 0.8;">感谢您的理解与支持！</p>
         </div>
-    </div>
-
+    </div> -->
+    <script src="../js/modal-loader.js"></script>
     <script>
+
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Modal Logic
             const contactButtons = document.querySelectorAll('.contact-trigger');
