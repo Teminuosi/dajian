@@ -26,6 +26,7 @@
         background-color: var(--bg-dark-1);
         color: var(--text-light);
         line-height: 1.8;
+        position: relative; /* 为绝对定位的子元素提供参考 */
     }
 
     .container {
@@ -34,6 +35,30 @@
         margin: 0 auto;
         padding: 0 20px;
     }
+
+    /* --- 返回主页按钮 --- */
+    .back-to-home-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        background-color: var(--bg-dark-2);
+        color: var(--text-light);
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        border: 1px solid var(--border-color);
+    }
+    .back-to-home-btn:hover {
+        background-color: #30363d;
+        transform: translateY(-2px);
+    }
+
 
     /* --- 动画 --- */
     @keyframes fade-in-up {
@@ -187,13 +212,20 @@
     @media (max-width: 768px) {
         .section { padding: 60px 0; }
         .section-title { font-size: 2.2em; }
-        .hero { padding: 60px 0; }
+        .hero { padding: 60px 0; padding-top: 100px; /* 为返回按钮留出空间 */ }
         .hero h1 { font-size: 2.5em; letter-spacing: -1px; }
         .hero .hero-subtitle { font-size: 1.1em; }
+        .back-to-home-btn .btn-text { display: none; }
+        .back-to-home-btn { padding: 0.6rem 0.8rem; }
     }
   </style>
 </head>
 <body>
+
+  <a href="https://dajian.cyou" class="back-to-home-btn">
+    <i class="fas fa-arrow-left"></i>
+    <span class="btn-text">返回主页</span>
+  </a>
 
   <header class="hero section">
     <div class="container">
