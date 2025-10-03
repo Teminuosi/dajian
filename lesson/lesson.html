@@ -24,7 +24,7 @@
         .section-subtitle { text-align: center; font-size: 1.125rem; color: #64748b; max-width: 48rem; margin: 0 auto 4rem auto; }
         .highlight-text { background: linear-gradient(120deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .btn { display: inline-block; padding: 0.8rem 2.25rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid transparent; text-align: center; }
+        .btn { display: inline-block; padding: 0.8rem 2.25rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid transparent; text-align: center; cursor: pointer; }
         .btn-primary { background-color: #4338ca; color: #ffffff; box-shadow: 0 4px 15px rgba(67, 56, 202, 0.2); }
         .btn-primary:hover { background-color: #3730a3; transform: translateY(-3px); box-shadow: 0 7px 20px rgba(67, 56, 202, 0.3); }
         .btn-secondary { background-color: #ffffff; color: #4338ca; border-color: #e0e7ff; }
@@ -56,6 +56,74 @@
         details[open].course-details > summary .arrow { transform: rotate(180deg); }
         .course-details-content { background-color: #f8fafc; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; border: 1px solid #e2e8f0; font-size: 0.875rem; color: #475569; }
         .course-details-content span { display: block; padding: 2px 0; }
+
+        /* --- Iframe 模态框样式 --- */
+        body.modal-open { overflow: hidden; }
+        .modal-container {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+        .modal-container.visible { opacity: 1; }
+        .modal-body {
+            position: relative;
+            width: 100%;
+            max-width: 900px; /* **增大最大宽度，以容纳横向内容** */
+            max-height: 90vh;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-container.visible .modal-body {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 10;
+            border: 2px solid #555;
+            transition: background-color 0.2s;
+        }
+        .modal-close-btn:hover { background-color: #e53e3e; }
+        .iframe-wrapper {
+            width: 100%;
+            height: 600px; /* **固定一个足够高的高度，让内容不滚动** */
+            background-color: #1e1e1e;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            scrollbar-width: none; /* Firefox */
+        }
+        .iframe-wrapper iframe::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
     </style>
 </head>
 <body>
@@ -125,7 +193,7 @@
                             <li><i class="fas fa-check"></i> <strong>网络加速：</strong>掌握基础网络提速方法</li>
                             <li><i class="fas fa-check"></i> <strong>附赠：</strong>入门版录播课，随时回顾</li>
                         </ul>
-                        <a href="#contact-link" class="btn btn-secondary">选择入门版</a>
+                        <a href="#" data-trigger-modal class="btn btn-secondary">选择入门版</a>
                     </div>
 
                   
@@ -145,7 +213,7 @@
                                 </div></details>
                             </div></li>
                         </ul>
-                        <a href="#contact-link" class="btn btn-primary">我要一步到位</a>
+                        <a href="#" data-trigger-modal class="btn btn-primary">我要一步到位</a>
                     </div>
 
                       <!-- 精英会员·终极方案 (RECOMMENDED) -->
@@ -178,7 +246,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <a href="#contact-link" class="btn btn-ultimate">成为精英会员</a>
+                        <a href="#" data-trigger-modal class="btn btn-ultimate">成为精英会员</a>
                     </div>
                     
                 </div>
@@ -200,13 +268,64 @@
 
     <footer class="text-center py-10 bg-slate-100"><div class="container mx-auto px-6"><p class="text-slate-500">Copyright © 2024-2025 站长网络方案. All Rights Reserved.</p></div></footer>
     
+    <!-- Modal with Iframe -->
+    <div id="contactModal" class="modal-container hidden">
+        <div class="modal-body">
+            <span id="closeModal" class="modal-close-btn">&times;</span>
+            <div class="iframe-wrapper">
+                <iframe id="contactFrame" src="about:blank" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- FAQ Arrow Rotation ---
             document.querySelectorAll('details').forEach((detail) => {
                 detail.addEventListener('toggle', (event) => {
-                    const icon = detail.querySelector('summary i.arrow');
+                    const icon = detail.querySelector('summary i');
                     if (icon) icon.style.transform = detail.open ? 'rotate(180deg)' : 'rotate(0deg)';
                 });
+            });
+
+            // --- Modal Logic ---
+            const modal = document.getElementById('contactModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const contactFrame = document.getElementById('contactFrame');
+            const modalUrl = 'https://3yuedaohang.com/contact-modal';
+
+            function openModal() {
+                if (!modal || !contactFrame) return;
+                contactFrame.src = modalUrl;
+                modal.classList.remove('hidden');
+                document.body.classList.add('modal-open');
+                setTimeout(() => modal.classList.add('visible'), 10);
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('visible');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                    contactFrame.src = 'about:blank'; // Clear iframe src for performance
+                }, 300);
+            }
+
+            // Attach listeners to all trigger buttons
+            document.querySelectorAll('[data-trigger-modal]').forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('visible')) closeModal();
             });
         });
     </script>

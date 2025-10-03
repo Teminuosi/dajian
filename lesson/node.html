@@ -10,109 +10,134 @@
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* --- 全新简约风格 --- */
-        html { 
-            scroll-behavior: smooth; 
-        }
+        /* --- 全局基础样式 --- */
+        html { scroll-behavior: smooth; }
         body {
-            background-color: #f8f9fa; /* 浅灰色背景 */
-            color: #212529; /* 深色文字 */
+            background-color: #f8f9fa;
+            color: #212529;
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             line-height: 1.7;
         }
-        .container { 
-            max-width: 1140px; 
-        }
-        h1, h2, h3 { 
-            color: #1d2d35; 
-            font-weight: 700; 
-            letter-spacing: -0.5px;
-        }
-        .section { 
-            padding: 72px 0; 
-        }
-        .section-title { 
-            text-align: center; 
-            font-size: 2.25rem; 
-            margin-bottom: 1rem; 
-        }
-        .section-subtitle { 
-            text-align: center; 
-            font-size: 1.1rem; 
-            color: #6c757d; /* 柔和的副标题颜色 */
-            max-width: 42rem; 
-            margin: 0 auto 3rem auto; 
-        }
-        .accent-text {
-            color: #0d6efd; /* 蓝色强调色 */
-        }
-        
+        .container { max-width: 1140px; }
+        h1, h2, h3 { color: #1d2d35; font-weight: 700; letter-spacing: -0.5px; }
+        .section { padding: 72px 0; }
+        .section-title { text-align: center; font-size: 2.25rem; margin-bottom: 1rem; }
+        .section-subtitle { text-align: center; font-size: 1.1rem; color: #6c757d; max-width: 42rem; margin: 0 auto 3rem auto; }
+        .accent-text { color: #0d6efd; }
         .btn {
             display: inline-block;
             background-color: #0d6efd;
             color: #ffffff;
             padding: 0.75rem 1.75rem;
-            border-radius: 0.5rem; /* 圆角矩形 */
+            border-radius: 0.5rem;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.2s ease-in-out;
             box-shadow: 0 4px 6px rgba(13, 110, 253, 0.1);
+            cursor: pointer;
         }
-        .btn:hover { 
-            transform: translateY(-2px); 
-            background-color: #0b5ed7;
-            box-shadow: 0 7px 14px rgba(13, 110, 253, 0.15);
-        }
-        
+        .btn:hover { transform: translateY(-2px); background-color: #0b5ed7; box-shadow: 0 7px 14px rgba(13, 110, 253, 0.15); }
         .card {
             background-color: #ffffff;
             border-radius: 0.75rem;
-            border: 1px solid #dee2e6; /* 浅边框 */
+            border: 1px solid #dee2e6;
             padding: 2.5rem;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
         }
-        .card:hover { 
-             transform: translateY(-5px); 
-             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06);
-        }
-
-        .navbar { 
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 1rem 0; 
-            position: sticky; 
-            width: 100%; 
-            top: 0; 
-            z-index: 1000; 
-            backdrop-filter: blur(8px); 
-            border-bottom: 1px solid #dee2e6;
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06); }
+        .navbar { background-color: rgba(255, 255, 255, 0.9); padding: 1rem 0; position: sticky; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(8px); border-bottom: 1px solid #dee2e6; }
         .logo { font-size: 1.5em; font-weight: bold; color: #212529; }
         .nav-links a { color: #495057; text-decoration: none; margin-left: 2rem; font-size: 1em; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: #0d6efd; }
-
         .hero h1 { font-size: 3.25rem; line-height: 1.2; }
-
         .pricing-card { background-color: #ffffff; border: 1px solid #dee2e6; padding: 35px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; height: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04); }
         .pricing-card .plan-title { font-size: 1.5em; color: #0d6efd; font-weight: 600; margin-bottom: 15px; }
         .pricing-card .plan-price { font-size: 3rem; font-weight: 700; color: #212529; margin: 15px 0; line-height: 1; }
         .pricing-card .plan-price sub { font-size: 0.4em; font-weight: 500; color: #6c757d; }
         .pricing-card .plan-features { list-style: none; padding: 0; margin: 20px 0 30px 0; text-align: left; flex-grow: 1; color: #495057; }
         .pricing-card .plan-features li { margin-bottom: 12px; display: flex; align-items: flex-start; }
-        .pricing-card .plan-features li::before { content: '✓'; color: #198754; /* 绿色对勾 */ font-weight: bold; margin-right: 10px; line-height: 1.7; }
+        .pricing-card .plan-features li::before { content: '✓'; color: #198754; font-weight: bold; margin-right: 10px; line-height: 1.7; }
         .plan-features .feature-category { color: #212529; font-weight: 600; padding-top: 15px; }
         .plan-features .feature-category::before { content: "" !important; margin-right: 0; }
-        .pricing-card .btn { width: 100%; margin-top: auto; } /* 让按钮始终在底部 */
-        
+        .pricing-card .btn { width: 100%; margin-top: auto; }
         .tabs-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
         .tab-button { display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 1em; font-weight: 500; color: #495057; background-color: #ffffff; border: 1px solid #ced4da; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
         .tab-button:hover { background-color: #e9ecef; border-color: #adb5bd; }
         .tab-button.active { background-color: #0d6efd; color: #ffffff; border-color: #0d6efd; box-shadow: 0 2px 4px rgba(13, 110, 253, 0.2); }
         .tab-button img { width: 20px; height: 20px; border-radius: 50%; }
-        
         .tab-panel { display: none; }
         .tab-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; animation: fadeIn 0.5s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- Iframe 模态框样式 --- */
+        body.modal-open { overflow: hidden; }
+        .modal-container {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+        }
+        .modal-container.visible { opacity: 1; }
+        .modal-body {
+            position: relative;
+            width: 100%;
+            max-width: 900px; /* **增大最大宽度，以容纳横向内容** */
+            max-height: 90vh; /* 限制高度，防止超过屏幕 */
+            transform: scale(0.95);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-container.visible .modal-body {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 10;
+            border: 2px solid #555;
+            transition: background-color 0.2s;
+        }
+        .modal-close-btn:hover { background-color: #e53e3e; }
+        .iframe-wrapper {
+            width: 100%;
+            height: 600px; /* **固定一个足够高的高度，让内容不滚动** */
+            background-color: #1e1e1e;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            /* 尝试隐藏 iframe 自身的滚动条 */
+            scrollbar-width: none; /* Firefox */
+        }
+        .iframe-wrapper iframe::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
     </style>
 </head>
 <body>
@@ -128,25 +153,17 @@
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
+    <!-- Content Sections... -->
     <header id="home" class="hero">
         <div class="container mx-auto px-6 py-24 text-center">
-            <h1 class="font-bold leading-tight">
-                为您的跨境业务提供<br class="md:hidden"> <span class="accent-text">稳定、易用</span>的全球节点
-            </h1>
-            <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-                专为TikTok直播、跨境电商和海外业务运营设计。无需繁琐配置，一键扫码即可连接。
-            </p>
+            <h1 class="font-bold leading-tight">为您的跨境业务提供<br class="md:hidden"> <span class="accent-text">稳定、易用</span>的全球节点</h1>
+            <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">专为TikTok直播、跨境电商和海外业务运营设计。无需繁琐配置，一键扫码即可连接。</p>
             <div class="mt-8">
-                <a href="#nodes-selection" class="btn text-lg">
-                    <i class="fas fa-rocket mr-2"></i> 立即选择节点
-                </a>
+                <a href="#nodes-selection" class="btn text-lg"><i class="fas fa-rocket mr-2"></i> 立即选择节点</a>
             </div>
         </div>
     </header>
-
     <main>
-        <!-- 2. How it works Section -->
         <section id="how-it-works" class="section bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">三步轻松连接，人人都能上手</h2>
@@ -170,13 +187,10 @@
                 </div>
             </div>
         </section>
-
-        <!-- 3. Nodes Selection Section -->
         <section id="nodes-selection" class="section">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">选择您的 <span class="accent-text">专属节点</span></h2>
                 <p class="section-subtitle">所有节点均为独享原生IP，经过严格测试，确保高纯净度和稳定性，是TikTok运营的最佳选择。</p>
-                
                 <div class="tabs-nav">
                     <button class="tab-button active" data-tab="us"><img src="https://flagcdn.com/w160/us.png" alt="美国"><span>美国</span></button>
                     <button class="tab-button" data-tab="gb"><img src="https://flagcdn.com/w160/gb.png" alt="英国"><span>英国</span></button>
@@ -184,7 +198,7 @@
                     <button class="tab-button" data-tab="jp"><img src="https://flagcdn.com/w160/jp.png" alt="日本"><span>日本</span></button>
                     <button class="tab-button" data-tab="tw"><img src="https://flagcdn.com/w160/tw.png" alt="台湾"><span>台湾</span></button>
                     <button class="tab-button" data-tab="sg"><img src="https://flagcdn.com/w160/sg.png" alt="新加坡"><span>新加坡</span></button>
-                    <button class="tab-button" data-tab="kr"><img src="https://flagcdn.com/w160/kr.png" alt="韩国"><span>韩国</span></button>
+                    <button class="tab-button" data-tab="kr"><img src="https://flagcdn-cn.com/w160/kr.png" alt="韩国"><span>韩国</span></button>
                     <button class="tab-button" data-tab="th"><img src="https://flagcdn.com/w160/th.png" alt="泰国"><span>泰国</span></button>
                     <button class="tab-button" data-tab="my"><img src="https://flagcdn.com/w160/my.png" alt="马来西亚"><span>马来西亚</span></button>
                     <button class="tab-button" data-tab="vn"><img src="https://flagcdn.com/w160/vn.png" alt="越南"><span>越南</span></button>
@@ -197,7 +211,6 @@
                     <button class="tab-button" data-tab="es"><img src="https://flagcdn.com/w160/es.png" alt="西班牙"><span>西班牙</span></button>
                     <button class="tab-button" data-tab="custom"><i class="fas fa-plus-circle"></i><span>其他地区</span></button>
                 </div>
-                
                 <div class="tabs-content">
                     <div id="us" class="tab-panel active"></div><div id="hk" class="tab-panel"></div><div id="ae" class="tab-panel"></div><div id="ca" class="tab-panel"></div><div id="tw" class="tab-panel"></div><div id="sg" class="tab-panel"></div><div id="gb" class="tab-panel"></div><div id="es" class="tab-panel"></div><div id="fr" class="tab-panel"></div><div id="de" class="tab-panel"></div><div id="jp" class="tab-panel"></div><div id="id" class="tab-panel"></div><div id="ph" class="tab-panel"></div><div id="th" class="tab-panel"></div><div id="my" class="tab-panel"></div><div id="vn" class="tab-panel"></div><div id="kr" class="tab-panel"></div>
                     <div id="custom" class="tab-panel">
@@ -205,14 +218,12 @@
                             <i class="fas fa-cogs text-5xl accent-text mb-6"></i>
                             <h3 class="text-2xl font-bold mb-4">需要其他国家或地区的节点？</h3>
                             <p class="text-gray-600 mb-8">我们支持全球绝大部分国家和地区的节点定制服务。请直接联系站长，告诉我们您的具体业务需求，我们将为您量身定制专属解决方案。</p>
-                            <a href="#contact-link" class="btn"><i class="fas fa-headset mr-2"></i>立即联系站长定制</a>
+                            <a href="#" data-trigger-modal class="btn"><i class="fas fa-headset mr-2"></i>立即联系站长定制</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- 4. FAQ -->
         <section id="faq" class="section bg-white">
             <div class="container mx-auto px-6 max-w-3xl">
                 <h2 class="section-title">常见问题</h2>
@@ -225,7 +236,7 @@
                         <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">连接和使用复杂吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
                         <p class="mt-4 text-gray-600">完全不复杂！您只需在手机或电脑上安装一款支持协议的App（如苹果手机的“小火箭”Shadowrocket）。收到我们给您的二维码后，用App扫一下即可自动配置并连接，整个过程不超过1分钟。</p>
                     </details>
-                     <details class="bg-white p-6 rounded-lg border border-gray-200">
+                    <details class="bg-white p-6 rounded-lg border border-gray-200">
                         <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">“原生家宽”和“直播专线”有什么区别？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
                         <p class="mt-4 text-gray-600"><strong>原生家宽节点：</strong>IP地址是当地家庭宽带的IP，纯净度最高，非常适合注册账号、发视频、养号等日常运营，能最大程度模拟真实用户。<br><strong>高性能直播专线：</strong>在原生IP的基础上，配备了更高的带宽和流量，并对网络线路进行了特别优化，确保长时间直播稳定、不卡顿、不掉线，是专业直播团队的首选。</p>
                     </details>
@@ -233,6 +244,17 @@
             </div>
         </section>
     </main>
+
+    <!-- Modal with Iframe -->
+    <div id="contactModal" class="modal-container hidden">
+        <div class="modal-body">
+            <span id="closeModal" class="modal-close-btn">&times;</span>
+            <div class="iframe-wrapper">
+                <!-- scrolling="no" is deprecated but helps hide scrollbars in some older browsers/modes -->
+                <iframe id="contactFrame" src="about:blank" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
 
     <footer class="text-center py-10 bg-gray-200">
         <div class="container mx-auto px-6">
@@ -242,71 +264,103 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- 旋转FAQ箭头 ---
+            // --- FAQ Arrow Rotation ---
             document.querySelectorAll('details').forEach((detail) => {
-                detail.addEventListener('toggle', (event) => {
+                detail.addEventListener('toggle', () => {
                     const icon = detail.querySelector('summary i');
-                    if (detail.open) {
-                        icon.style.transform = 'rotate(180deg)';
-                    } else {
-                        icon.style.transform = 'rotate(0deg)';
-                    }
+                    if (icon) icon.style.transform = detail.open ? 'rotate(180deg)' : 'rotate(0deg)';
                 });
             });
 
             const tabs = document.querySelectorAll('.tab-button');
             const panels = document.querySelectorAll('.tab-panel');
             
-            // --- 预置所有国家的节点信息 ---
             const allTabContent = {
-                us: `<div class="pricing-card"><h3 class="plan-title">美国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">美国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                hk: `<div class="pricing-card"><h3 class="plan-title">香港 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 香港原生独享IP</li><li><strong>TikTok:</strong> 基础运营, 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">香港 · IEPL直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T (2倍率)</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 高性能中转IP</li><li><strong>TikTok:</strong> 直播优化, 数据优秀</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                ae: `<div class="pricing-card"><h3 class="plan-title">阿联酋 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 阿联酋原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 数据良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">阿联酋 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 阿联酋原生独享IP</li><li><strong>TikTok:</strong> 直播优化, 数据极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                ca: `<div class="pricing-card"><h3 class="plan-title">加拿大 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 加拿大原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">加拿大 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 加拿大原生独享IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                tw: `<div class="pricing-card"><h3 class="plan-title">台湾 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> HiNet家宽 / 原生IP</li><li><strong>TikTok:</strong> 直播优化, 高流畅度</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                sg: `<div class="pricing-card"><h3 class="plan-title">新加坡 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 新加坡原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 移动设备直连</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                gb: `<div class="pricing-card"><h3 class="plan-title">英国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">英国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                es: `<div class="pricing-card"><h3 class="plan-title">西班牙 · 直播专线</h3><div class="plan-price">¥180<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 西班牙原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                fr: `<div class="pricing-card"><h3 class="plan-title">法国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 法国原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">法国 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 法国原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                de: `<div class="pricing-card"><h3 class="plan-title">德国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">德国 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                jp: `<div class="pricing-card"><h3 class="plan-title">日本 · 双ISP宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                id: `<div class="pricing-card"><h3 class="plan-title">印尼 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 印尼原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">印尼 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 印尼原生家宽IP</li><li><strong>TikTok:</strong> 直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                ph: `<div class="pricing-card"><h3 class="plan-title">菲律宾 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 菲律宾原生IP</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                th: `<div class="pricing-card"><h3 class="plan-title">泰国 · BGP直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 运营商原生, 双ISP</li><li><strong>TikTok:</strong> 支持泰国TikTok, IP纯净</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                my: `<div class="pricing-card"><h3 class="plan-title">马来西亚 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> TM静态家宽IPV4</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">马来西亚 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> TM静态家宽IPV4</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                vn: `<div class="pricing-card"><h3 class="plan-title">越南 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 越南原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">越南 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 越南原生IP</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`,
-                kr: `<div class="pricing-card"><h3 class="plan-title">韩国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 韩国原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">韩国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 韩国原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 三网直连</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#contact-link" class="btn">立即联系定制</a></div>`
+                us: `<div class="pricing-card"><h3 class="plan-title">美国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">美国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                hk: `<div class="pricing-card"><h3 class="plan-title">香港 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 香港原生独享IP</li><li><strong>TikTok:</strong> 基础运营, 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">香港 · IEPL直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T (2倍率)</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 高性能中转IP</li><li><strong>TikTok:</strong> 直播优化, 数据优秀</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                ae: `<div class="pricing-card"><h3 class="plan-title">阿联酋 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 阿联酋原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 数据良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">阿联酋 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 阿联酋原生独享IP</li><li><strong>TikTok:</strong> 直播优化, 数据极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                ca: `<div class="pricing-card"><h3 class="plan-title">加拿大 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 加拿大原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">加拿大 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 加拿大原生独享IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                tw: `<div class="pricing-card"><h3 class="plan-title">台湾 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> HiNet家宽 / 原生IP</li><li><strong>TikTok:</strong> 直播优化, 高流畅度</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                sg: `<div class="pricing-card"><h3 class="plan-title">新加坡 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 新加坡原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 移动设备直连</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                gb: `<div class="pricing-card"><h3 class="plan-title">英国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">英国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                es: `<div class="pricing-card"><h3 class="plan-title">西班牙 · 直播专线</h3><div class="plan-price">¥180<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 西班牙原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                fr: `<div class="pricing-card"><h3 class="plan-title">法国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 法国原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">法国 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 法国原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                de: `<div class="pricing-card"><h3 class="plan-title">德国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">德国 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                jp: `<div class="pricing-card"><h3 class="plan-title">日本 · 双ISP宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                id: `<div class="pricing-card"><h3 class="plan-title">印尼 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 印尼原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">印尼 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 印尼原生家宽IP</li><li><strong>TikTok:</strong> 直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                ph: `<div class="pricing-card"><h3 class="plan-title">菲律宾 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 菲律宾原生IP</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                th: `<div class="pricing-card"><h3 class="plan-title">泰国 · BGP直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 运营商原生, 双ISP</li><li><strong>TikTok:</strong> 支持泰国TikTok, IP纯净</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                my: `<div class="pricing-card"><h3 class="plan-title">马来西亚 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> TM静态家宽IPV4</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">马来西亚 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> TM静态家宽IPV4</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                vn: `<div class="pricing-card"><h3 class="plan-title">越南 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 越南原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">越南 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 越南原生IP</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`,
+                kr: `<div class="pricing-card"><h3 class="plan-title">韩国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 韩国原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div><div class="pricing-card"><h3 class="plan-title">韩国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 韩国原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 三网直连</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul><a href="#" data-trigger-modal class="btn">立即联系定制</a></div>`
             };
 
-            // --- 动态加载和切换Tabs ---
             function activateTab(tabButton) {
                 const tabId = tabButton.dataset.tab;
-                
-                // 更新按钮状态
                 tabs.forEach(t => t.classList.remove('active'));
                 tabButton.classList.add('active');
-                
-                // 更新面板内容和状态
                 panels.forEach(p => p.classList.remove('active'));
                 const targetPanel = document.getElementById(tabId);
-                
                 if (targetPanel) {
-                    if (allTabContent[tabId]) {
+                    if (allTabContent[tabId] && targetPanel.innerHTML.trim() === '') {
                         targetPanel.innerHTML = allTabContent[tabId];
                     }
                     targetPanel.classList.add('active');
                 }
             }
 
-            // --- 初始化页面：默认加载美国节点 ---
             const initialTab = document.querySelector('.tab-button.active');
-            if (initialTab) {
-                activateTab(initialTab);
+            if (initialTab) activateTab(initialTab);
+            tabs.forEach(tab => tab.addEventListener('click', () => activateTab(tab)));
+
+            // --- Modal Logic ---
+            const modal = document.getElementById('contactModal');
+            const closeModalBtn = document.getElementById('closeModal');
+            const contactFrame = document.getElementById('contactFrame');
+            const modalUrl = 'https://3yuedaohang.com/contact-modal';
+
+            function openModal() {
+                if (!modal || !contactFrame) return;
+                contactFrame.src = modalUrl;
+                modal.classList.remove('hidden');
+                document.body.classList.add('modal-open');
+                setTimeout(() => modal.classList.add('visible'), 10);
             }
 
-            // --- 给所有Tab按钮绑定点击事件 ---
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => activateTab(tab));
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('visible');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                    contactFrame.src = 'about:blank'; // Clear iframe src for performance
+                }, 300);
+            }
+
+            function attachModalTriggers() {
+                document.querySelectorAll('[data-trigger-modal]').forEach(trigger => {
+                    if (!trigger.hasAttribute('data-listener-attached')) {
+                        trigger.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            openModal();
+                        });
+                        trigger.setAttribute('data-listener-attached', 'true');
+                    }
+                });
+            }
+
+            attachModalTriggers();
+            const tabsContentContainer = document.querySelector('.tabs-content');
+            if (tabsContentContainer) {
+                new MutationObserver(attachModalTriggers).observe(tabsContentContainer, { childList: true, subtree: true });
+            }
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('visible')) closeModal();
             });
         });
     </script>
