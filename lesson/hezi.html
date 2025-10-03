@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>站长智能路由 | 一键部署海外网络环境</title>
+    <meta name="description" content="即插即用的网络魔盒，为您的团队打造稳定、隔离的海外网络环境。可发射多个带不同国家IP的Wi-Fi信号，专为TikTok直播和多账号矩阵运营设计。">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- 全新现代简约风格 --- */
+        html { 
+            scroll-behavior: smooth; 
+        }
+        body {
+            background-color: #ffffff; /* 纯白背景 */
+            color: #334155; /* 更柔和的深灰色文字 */
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+        }
+        .container { 
+            max-width: 1140px; 
+        }
+        h1, h2, h3 { 
+            color: #1e293b; 
+            font-weight: 700;
+        }
+        .section { 
+            padding: 80px 0; 
+        }
+        .section-title { 
+            text-align: center; 
+            font-size: 2.5rem; 
+            margin-bottom: 1rem; 
+        }
+        .section-subtitle { 
+            text-align: center; 
+            font-size: 1.1rem; 
+            color: #64748b;
+            max-width: 45rem; 
+            margin: 0 auto 4rem auto; 
+        }
+        .gradient-text { 
+            background: linear-gradient(90deg, #6366f1, #a855f7); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border-radius: 9999px; /* 全圆角 */
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(100, 102, 241, 0.3);
+        }
+        .btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 7px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        .card {
+            background-color: #f8fafc; /* 非常浅的灰色卡片背景 */
+            border-radius: 1rem; /* 更大的圆角 */
+            border: 1px solid #e2e8f0;
+            padding: 2.5rem;
+            height: 100%;
+        }
+
+        .navbar { 
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 1rem 0; 
+            position: sticky; 
+            width: 100%; 
+            top: 0; 
+            z-index: 1000; 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo { font-size: 1.6em; font-weight: bold; color: #1e293b; }
+        .nav-links a { color: #475569; text-decoration: none; margin-left: 2rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: #6366f1; }
+
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; letter-spacing: -1px; }
+        .hero .icon-box {
+            font-size: 3.5rem;
+            width: 7rem;
+            height: 7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: white;
+            border-radius: 1.5rem;
+            margin: 0 auto 2rem auto;
+            box-shadow: 0 10px 30px rgba(100, 102, 241, 0.3);
+        }
+
+        /* 价格卡片 */
+        .pricing-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .pricing-card.recommended {
+            border-color: #8b5cf6;
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+        }
+        .pricing-card .plan-name { font-size: 1.5rem; font-weight: 600; color: #1e293b; }
+        .pricing-card .plan-price { font-size: 3.5rem; font-weight: 700; margin: 1rem 0; color: #1e293b; }
+        .pricing-card .plan-desc { color: #64748b; margin-bottom: 2rem; }
+        .pricing-card .plan-features { list-style: none; padding: 0; margin-bottom: 2.5rem; text-align: left; }
+        .pricing-card .plan-features li { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: #475569; }
+        .pricing-card .plan-features li i { color: #4ade80; }
+        .pricing-card .btn { width: 100%; margin-top: auto; }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="logo">智能路由</div>
+            <div class="nav-links hidden md:block">
+                <a href="#benefits">核心优势</a>
+                <a href="#how-it-works">如何工作</a>
+                <a href="#plans">选择方案</a>
+                <a href="#faq">常见问题</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <header id="home" class="hero">
+        <div class="container mx-auto px-6 py-24 text-center">
+            <div class="icon-box">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <h1 class="font-bold">
+                即插即用的<span class="gradient-text">网络魔盒</span>
+            </h1>
+            <p class="mt-6 text-xl text-slate-600 max-w-2xl mx-auto">
+                为您的团队打造稳定、隔离的海外网络环境。它能发射多个带不同国家身份的Wi-Fi信号，彻底解决多账号IP关联风险。
+            </p>
+            <div class="mt-10">
+                <a href="#plans" class="btn text-lg">
+                    <i class="fas fa-box-open mr-2"></i> 选择您的魔盒
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Benefits Section -->
+        <section id="benefits" class="section bg-slate-50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">告别繁琐，拥抱高效</h2>
+                <p class="section-subtitle">一台魔盒，解决您所有的海外网络环境难题。专为高效率团队设计。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <div class="p-6">
+                        <i class="fas fa-shield-alt text-4xl text-violet-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">IP物理隔离</h3>
+                        <p class="text-slate-500">一个Wi-Fi一个独立IP，手机连接即切换，从硬件层面杜绝账号关联，100%安全。</p>
+                    </div>
+                    <div class="p-6">
+                        <i class="fas fa-plug text-4xl text-violet-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">即插即用</h3>
+                        <p class="text-slate-500">我们为您预先配置好一切。您只需插上电源和网线，手机连接Wi-Fi即可使用，无需任何设置。</p>
+                    </div>
+                    <div class="p-6">
+                        <i class="fas fa-tachometer-alt text-4xl text-violet-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">稳定高效</h3>
+                        <p class="text-slate-500">为7x24小时不间断直播和高强度运营而生。告别手机APP的卡顿、掉线，业务稳如泰山。</p>
+                    </div>
+                    <div class="p-6">
+                        <i class="fas fa-users text-4xl text-violet-500 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">团队共享</h3>
+                        <p class="text-slate-500">一台设备，满足整个工作室的需求。所有成员共享纯净网络环境，极大提升团队协作效率。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. How it Works Section -->
+        <section id="how-it-works" class="section">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">只需三步，<span class="gradient-text">即刻开启</span></h2>
+                <p class="section-subtitle">我们追求极致的简单，让您可以专注于业务本身。</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative">
+                    <!-- Dashed line connecting steps -->
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-px border-t-2 border-dashed border-slate-300 -translate-y-12"></div>
+                    
+                    <div class="relative">
+                        <div class="w-24 h-24 flex items-center justify-center bg-violet-100 text-violet-600 text-3xl font-bold rounded-full mx-auto mb-6 border-4 border-white shadow-lg">1</div>
+                        <h3 class="text-xl font-bold mb-2">连接魔盒</h3>
+                        <p class="text-slate-500">将魔盒插上电源和您现有的路由器或光猫。</p>
+                    </div>
+                    <div class="relative">
+                        <div class="w-24 h-24 flex items-center justify-center bg-violet-100 text-violet-600 text-3xl font-bold rounded-full mx-auto mb-6 border-4 border-white shadow-lg">2</div>
+                        <h3 class="text-xl font-bold mb-2">配置线路</h3>
+                        <p class="text-slate-500">我们远程协助您导入您的[节点]线路信息。</p>
+                    </div>
+                    <div class="relative">
+                        <div class="w-24 h-24 flex items-center justify-center bg-violet-100 text-violet-600 text-3xl font-bold rounded-full mx-auto mb-6 border-4 border-white shadow-lg">3</div>
+                        <h3 class="text-xl font-bold mb-2">连接Wi-Fi</h3>
+                        <p class="text-slate-500">在手机Wi-Fi列表找到新信号 (如USA_WIFI)，连接即可！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Plans Section -->
+        <section id="plans" class="section bg-slate-50">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">选择适合您的魔盒</h2>
+                <p class="section-subtitle">魔盒是一次性的硬件和系统费用，需配合<a href="#" class="text-violet-600 font-semibold underline">节点</a>使用。一次投资，长久受益。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Standard Plan -->
+                    <div class="pricing-card">
+                        <h3 class="plan-name">标准版</h3>
+                        <div class="plan-price">¥599</div>
+                        <p class="plan-desc">适合个人、小型团队和日常运营，性价比之选。</p>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> 高性能双核处理器</li>
+                            <li><i class="fas fa-check-circle"></i> 满足日常多设备流畅运行</li>
+                            <li><i class="fas fa-check-circle"></i> 推荐 3-5 人团队使用</li>
+                            <li><i class="fas fa-check-circle"></i> 稳定连接 20 台设备</li>
+                        </ul>
+                        <a href="#contact-link" class="btn">选择标准版</a>
+                    </div>
+
+                    <!-- Performance Plan (Recommended) -->
+                    <div class="pricing-card recommended">
+                        <div class="flex justify-between items-center">
+                            <h3 class="plan-name">性能版</h3>
+                            <span class="badge bg-violet-100 text-violet-700">站长力荐</span>
+                        </div>
+                        <div class="plan-price">¥899</div>
+                        <p class="plan-desc">为高强度直播、矩阵运营和专业团队打造的旗舰选择。</p>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check-circle"></i> <strong>旗舰级四核处理器</strong></li>
+                            <li><i class="fas fa-check-circle"></i> <strong>为高强度并发和直播场景优化</strong></li>
+                            <li><i class="fas fa-check-circle"></i> 专为 5-10 人以上团队优化</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>最多支持 50+ 台设备</strong></li>
+                            <li><i class="fas fa-check-circle"></i> 增强型散热，确保7x24小时稳定</li>
+                        </ul>
+                        <a href="#contact-link" class="btn">选择性能版</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Use Cases Section -->
+        <section id="use-cases" class="section">
+            <div class="container mx-auto px-6">
+                 <h2 class="section-title">哪些人需要<span class="gradient-text">网络魔盒</span>？</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                     <div class="card text-center">
+                         <i class="fab fa-tiktok text-4xl mb-4 text-violet-500"></i>
+                         <h3 class="font-bold text-lg">TikTok直播团队</h3>
+                         <p class="text-sm text-slate-500">需要7x24小时稳定推流，对网络延迟和稳定性要求极高。</p>
+                     </div>
+                     <div class="card text-center">
+                         <i class="fas fa-users-cog text-4xl mb-4 text-violet-500"></i>
+                         <h3 class="font-bold text-lg">多账号矩阵运营者</h3>
+                         <p class="text-sm text-slate-500">同时操作多个社交媒体账号，需要严格的IP隔离以防关联封号。</p>
+                     </div>
+                     <div class="card text-center">
+                         <i class="fas fa-store text-4xl mb-4 text-violet-500"></i>
+                         <h3 class="font-bold text-lg">跨境电商工作室</h3>
+                         <p class="text-sm text-slate-500">团队成员需共享稳定的海外网络环境，进行店铺运营和客户沟通。</p>
+                     </div>
+                     <div class="card text-center">
+                         <i class="fas fa-briefcase text-4xl mb-4 text-violet-500"></i>
+                         <h3 class="font-bold text-lg">海外业务开发者</h3>
+                         <p class="text-sm text-slate-500">需要频繁切换不同国家的IP，进行市场调研、广告投放和应用测试。</p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- 6. FAQ Section -->
+        <section id="faq" class="section bg-slate-50">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="section-title">常见问题</h2>
+                <div class="space-y-4">
+                    <details class="bg-white p-6 rounded-lg shadow-sm">
+                        <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">买了魔盒后，还需要额外付费吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
+                        <p class="mt-4 text-slate-600">魔盒是一次性的硬件和系统费用。要让它发出带海外IP的Wi-Fi，您还需要拥有自己的[节点]线路（相当于手机需要SIM卡）。您可以将节点理解为“网络燃料”，魔盒是“引擎”。</p>
+                    </details>
+                    <details class="bg-white p-6 rounded-lg shadow-sm">
+                        <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">设置起来会很麻烦吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
+                        <p class="mt-4 text-slate-600">完全不会！这正是魔盒的核心价值。我们会在发货前或通过远程协助，帮您完成所有预设。您收到后，只需插上电源和网线，即可使用，真正做到“即插即用”。</p>
+                    </details>
+                     <details class="bg-white p-6 rounded-lg shadow-sm">
+                        <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">它和手机APP有什么本质区别？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
+                        <p class="mt-4 text-slate-600">区别巨大。首先，魔盒提供**硬件级IP隔离**，比任何软件都更安全、更彻底。其次，它的**稳定性**和**性能**远超手机APP，专为长时间、高强度的业务设计，不会闪退或掉线。最后，它可以**让团队共享**，一部手机开热点无法与之相比。</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-10 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <p class="text-slate-500">Copyright © 2024-2025 站长网络方案. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 旋转FAQ箭头 ---
+            document.querySelectorAll('details').forEach((detail) => {
+                detail.addEventListener('toggle', (event) => {
+                    const icon = detail.querySelector('summary i');
+                    if (detail.open) {
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+
+            // 记得将所有 a 标签的 href="#contact-link" 替换成您的真实联系链接
+        });
+    </script>
+</body>
+</html>
