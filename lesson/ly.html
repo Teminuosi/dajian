@@ -17,6 +17,7 @@
         --text-muted: #8B949E;
         --text-warning: #f1c40f;
         --card-glow: 0 0 25px rgba(0, 123, 255, 0.2);
+        --recommended-glow: 0 0 35px rgba(0, 123, 255, 0.4);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -166,8 +167,8 @@
     /* --- 定价 Section --- */
     .pricing-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
         align-items: stretch;
     }
     .pricing-card {
@@ -177,10 +178,31 @@
         padding: 40px;
         display: flex;
         flex-direction: column;
+        transition: all 0.3s ease;
     }
+    .pricing-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-glow);
+    }
+
     .pricing-card.recommended {
         border-color: var(--primary-color);
-        box-shadow: var(--card-glow);
+        box-shadow: var(--recommended-glow);
+        transform: scale(1.05); /* 推荐卡片默认放大 */
+        position: relative;
+    }
+    .recommended-badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #007BFF, #0056b3);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
     }
     .pricing-card h3 { font-size: 1.8em; font-weight: 600; text-align: center; margin-bottom: 10px; }
     .pricing-card .price { font-size: 3em; font-weight: 700; text-align: center; margin-bottom: 30px; }
@@ -208,6 +230,9 @@
     /* --- 响应式设计 --- */
     @media (max-width: 992px) {
         .pricing-grid { grid-template-columns: 1fr; }
+        .pricing-card.recommended { transform: scale(1); } /* 移动端取消默认放大 */
+        .pricing-grid > * { margin-bottom: 30px; }
+        .pricing-grid > *:last-child { margin-bottom: 0; }
     }
     @media (max-width: 768px) {
         .section { padding: 60px 0; }
@@ -283,44 +308,59 @@
         </div>
     </section>
 
+    <!-- ====== ▼▼▼ 这里是为您优化好的定价模块 ▼▼▼ ====== -->
     <section class="section" id="pricing">
         <div class="container">
             <h2 class="section-title">选择适合您的“魔方”</h2>
             <p class="section-subtitle">这笔投资，会在您避免第一次封号、节省第一个小时的配置时间时，就开始回本。</p>
             <div class="pricing-grid">
-                <!-- 基础版 -->
-                <div class="pricing-card">
-                    <h3>基础版</h3>
-                    <div class="price">¥899</div>
+                 <!-- 个人工作室版 -->
+                 <div class="pricing-card">
+                    <h3>个人工作室版</h3>
+                    <div class="price">¥599</div>
                     <ul>
-                        <li><i class="fas fa-check-circle"></i><div><strong>动力强劲</strong><br>满足日常多设备流畅运行</div></li>
-                        <li><i class="fas fa-check-circle"></i><div><strong>为小型团队优化</strong><br>适合个人或 3-5 人团队使用</div></li>
-                        <li><i class="fas fa-check-circle"></i><div><strong>支持 10 台设备</strong><br>稳定连接，轻松管理</div></li>
-                        <li><i class="fas fa-check-circle"></i><div>包含“魔方”全部核心软件功能</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>精悍核心</strong><br>为个人及小型团队 (1-3人) 设计</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>稳定带机量</strong><br>轻松承载 10 台设备并发运行</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>全功能软件</strong><br>包含“魔方”全部核心软件功能</div></li>
+                    </ul>
+             
+                    <button class="cta-button contact-trigger">选择方案并咨询</button>
+                </div>
+
+                <!-- 专业团队版 - 推荐 -->
+                <div class="pricing-card recommended">
+                    <div class="recommended-badge">站长推荐</div>
+                    <h3>专业团队版</h3>
+                    <div class="price">¥999</div>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i><div><strong>性能增强处理器</strong><br>为专业团队 (3-8人) 并发操作优化</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>更高带机量</strong><br>从容应对 20 台设备高强度使用</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>专属稳定性设计</strong><br>增强型散热，保障团队持续作战</div></li>
                     </ul>
                     <div class="promo-box">
-                        限时优惠：赠送一条<span class="highlight">普通优化</span>线路
+                        限时福利：赠送<span class="highlight">一条独立</span>优化线路
                     </div>
                     <button class="cta-button contact-trigger">选择方案并咨询</button>
                 </div>
-                <!-- 性能版 -->
-                <div class="pricing-card recommended">
-                    <h3>性能版</h3>
-                    <div class="price">¥1299</div>
+
+                <!-- 企业矩阵版 -->
+                <div class="pricing-card">
+                    <h3>企业矩阵版</h3>
+                    <div class="price">¥1599</div>
                     <ul>
-                        <li><i class="fas fa-check-circle"></i><div><strong>旗舰级性能</strong><br>为高强度并发和直播场景设计</div></li>
-                        <li><i class="fas fa-check-circle"></i><div><strong>为专业矩阵团队打造</strong><br>专为 5-10 人以上团队优化</div></li>
-                        <li><i class="fas fa-check-circle"></i><div><strong>支持 20+ 设备</strong><br>高强度并发无压力</div></li>
-                        <li><i class="fas fa-check-circle"></i><div><strong>增强型稳定设计</strong><br>确保7x24小时高负载稳定运行</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>旗舰级多核处理器</strong><br>专为大规模矩阵 & 高负载直播设计</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>海量带机量</strong><br>轻松驱动 50+ 设备满负荷运行</div></li>
+                        <li><i class="fas fa-check-circle"></i><div><strong>企业级可靠性</strong><br>为7x24小时不间断高强度运行而生</div></li>
                     </ul>
                     <div class="promo-box">
-                        限时优惠：赠送一条<span class="highlight">低延迟直播专线</span>
+                        限时福利：赠送一条<span class="highlight">企业级·低延迟直播专线</span>
                     </div>
                     <button class="cta-button contact-trigger">选择方案并咨询</button>
                 </div>
             </div>
         </div>
     </section>
+    <!-- ====== ▲▲▲ 优化结束 ▲▲▲ ====== -->
   </main>
   
   <!-- 引入最终的在线弹窗加载器 -->
