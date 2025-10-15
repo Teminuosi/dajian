@@ -55,8 +55,11 @@
 
         /* 定价卡片 */
         .pricing-card { background-color: #ffffff; border-radius: 1rem; border: 1px solid #cbd5e1; padding: 2.5rem; display: flex; flex-direction: column; height: 100%; transition: all 0.3s ease; }
-        .pricing-card.ultimate-choice { border-width: 2px; border-color: #f59e0b; transform: scale(1.05); position: relative; z-index: 10; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1); }
-        .badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #f59e0b, #eab308); color: white; padding: 0.3rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: bold; }
+        .pricing-card.recommended { border-width: 2px; border-color: #4338ca; position: relative; z-index: 10; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1); transform: scale(1.05); }
+        .pricing-card.ultimate-choice { border-width: 2px; border-color: #f59e0b; position: relative; z-index: 10; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1); }
+        .badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); color: white; padding: 0.3rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: bold; }
+        .badge.recommended-badge { background: linear-gradient(90deg, #4f46e5, #7c3aed); }
+        .badge.ultimate-badge { background: linear-gradient(90deg, #f59e0b, #eab308); }
         .pricing-card .plan-name { font-size: 1.5rem; }
         .pricing-card .plan-price { font-size: 3.25rem; margin: 1rem 0; }
         .pricing-card .plan-features { list-style: none; padding: 0; margin-top: 2rem; text-align: left; flex-grow: 1; }
@@ -74,71 +77,15 @@
         
         /* --- Iframe 模态框样式 --- */
         body.modal-open { overflow: hidden; }
-        .modal-container {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
-        }
+        .modal-container { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; transition: opacity 0.3s ease; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
         .modal-container.visible { opacity: 1; }
-        .modal-body {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            max-height: 90vh;
-            transform: scale(0.95);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .modal-container.visible .modal-body {
-            transform: scale(1);
-            opacity: 1;
-        }
-        .modal-close-btn {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 30px;
-            height: 30px;
-            background-color: #333;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            line-height: 1;
-            cursor: pointer;
-            z-index: 10;
-            border: 2px solid #555;
-            transition: background-color 0.2s;
-        }
+        .modal-body { position: relative; width: 100%; max-width: 900px; max-height: 90vh; transform: scale(0.95); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .modal-container.visible .modal-body { transform: scale(1); opacity: 1; }
+        .modal-close-btn { position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; background-color: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; line-height: 1; cursor: pointer; z-index: 10; border: 2px solid #555; transition: background-color 0.2s; }
         .modal-close-btn:hover { background-color: #e53e3e; }
-        .iframe-wrapper {
-            width: 100%;
-            height: 600px;
-            background-color: #1e1e1e;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .iframe-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            scrollbar-width: none;
-        }
-        .iframe-wrapper iframe::-webkit-scrollbar {
-            display: none;
-        }
+        .iframe-wrapper { width: 100%; height: 600px; background-color: #1e1e1e; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .iframe-wrapper iframe { width: 100%; height: 100%; border: 0; scrollbar-width: none; }
+        .iframe-wrapper iframe::-webkit-scrollbar { display: none; }
 
     </style>
 </head>
@@ -146,90 +93,39 @@
 
     <nav class="navbar">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <!-- Left Side -->
             <div class="flex items-center gap-x-4 md:gap-x-6">
-                <a href="https://dajian.cyou" class="back-to-home-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    <span class="hidden sm:inline">返回主页</span>
-                </a>
+                <a href="https://dajian.cyou" class="back-to-home-btn"><i class="fas fa-arrow-left"></i> <span class="hidden sm:inline">返回主页</span></a>
                 <div class="logo">核心技术课</div>
             </div>
-            <!-- Right Side -->
-            <div class="nav-links hidden md:block">
-                <a href="#why-learn">为何学习</a>
-                <a href="#path">学习路径</a>
-                <a href="#plans">课程方案</a>
-                <a href="#faq">常见问题</a>
-            </div>
+            <div class="nav-links hidden md:block"><a href="#why-learn">为何学习</a> <a href="#path">学习路径</a> <a href="#plans">课程方案</a> <a href="#faq">常见问题</a></div>
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
-    <header id="home" class="hero bg-white">
-        <div class="container mx-auto px-6 py-24 text-center">
-            <h1 class="font-bold leading-tight">掌控您的<span class="highlight-text">跨境网络命脉</span></h1>
-            <p class="mt-6 text-xl text-slate-600 max-w-3xl mx-auto">从月月付费的“租客”，到一劳永逸的“房东”。<br>我们通过<strong class="text-slate-900">1对1远程教学</strong>，手把手带您从零构建专属、安全、可控的全球网络系统。</p>
-            <div class="mt-10"><a href="#plans" class="btn btn-primary text-lg"><i class="fas fa-graduation-cap mr-2"></i> 开始学习之旅</a></div>
-        </div>
-    </header>
+    <header id="home" class="hero bg-white"><div class="container mx-auto px-6 py-24 text-center"><h1 class="font-bold leading-tight">掌控您的<span class="highlight-text">跨境网络命脉</span></h1><p class="mt-6 text-xl text-slate-600 max-w-3xl mx-auto">从月月付费的“租客”，到一劳永逸的“房东”。<br>我们通过<strong class="text-slate-900">1对1远程教学</strong>，手把手带您从零构建专属、安全、可控的全球网络系统。</p><div class="mt-10"><a href="#plans" class="btn btn-primary text-lg"><i class="fas fa-graduation-cap mr-2"></i> 开始学习之旅</a></div></div></header>
 
     <main>
-        <!-- 2. Why Learn Section -->
-        <section id="why-learn" class="section">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title">一次学习，带来无法估量的价值</h2>
-                <p class="section-subtitle">无论您是个人创业者还是企业管理者，掌握这项核心技术都将是您最明智的投资。</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm"><h3 class="text-2xl font-bold mb-6 text-center">对 <span class="highlight-text">个人</span> 的价值</h3><div class="space-y-6"><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-coins"></i></div><div><h4 class="font-bold">彻底告别月费</h4><p class="text-slate-600">掌握源头技术，自己动手每月成本仅需一杯奶茶钱，每年节省数千元。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-lightbulb"></i></div><div><h4 class="font-bold">解锁核心技能</h4><p class="text-slate-600">您将真正理解网络底层逻辑，而不仅是做个“会用软件的消费者”。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-briefcase"></i></div><div><h4 class="font-bold">开启副业可能</h4><p class="text-slate-600">学会后，您不仅能自给自足，更能为他人提供服务，创造额外收入。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-user-shield"></i></div><div><h4 class="font-bold">数据绝对安全</h4><p class="text-slate-600">所有数据和流量都在您自己的服务器中流转，隐私和安全得到最高保障。</p></div></div></div></div>
-                    <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm"><h3 class="text-2xl font-bold mb-6 text-center">对 <span class="highlight-text">企业/团队</span> 的价值</h3><div class="space-y-6"><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-chart-line"></i></div><div><h4 class="font-bold">大幅降低成本</h4><p class="text-slate-600">为团队提供网络不再需要按人头购买昂贵服务，IT采购成本指数级下降。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-sitemap"></i></div><div><h4 class="font-bold">网络自主可控</h4><p class="text-slate-600">随时按需增减和切换全球节点，业务拓展不受制于任何第三方服务商。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-users"></i></div><div><h4 class="font-bold">赋能团队成长</h4><p class="text-slate-600">让团队核心成员掌握网络技术，提升团队整体技术实力和问题解决能力。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-shield-alt"></i></div><div><h4 class="font-bold">构建技术壁垒</h4><p class="text-slate-600">稳定、高效、隔离的网络环境是矩阵运营成功的基石，更是核心竞争力。</p></div></div></div></div>
-                </div>
-            </div>
-        </section>
+        <section id="why-learn" class="section"><div class="container mx-auto px-6"><h2 class="section-title">一次学习，带来无法估量的价值</h2><p class="section-subtitle">无论您是个人创业者还是企业管理者，掌握这项核心技术都将是您最明智的投资。</p><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm"><h3 class="text-2xl font-bold mb-6 text-center">对 <span class="highlight-text">个人</span> 的价值</h3><div class="space-y-6"><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-coins"></i></div><div><h4 class="font-bold">彻底告别月费</h4><p class="text-slate-600">掌握源头技术，自己动手每月成本仅需一杯奶茶钱，每年节省数千元。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-lightbulb"></i></div><div><h4 class="font-bold">解锁核心技能</h4><p class="text-slate-600">您将真正理解网络底层逻辑，而不仅是做个“会用软件的消费者”。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-briefcase"></i></div><div><h4 class="font-bold">开启副业可能</h4><p class="text-slate-600">学会后，您不仅能自给自足，更能为他人提供服务，创造额外收入。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-user-shield"></i></div><div><h4 class="font-bold">数据绝对安全</h4><p class="text-slate-600">所有数据和流量都在您自己的服务器中流转，隐私和安全得到最高保障。</p></div></div></div></div><div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm"><h3 class="text-2xl font-bold mb-6 text-center">对 <span class="highlight-text">企业/团队</span> 的价值</h3><div class="space-y-6"><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-chart-line"></i></div><div><h4 class="font-bold">大幅降低成本</h4><p class="text-slate-600">为团队提供网络不再需要按人头购买昂贵服务，IT采购成本指数级下降。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-sitemap"></i></div><div><h4 class="font-bold">网络自主可控</h4><p class="text-slate-600">随时按需增减和切换全球节点，业务拓展不受制于任何第三方服务商。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-users"></i></div><div><h4 class="font-bold">赋能团队成长</h4><p class="text-slate-600">让团队核心成员掌握网络技术，提升团队整体技术实力和问题解决能力。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-shield-alt"></i></div><div><h4 class="font-bold">构建技术壁垒</h4><p class="text-slate-600">稳定、高效、隔离的网络环境是矩阵运营成功的基石，更是核心竞争力。</p></div></div></div></div></div></div></section>
 
-        <!-- 3. Learning Path Section -->
-        <section id="path" class="section bg-white">
-            <div class="container mx-auto px-6">
-                 <h2 class="section-title">清晰的学习路径，保证您的成功</h2>
-                <p class="section-subtitle">我们承诺“当场教会，独立操作”。整个学习过程被设计得清晰、可执行，即使是零基础的小白也能完全掌握。</p>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-                    <div class="p-4"><i class="fas fa-chalkboard-teacher text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">课前预习</h3><p class="text-slate-600">提供入门录播课和图文资料，让您对基本概念有初步了解。</p></div>
-                    <div class="p-4"><i class="fas fa-desktop text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">1对1实操</h3><p class="text-slate-600">站长通过远程桌面，像坐在您身边一样，手把手带您完成每一步操作。</p></div>
-                    <div class="p-4"><i class="fas fa-redo-alt text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">复习巩固</h3><p class="text-slate-600">提供全程操作录像和永久更新的课程库，供您随时回顾、查漏补缺。</p></div>
-                    <div class="p-4"><i class="fas fa-headset text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">终身答疑</h3><p class="text-slate-600">毕业后遇到任何相关问题，依然可以随时找到站长获得技术支持。</p></div>
-                </div>
-            </div>
-        </section>
+        <section id="path" class="section bg-white"><div class="container mx-auto px-6"><h2 class="section-title">清晰的学习路径，保证您的成功</h2><p class="section-subtitle">我们承诺“当场教会，独立操作”。整个学习过程被设计得清晰、可执行，即使是零基础的小白也能完全掌握。</p><div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center"><div class="p-4"><i class="fas fa-chalkboard-teacher text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">课前预习</h3><p class="text-slate-600">提供入门录播课和图文资料，让您对基本概念有初步了解。</p></div><div class="p-4"><i class="fas fa-desktop text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">1对1实操</h3><p class="text-slate-600">站长通过远程桌面，像坐在您身边一样，手把手带您完成每一步操作。</p></div><div class="p-4"><i class="fas fa-redo-alt text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">复习巩固</h3><p class="text-slate-600">提供全程操作录像和永久更新的课程库，供您随时回顾、查漏补缺。</p></div><div class="p-4"><i class="fas fa-headset text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">终身答疑</h3><p class="text-slate-600">毕业后遇到任何相关问题，依然可以随时找到站长获得技术支持。</p></div></div></div></section>
 
-        <!-- 4. Plans Section -->
+        <!-- ====== ▼▼▼ 这里是为您优化好的定价模块 ▼▼▼ ====== -->
         <section id="plans" class="section">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">选择最适合您的课程方案</h2>
                 <p class="section-subtitle">所有方案均为一次性付费，包含全部教学内容和永久更新的录播课，无任何隐藏费用。</p>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                     
-                    <!-- 入门实战套餐 -->
+                    <!-- 旗舰全能 · 高清录播课 -->
                     <div class="pricing-card">
-                        <h3 class="plan-name">入门实战套餐</h3><div class="plan-price">¥399</div><p class="text-slate-500">适合希望快速掌握基础自建流程，实现网络自由的学员。</p>
+                        <h3 class="plan-name">旗舰全能 · 高清录播课</h3><div class="plan-price">¥699</div><p class="text-slate-500">最受欢迎的自学方案！系统化学习全套网络构建技术，随时随地回顾。</p>
                         <ul class="plan-features">
                             <li><i class="fas fa-check"></i> <strong>理论精讲：</strong>中转+住宅IP原理</li>
-                            <li><i class="fas fa-check"></i> <strong>动手实操：</strong>VPS选择、脚本安装</li>
-                            <li><i class="fas fa-check"></i> <strong>全平台配置：</strong>电脑、手机客户端配置</li>
-                            <li><i class="fas fa-check"></i> <strong>网络加速：</strong>掌握基础网络提速方法</li>
-                            <li><i class="fas fa-check"></i> <strong>附赠：</strong>入门版录播课，随时回顾</li>
-                        </ul>
-                        <div data-trigger-modal class="btn btn-secondary">选择入门版</div>
-                    </div>
-
-                  
-                    <!-- 旗舰全能套餐 -->
-                    <div class="pricing-card">
-                         <h3 class="plan-name">旗舰全能套餐</h3><div class="plan-price">¥699</div><p class="text-slate-500">最受欢迎的选择！从零到精通，1对1带您成为网络专家。</p>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含「入门套餐」全部内容</strong></li>
-                            <li><i class="fas fa-check"></i> <strong class="text-indigo-700">1V1带你从零亲手搭建专属节点</strong></li>
-                            <li><i class="fas fa-check"></i> <strong class="text-indigo-700">1V1带你搭建顶级直播专线</strong></li>
+                            <li><i class="fas fa-check"></i> <strong>实操演示：</strong>VPS选择、脚本安装</li>
+                            <li><i class="fas fa-check"></i> <strong>核心技术：</strong>从零搭建专属节点</li>
+                            <li><i class="fas fa-check"></i> <strong>核心技术：</strong>搭建顶级直播专线</li>
                             <li><i class="fas fa-check"></i> 独家“神仙线路”寻找秘籍</li>
-                            <li><i class="fas fa-check"></i> 附赠30+节高级录播课(永久更新)</li>
+                            <li><i class="fas fa-check"></i> 全平台客户端配置与基础加速</li>
+                            <li><i class="fas fa-check"></i> <strong>全套30+节高清录播课(永久更新)</strong></li>
                             <li><i class="fas fa-check"></i> <div>
                                 <details class="course-details"><summary>高级课程库访问权限 <i class="fas fa-chevron-down arrow"></i></summary>
                                 <div class="course-details-content">
@@ -237,85 +133,73 @@
                                 </div></details>
                             </div></li>
                         </ul>
-                        <div data-trigger-modal class="btn btn-primary">我要一步到位</div>
+                        <div data-trigger-modal class="btn btn-secondary">立即学习录播课</div>
                     </div>
 
-                    <!-- 精英会员·终极方案 (RECOMMENDED) -->
-                    <div class="pricing-card ultimate-choice">
-                        <div class="badge">终极之选 · 最佳价值</div>
-                        <h3 class="plan-name">精英会员 · 终极方案</h3><div class="plan-price">¥999</div><p class="text-slate-500">不仅是课程，更是事业的起点。提供全方位技术支持与资源对接。</p>
+                    <!-- 精英会员 · 技术深造 (一对一) -->
+                    <div class="pricing-card recommended">
+                        <div class="badge recommended-badge">1对1教学</div>
+                        <h3 class="plan-name">精英会员 · 技术深造</h3><div class="plan-price">¥999</div><p class="text-slate-500">专为追求极致网络体验与个人品牌打造的学员设计。</p>
                         <ul class="plan-features">
-                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【旗舰全能】全部内容及权益</strong></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-amber-600">三次一对一实操，包教包会</strong></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-amber-600">1V1指导软路由配置与全屋科学上网</strong></li>
+                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【旗舰全能】全部录播课程</strong></li>
+                             <li><i class="fas fa-check"></i> <strong class="text-indigo-700">三次一对一远程实操教学</strong><br><span class="text-xs text-slate-500 ml-6">包教包会，全程解决您遇到的任何问题</span></li>
+                             <li><i class="fas fa-check"></i> <strong class="text-indigo-700">1V1指导软路由配置与全屋科学上网</strong></li>
                              <li><i class="fas fa-check"></i> <strong class="text-slate-800">【福利】免费搭建个人品牌网站</strong></li>
                              <li><i class="fas fa-check"></i> <strong class="text-slate-800">【福利】赠送5个高质量TK满月号</strong></li>
+                             <li><i class="fas fa-check"></i> 更多独家资源（无人直播手册等）</li>
+                        </ul>
+                        <div data-trigger-modal class="btn btn-primary">选择一对一教学</div>
+                    </div>
+
+                    <!-- 终极合伙人 · 资源全享 (一对一 + 硬件 + AI) -->
+                    <div class="pricing-card ultimate-choice">
+                        <div class="badge ultimate-badge">终极之选 · 最佳价值</div>
+                        <h3 class="plan-name">终极合伙人 · 资源全享</h3><div class="plan-price">¥1699</div><p class="text-slate-500">技术、业务、硬件一步到位，提供最高级别的1对1支持与核心资源。</p>
+                        <ul class="plan-features">
+                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【精英会员】全部教学内容及权益</strong></li>
+                             <li><i class="fas fa-check"></i> <strong class="text-amber-600">【硬件赠送】赠送软路由硬件一台 (价值¥999)</strong><br><span class="text-xs text-slate-500 ml-6">用于完整课堂教学，硬件送到家</span></li>
                              <li>
                                 <i class="fas fa-check"></i>
-                                <div><strong class="text-amber-600">【独家赠送】全套付费项目资源</strong>
+                                <div><strong class="text-amber-600">【独家赠送】全套AI付费项目资源</strong>
                                     <div class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200 space-y-4">
-                                        <!-- AI 工作流价值体现 -->
                                         <div class="text-left group">
                                             <div class="flex justify-between items-center">
                                                  <h4 class="font-bold text-sm text-slate-800">N8N视频创作母体</h4>
-                                                 <span class="bg-amber-200 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">价值 ¥699</span>
+                                                 <span class="bg-amber-200 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">价值 ¥899</span>
                                             </div>
                                             <p class="text-xs text-slate-500 mt-1">永久授权，包含以下两大AI工作流：</p>
                                             <div class="mt-3 pl-4 space-y-2 border-l-2 border-amber-200">
-                                                 <a href="https://3yuedaohang.com/n8n/n8n-1" target="_blank" class="flex items-center gap-2 text-left group/item">
+                                                 <a href="https://dajian.cyou/n8n/n8n-1" target="_blank" class="flex items-center gap-2 text-left group/item">
                                                     <i class="fas fa-magic text-amber-500"></i>
                                                     <div class="text-xs text-slate-600 group-hover/item:text-amber-600">AI自动化爆款短视频</div>
                                                  </a>
-                                                 <a href="https://3yuedaohang.com/n8n/n8n" target="_blank" class="flex items-center gap-2 text-left group/item">
+                                                 <a href="https://dajian.cyou/n8n/n8n" target="_blank" class="flex items-center gap-2 text-left group/item">
                                                     <i class="fas fa-robot text-amber-500"></i>
                                                     <div class="text-xs text-slate-600 group-hover/item:text-amber-600">AI视频剪辑神器 (二创)</div>
                                                  </a>
                                             </div>
                                         </div>
-                                         <!-- 其他资源 -->
-                                         <div class="flex items-center gap-3 text-left pt-3 border-t border-amber-200">
-                                            <i class="fas fa-book text-2xl text-amber-500"></i>
-                                            <div><h4 class="font-bold text-sm text-slate-800">更多独家资源</h4><p class="text-xs text-slate-500">无人直播手册、无痕录制工具等。</p></div>
-                                        </div>
                                     </div>
                                 </div>
                             </li>
                         </ul>
-                        <div data-trigger-modal class="btn btn-ultimate">成为精英会员</div>
+                        <div data-trigger-modal class="btn btn-ultimate">成为终极合伙人</div>
                     </div>
                     
                 </div>
             </div>
         </section>
+        <!-- ====== ▲▲▲ 优化结束 ▲▲▲ ====== -->
 
-        <!-- 5. FAQ Section -->
-        <section id="faq" class="section bg-white">
-            <div class="container mx-auto px-6 max-w-3xl">
-                <h2 class="section-title">还有疑问？</h2>
-                <div class="space-y-4">
-                    <details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">我完全是电脑小白，真的能学会吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">完全可以！这正是1对1教学的价值所在。我们不会讲任何复杂理论，而是用最直白的方式，像朋友一样手把手带您操作。我们的承诺是“当场教会”，保证您能独立完成所有搭建和配置工作。</p></details>
-                    <details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">学习这个和直接买节点有什么区别？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">直接买节点，您是“租客”，每月都要付费，且线路质量、数据安全都掌握在别人手中。学习自建，您是“房东”，一次性投入学习成本，之后便拥有了自主权和控制权，成本极低，安全可控，甚至还能“出租”赚钱。</p></details>
-                    <details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">课程是一次性的吗？以后有问题怎么办？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">1对1的实操教学是核心部分。除此之外，您将获得所有课程的录播视频和配套资料的永久访问权，并且课程内容会持续更新。更重要的是，您将获得站长的终身答疑支持，遇到任何问题都可以随时找到我们。</p></details>
-                </div>
-            </div>
-        </section>
+        <section id="faq" class="section bg-white"><div class="container mx-auto px-6 max-w-3xl"><h2 class="section-title">还有疑问？</h2><div class="space-y-4"><details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">我完全是电脑小白，真的能学会吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">完全可以！如果您选择<strong class='text-indigo-700'>一对一套餐</strong>，这正是1对1教学的价值所在。我们不会讲任何复杂理论，而是用最直白的方式，像朋友一样手把手带您操作。我们的承诺是“当场教会”，保证您能独立完成所有搭建和配置工作。</p></details><details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">学习这个和直接买节点有什么区别？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">直接买节点，您是“租客”，每月都要付费，且线路质量、数据安全都掌握在别人手中。学习自建，您是“房东”，一次性投入学习成本，之后便拥有了自主权和控制权，成本极低，安全可控，甚至还能“出租”赚钱。</p></details><details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">课程是一次性的吗？以后有问题怎么办？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">无论您选择哪个套餐，您都将获得所有课程的录播视频和配套资料的永久访问权，并且课程内容会持续更新。更重要的是，如果您选择<strong class='text-indigo-700'>一对一套餐</strong>，您将获得站长的终身答疑支持，毕业后遇到任何问题都可以随时找到我们。</p></details></div></div></section>
     </main>
 
     <footer class="text-center py-10 bg-slate-100"><div class="container mx-auto px-6"><p class="text-slate-500">Copyright © 2024-2025 站长网络方案. All Rights Reserved.</p></div></footer>
     
-    <!-- Modal with Iframe -->
-    <div id="contactModal" class="modal-container hidden">
-        <div class="modal-body">
-            <span id="closeModal" class="modal-close-btn">&times;</span>
-            <div class="iframe-wrapper">
-                <iframe id="contactFrame" src="about:blank" scrolling="no"></iframe>
-            </div>
-        </div>
-    </div>
+    <div id="contactModal" class="modal-container hidden"><div class="modal-body"><span id="closeModal" class="modal-close-btn">&times;</span><div class="iframe-wrapper"><iframe id="contactFrame" src="about:blank" scrolling="no"></iframe></div></div></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- FAQ Arrow Rotation ---
             document.querySelectorAll('details').forEach((detail) => {
                 detail.addEventListener('toggle', (event) => {
                     const icon = detail.querySelector('summary i');
@@ -323,11 +207,10 @@
                 });
             });
 
-            // --- Modal Logic ---
             const modal = document.getElementById('contactModal');
             const closeModalBtn = document.getElementById('closeModal');
             const contactFrame = document.getElementById('contactFrame');
-            const modalUrl = 'https://3yuedaohang.com/contact-modal';
+            const modalUrl = 'https://dajian.cyou/contact-modal';
 
             function openModal() {
                 if (!modal || !contactFrame) return;
@@ -343,11 +226,10 @@
                 setTimeout(() => {
                     modal.classList.add('hidden');
                     document.body.classList.remove('modal-open');
-                    contactFrame.src = 'about:blank'; // Clear iframe src for performance
+                    contactFrame.src = 'about:blank';
                 }, 300);
             }
 
-            // Attach listeners to all trigger buttons
             document.querySelectorAll('[data-trigger-modal]').forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
                     e.preventDefault();
