@@ -65,6 +65,7 @@
         .pricing-card .plan-features { list-style: none; padding: 0; margin-top: 2rem; text-align: left; flex-grow: 1; }
         .pricing-card .plan-features li { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
         .pricing-card .plan-features li i { color: #22c55e; margin-top: 5px; }
+        .pricing-card .btn { width: 100%; margin-top: 2rem; }
         
         /* 课程目录详情 */
         details.course-details > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; font-weight: 600; color: #4338ca; }
@@ -74,6 +75,35 @@
         .course-details-content { background-color: #f8fafc; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; border: 1px solid #e2e8f0; font-size: 0.875rem; color: #475569; }
         .course-details-content span { display: block; padding: 2px 0; }
 
+/* --- iframe 弹窗样式 --- */
+body.modal-open { overflow: hidden; }
+        .modal-container { 
+            position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.7); 
+            z-index: 2000; display: flex; align-items: center; justify-content: center; 
+            padding: 1rem; opacity: 0; transition: opacity 0.3s ease; visibility: hidden; 
+            -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); 
+        }
+        .modal-container.visible { opacity: 1; visibility: visible; }
+        .modal-body { 
+            position: relative; width: 100%; max-width: 900px; 
+            transform: scale(0.95); opacity: 0; 
+            transition: transform 0.3s ease, opacity 0.3s ease; 
+        }
+        .modal-container.visible .modal-body { transform: scale(1); opacity: 1; }
+        .modal-close-btn { 
+            position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; 
+            background-color: #333; color: #fff; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 1.5rem; line-height: 1; cursor: pointer; z-index: 10; 
+            border: 2px solid #555; transition: background-color 0.2s; 
+        }
+        .modal-close-btn:hover { background-color: #e53e3e; }
+        .iframe-wrapper { 
+            width: 100%; height: 600px; background-color: #1e1e1e; 
+            border-radius: 0.75rem; overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
+        }
+        .iframe-wrapper iframe { width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 <body>
@@ -95,19 +125,17 @@
 
         <section id="path" class="section bg-white"><div class="container mx-auto px-6"><h2 class="section-title">清晰的学习路径，保证您的成功</h2><p class="section-subtitle">我们承诺“当场教会，独立操作”。整个学习过程被设计得清晰、可执行，即使是零基础的小白也能完全掌握。</p><div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center"><div class="p-4"><i class="fas fa-chalkboard-teacher text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">课前预习</h3><p class="text-slate-600">提供入门录播课和图文资料，让您对基本概念有初步了解。</p></div><div class="p-4"><i class="fas fa-desktop text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">1对1实操</h3><p class="text-slate-600">站长通过远程桌面，像坐在您身边一样，手把手带您完成每一步操作。</p></div><div class="p-4"><i class="fas fa-redo-alt text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">复习巩固</h3><p class="text-slate-600">提供全程操作录像和永久更新的课程库，供您随时回顾、查漏补缺。</p></div><div class="p-4"><i class="fas fa-headset text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">终身答疑</h3><p class="text-slate-600">毕业后遇到任何相关问题，依然可以随时找到站长获得技术支持。</p></div></div></div></section>
 
-        <!-- ====== ▼▼▼ 定价模块 (已优化) ▼▼▼ ====== -->
+        <!-- ====== ▼▼▼ 定价模块 ▼▼▼ ====== -->
         <section id="plans" class="section">
             <div class="container mx-auto px-6">
                 <h2 class="section-title">选择最适合您的课程方案</h2>
                 <p class="section-subtitle">所有方案均为一次性付费，包含全部教学内容和永久更新的录播课，无任何隐藏费用。</p>
-                
-                <!-- 方案对比网格 -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                     
                     <!-- 旗舰全能 · 高清录播课 -->
                     <div class="pricing-card">
                         <h3 class="plan-name">旗舰全能 · 高清录播课</h3><div class="plan-price">¥699</div><p class="text-slate-500">最受欢迎的自学方案！系统化学习全套网络构建技术，随时随地回顾。</p>
-                        <ul class="plan-features mt-auto">
+                        <ul class="plan-features">
                             <li><i class="fas fa-check"></i> <strong>理论精讲：</strong>中转+住宅IP原理</li>
                             <li><i class="fas fa-check"></i> <strong>实操演示：</strong>VPS选择、脚本安装</li>
                             <li><i class="fas fa-check"></i> <strong>核心技术：</strong>从零搭建专属节点</li>
@@ -122,13 +150,14 @@
                                 </div></details>
                             </div></li>
                         </ul>
+                        <button class="btn btn-secondary contact-trigger">立即学习录播课</button>
                     </div>
 
                     <!-- 精英会员 · 技术深造 (一对一) -->
                     <div class="pricing-card recommended">
                         <div class="badge recommended-badge">1对1教学</div>
                         <h3 class="plan-name">精英会员 · 技术深造</h3><div class="plan-price">¥999</div><p class="text-slate-500">专为追求极致网络体验与个人品牌打造的学员设计。</p>
-                        <ul class="plan-features mt-auto">
+                        <ul class="plan-features">
                              <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【旗舰全能】全部录播课程</strong></li>
                              <li><i class="fas fa-check"></i> <strong class="text-indigo-700">三次一对一远程实操教学</strong><br><span class="text-xs text-slate-500 ml-6">包教包会，全程解决您遇到的任何问题</span></li>
                              <li><i class="fas fa-check"></i> <strong class="text-indigo-700">1V1指导软路由配置与全屋科学上网</strong></li>
@@ -136,13 +165,14 @@
                              <li><i class="fas fa-check"></i> <strong class="text-slate-800">【福利】赠送5个高质量TK满月号</strong></li>
                              <li><i class="fas fa-check"></i> 更多独家资源（无人直播手册等）</li>
                         </ul>
+                        <button class="btn btn-primary contact-trigger">选择一对一教学</button>
                     </div>
 
                     <!-- 终极合伙人 · 资源全享 (一对一 + 硬件 + AI) -->
                     <div class="pricing-card ultimate-choice">
                         <div class="badge ultimate-badge">终极之选 · 最佳价值</div>
                         <h3 class="plan-name">终极合伙人 · 资源全享</h3><div class="plan-price">¥1999</div><p class="text-slate-500">技术、业务、硬件一步到位，提供最高级别的1对1支持与核心资源。</p>
-                        <ul class="plan-features mt-auto">
+                        <ul class="plan-features">
                              <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【精英会员】全部教学内容及权益</strong></li>
                              <li><i class="fas fa-check"></i> <strong class="text-amber-600">【硬件赠送】赠送软路由硬件一台 (价值¥999)</strong><br><span class="text-xs text-slate-500 ml-6">用于完整课堂教学，硬件送到家</span></li>
                              <li>
@@ -166,17 +196,9 @@
                                 </div>
                             </li>
                         </ul>
+                        <button class="btn btn-ultimate contact-trigger">成为终极合伙人</button>
                     </div>
                 </div>
-
-                <!-- 统一行动号召按钮 -->
-                <div class="text-center mt-16">
-                    <p class="text-lg text-slate-600 mb-6">对课程有任何疑问或准备报名？请立即联系我们！</p>
-                    <a href="https://3yuedaohang.com/contact-modal" class="btn btn-primary text-xl py-4 px-10">
-                        <i class="fas fa-comments mr-2"></i> 立即咨询，开启学习之旅
-                    </a>
-                </div>
-
             </div>
         </section>
         <!-- ====== ▲▲▲ 定价模块结束 ▲▲▲ ====== -->
@@ -185,10 +207,68 @@
     </main>
 
     <footer class="text-center py-10 bg-slate-100"><div class="container mx-auto px-6"><p class="text-slate-500">Copyright © 2024-2025 站长网络方案. All Rights Reserved.</p></div></footer>
-
+    <!-- iframe 弹窗HTML结构 -->
+    <div id="contactModal" class="modal-container">
+        <div class="modal-body">
+            <span id="closeModalBtn" class="modal-close-btn">&times;</span>
+            <div class="iframe-wrapper">
+                <iframe id="contactFrame" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- 课程详情展开功能 ---
+            // --- 弹窗功能逻辑 ---
+            const modal = document.getElementById('contactModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const contactFrame = document.getElementById('contactFrame');
+            const modalTriggers = document.querySelectorAll('.contact-trigger'); // 获取所有触发按钮
+            const modalUrl = 'https://3yuedaohang.com/contact-modal';
+
+            // 打开弹窗函数
+            function openModal() {
+                if (!modal || !contactFrame) return;
+                contactFrame.src = modalUrl;
+                modal.classList.add('visible');
+                document.body.classList.add('modal-open');
+            }
+
+            // 关闭弹窗函数
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('visible');
+                document.body.classList.remove('modal-open');
+                setTimeout(() => {
+                    contactFrame.src = 'about:blank'; // 延迟清空
+                }, 300);
+            }
+
+            // 为所有触发按钮绑定点击事件
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+            
+            // 绑定各种关闭事件
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', closeModal);
+            }
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) { // 点击背景遮罩
+                        closeModal();
+                    }
+                });
+            }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal && modal.classList.contains('visible')) {
+                    closeModal();
+                }
+            });
+
+            // --- 其他页面功能 (例如：课程详情展开) ---
             document.querySelectorAll('details.course-details').forEach((detail) => {
                 detail.addEventListener('toggle', () => {
                     const icon = detail.querySelector('summary .arrow');
