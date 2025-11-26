@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS PORTAL | 站长网络工坊</title>
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* === 核心风格定义 === */
+        :root {
+            --primary: #00ffcc; /* 赛博青 */
+            --secondary: #ff00ff; /* 霓虹紫 */
+            --glass-bg: rgba(10, 20, 30, 0.65);
+            --glass-border: rgba(0, 255, 204, 0.3);
+            --text-main: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #000;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 1. 背景层 (WebGL Canvas) */
+        #canvas-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; /* 置于底层 */
+        }
+
+        /* 2. 界面覆盖层 (HUD Grid) */
+        .hud-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,255,204,0.02) 50%), linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,0,0.01), rgba(0,0,255,0.03));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none; z-index: 0;
+        }
+
+        /* 3. 主容器 */
+        .main-container {
+            position: relative; z-index: 10;
+            max-width: 1200px; margin: 0 auto; padding: 40px 20px;
+            text-align: center;
+            display: flex; flex-direction: column; min-height: 100vh;
+        }
+
+        /* --- 顶部导航 --- */
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900;
+            color: #fff; letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .home-button {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 20px;
+            background: rgba(0,0,0,0.5); border: 1px solid var(--primary);
+            color: var(--primary); text-decoration: none;
+            font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+        .home-button:hover {
+            background: var(--primary); color: #000;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        /* --- Hero Header --- */
+        .header { margin-bottom: 60px; }
+        .header h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 3.5em; font-weight: 900;
+            color: #fff; text-transform: uppercase; letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px var(--secondary), -2px -2px 0px var(--primary);
+            animation: glitch 3s infinite alternate;
+        }
+        .header p {
+            font-size: 1.1em; color: #aaa; max-width: 700px; margin: 0 auto;
+            background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 4px;
+            backdrop-filter: blur(5px); border-left: 3px solid var(--primary);
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px 0px var(--secondary), -2px -2px 0px var(--primary); }
+            95% { text-shadow: 2px 2px 0px var(--secondary), -2px -2px 0px var(--primary); transform: translate(0); }
+            96% { text-shadow: -2px 2px 0px var(--secondary), 2px -2px 0px var(--primary); transform: translate(-2px, 2px); }
+            100% { text-shadow: 2px -2px 0px var(--secondary), -2px 2px 0px var(--primary); transform: translate(2px, -2px); }
+        }
+
+        /* --- 解决方案卡片 (Grid) --- */
+        .solutions-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px; width: 100%; flex-grow: 1;
+        }
+
+        .solution-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 4px; /* 硬朗的边角 */
+            padding: 30px;
+            text-align: left;
+            position: relative; overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex; flex-direction: column;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%); /* 缺角设计 */
+        }
+
+        /* 卡片悬停特效 */
+        .solution-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            background: rgba(10, 30, 40, 0.85);
+        }
+
+        /* 顶部扫描线装饰 */
+        .solution-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transform: translateX(-100%); transition: 0.5s;
+        }
+        .solution-card:hover::before { transform: translateX(100%); transition: 0.8s; }
+
+        /* 图标 */
+        .card-icon {
+            width: 60px; height: 60px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 2em; margin-bottom: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        /* 图标颜色 */
+        .icon-nodes { color: var(--primary); border-color: var(--primary); box-shadow: 0 0 15px rgba(0,255,204,0.2); }
+        .icon-router { color: var(--secondary); border-color: var(--secondary); box-shadow: 0 0 15px rgba(255,0,255,0.2); }
+        .icon-courses { color: #ffd700; border-color: #ffd700; box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+
+        .card-content h2 {
+            font-family: 'Orbitron'; color: #fff; font-size: 1.8em; margin: 0 0 10px 0;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .for-who {
+            font-family: 'Rajdhani'; font-weight: bold; color: var(--primary);
+            font-size: 0.9em; text-transform: uppercase; display: block; margin-bottom: 15px;
+            border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 10px;
+        }
+        .card-content p { color: #bbb; line-height: 1.6; font-size: 0.95em; flex-grow: 1; }
+
+        /* 按钮 */
+        .btn-cyber {
+            margin-top: 25px; padding: 12px 0;
+            background: transparent; border: 1px solid #555;
+            color: #fff; text-align: center; text-decoration: none;
+            font-family: 'Orbitron'; font-weight: bold; letter-spacing: 2px;
+            position: relative; overflow: hidden; transition: 0.3s;
+        }
+        .btn-cyber::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0%; height: 100%;
+            background: var(--primary); z-index: -1; transition: 0.3s;
+        }
+        /* 针对不同卡片的按钮悬停色 */
+        .nodes-btn:hover { border-color: var(--primary); color: #000; }
+        .nodes-btn:hover::after { width: 100%; background: var(--primary); }
+
+        .router-btn:hover { border-color: var(--secondary); color: #000; }
+        .router-btn:hover::after { width: 100%; background: var(--secondary); }
+        
+        .courses-btn:hover { border-color: #ffd700; color: #000; }
+        .courses-btn:hover::after { width: 100%; background: #ffd700; }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: 60px; padding: 20px;
+            font-family: 'Rajdhani'; color: #666; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5em; }
+            .solutions-grid { grid-template-columns: 1fr; }
+            .main-container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 背景层：HYPER RUNNER 隧道 -->
+    <canvas id="canvas-bg"></canvas>
+    <div class="hud-overlay"></div>
+
+    <div class="main-container">
+        
+        <!-- 顶部导航 -->
+        <div class="top-bar">
+            <div class="home-button" style="border:none; background:none; padding:0; pointer-events:none;">
+                <div class="logo">NEXUS <span style="color:var(--primary)">WORKSHOP</span></div>
+            </div>
+            <a href="https://3yuedaohang.com" class="home-button">
+                <i class="fas fa-undo-alt"></i> SYSTEM RESET
+            </a>
+        </div>
+
+        <header class="header">
+            <h1>UNLOCK POTENTIAL</h1>
+            <p>
+                [SYSTEM READY] 解锁网络潜能 // 无论您需要即插即用的专业节点、终极路由，还是从零到一的搭建秘籍，这里是最佳入口。
+            </p>
+        </header>
+
+        <main class="solutions-grid">
+            <!-- 模块一: TK网络 -->
+            <div class="solution-card">
+                <div class="card-icon icon-nodes"><i class="fas fa-network-wired"></i></div>
+                <div class="card-content">
+                    <h2>TK 独享网络</h2>
+                    <span class="for-who">TARGET: 流媒体运营 / 跨境电商</span>
+                    <p>告别拥堵的公共节点。提供 100% 独享原生 IP，构建纯净网络环境。经实测 TikTok 数据极佳，助您撬动自然流量池。</p>
+                </div>
+                <a href="lesson/node.html" class="btn-cyber nodes-btn">ACCESS NODE >></a>
+            </div>
+
+            <!-- 模块二: 软路由 -->
+            <div class="solution-card">
+                <div class="card-icon icon-router"><i class="fas fa-server"></i></div>
+                <div class="card-content">
+                    <h2>定制软路由</h2>
+                    <span class="for-who">TARGET: 矩阵团队 / 极客玩家</span>
+                    <p>一台设备搞定全球。自动分流，物理隔离。为您的多台设备创建独立的 Wi-Fi 热点，瞬间化身“本地土著”，伪装度 MAX。</p>
+                </div>
+                <a href="lesson/ly.html" class="btn-cyber router-btn">CONFIGURE >></a>
+            </div>
+
+            <!-- 模块三: 课程 -->
+            <div class="solution-card">
+                <div class="card-icon icon-courses"><i class="fas fa-graduation-cap"></i></div>
+                <div class="card-content">
+                    <h2>核心技术课</h2>
+                    <span class="for-who">TARGET: 长期主义者</span>
+                    <p>授人以鱼不如授人以渔。站长 1 对 1 远程教学，15 分钟上手。掌握源头技术，彻底告别月费依赖，实现真正的网络自由。</p>
+                </div>
+                 <a href="lesson/lesson.html" class="btn-cyber courses-btn">LEARN SKILLS >></a>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>System Online // Copyright © 2024-2025 Cyber Workshop</p>
+        </footer>
+    </div>
+
+    <!-- WebGL Shader 脚本 (HYPER RUNNER 核心代码) -->
+    <script>
+        const canvas = document.getElementById('canvas-bg');
+        const gl = canvas.getContext('webgl');
+
+        // 顶点着色器
+        const vsSource = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+
+        // 片元着色器 (隧道渲染逻辑)
+        const fsSource = `
+            precision highp float;
+            uniform vec2 resolution;
+            uniform float time;
+            uniform vec2 cameraOffset; 
+
+            mat2 rot(float a) { float s = sin(a), c = cos(a); return mat2(c, -s, s, c); }
+
+            float map(vec3 p) {
+                p.xy *= rot(p.z * 0.05 + time * 0.1); // 缓慢旋转
+                vec3 q = p;
+                float spacing = 4.0;
+                q.z = mod(p.z, spacing) - spacing * 0.5;
+                vec3 boxSize = vec3(1.5, 1.5, 0.3); 
+                vec3 d3 = abs(q) - boxSize;
+                float box = length(max(d3, 0.0)) + min(max(d3.x, max(d3.y, d3.z)), 0.0);
+                float hole = length(q.xy) - 1.3; // 稍微宽一点的通道
+                return max(box, -hole);
+            }
+
+            void main() {
+                vec2 uv = (gl_FragCoord.xy - 0.5 * resolution.xy) / resolution.y;
+                float speed = time * 8.0; // 飞行速度
+                vec3 ro = vec3(0.0, 0.0, -speed); 
+                ro.xy += cameraOffset * 2.5; // 鼠标控制幅度
+                
+                vec3 ta = vec3(cameraOffset * 1.5, -speed - 5.0);
+                vec3 ww = normalize(ta - ro);
+                vec3 uu = normalize(cross(ww, vec3(0.0, 1.0, 0.0)));
+                vec3 vv = normalize(cross(uu, ww));
+                
+                // 倾斜效果
+                float bank = -cameraOffset.x * 0.5;
+                uu.xy *= rot(bank); vv.xy *= rot(bank);
+
+                vec3 rd = normalize(uv.x * uu + uv.y * vv + 1.2 * ww); // FOV
+
+                float t = 0.0;
+                float d = 0.0;
+                float glow = 0.0;
+
+                for(int i = 0; i < 50; i++) {
+                    vec3 p = ro + rd * t;
+                    d = map(p);
+                    glow += 0.015 / (0.015 + abs(d)); // 增强辉光
+                    if(d < 0.001 || t > 60.0) break;
+                    t += d;
+                }
+
+                vec3 col = vec3(0.0);
+                if(t < 60.0) {
+                    float fog = 1.0 / (1.0 + t * t * 0.005);
+                    // 颜色：基于位置变色
+                    vec3 base = vec3(0.0, 0.8, 1.0); // 青色基础
+                    base.r += sin(ro.z * 0.05) * 0.6; // 周期性变紫
+                    col = base * fog * 0.6;
+                }
+                
+                col += vec3(0.1, 0.3, 0.8) * glow * 0.03; // 环境光晕
+                col *= smoothstep(1.5, 0.5, length(uv)); // 暗角
+
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+
+        function createShader(gl, type, src) {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+            return s;
+        }
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, createShader(gl, gl.VERTEX_SHADER, vsSource));
+        gl.attachShader(prog, createShader(gl, gl.FRAGMENT_SHADER, fsSource));
+        gl.linkProgram(prog);
+        gl.useProgram(prog);
+
+        const buff = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buff);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+        const posLoc = gl.getAttribLocation(prog, 'position');
+        gl.enableVertexAttribArray(posLoc);
+        gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+        const uRes = gl.getUniformLocation(prog, 'resolution');
+        const uTime = gl.getUniformLocation(prog, 'time');
+        const uOffset = gl.getUniformLocation(prog, 'cameraOffset');
+
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.uniform2f(uRes, canvas.width, canvas.height);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function loop(t) {
+            // 平滑移动摄像机
+            currentX += (mouseX - currentX) * 0.05;
+            currentY += (mouseY - currentY) * 0.05;
+
+            gl.uniform1f(uTime, t * 0.001);
+            gl.uniform2f(uOffset, currentX, currentY);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            requestAnimationFrame(loop);
+        }
+        loop(0);
+    </script>
+</body>
+</html>

@@ -3,207 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>站长节点方案 | 稳定易用</title>
-    <meta name="description" content="提供全球高速稳定的原生IP节点，专为跨境业务设计。一键扫码连接，无需复杂配置，轻松上手。">
-    <!-- Font Awesome for Icons -->
+    <title>节点矩阵 | NEBULA NODE</title>
+    <meta name="description" content="全球原生IP节点矩阵，极光流体加速技术。">
+    <!-- 引入字体图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入科幻字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- 全局基础样式 --- */
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: #f8f9fa;
-            color: #212529;
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-            line-height: 1.7;
+        /* === 核心风格定义 === */
+        :root {
+            --primary: #00f3ff; /* 赛博青 */
+            --secondary: #bc13fe; /* 霓虹紫 */
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.08);
         }
-        .container { max-width: 1140px; }
-        h1, h2, h3 { color: #1d2d35; font-weight: 700; letter-spacing: -0.5px; }
-        .section { padding: 72px 0; }
-        .section-title { text-align: center; font-size: 2.25rem; margin-bottom: 1rem; }
-        .section-subtitle { text-align: center; font-size: 1.1rem; color: #6c757d; max-width: 42rem; margin: 0 auto 3rem auto; }
-        .accent-text { color: #0d6efd; }
-        .btn {
-            display: inline-block;
-            background-color: #0d6efd;
-            color: #ffffff;
-            padding: 0.75rem 1.75rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0 4px 6px rgba(13, 110, 253, 0.1);
-            cursor: pointer;
-        }
-        .btn:hover { transform: translateY(-2px); background-color: #0b5ed7; box-shadow: 0 7px 14px rgba(13, 110, 253, 0.15); }
-        .card {
-            background-color: #ffffff;
-            border-radius: 0.75rem;
-            border: 1px solid #dee2e6;
-            padding: 2.5rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06); }
-        .navbar { background-color: rgba(255, 255, 255, 0.9); padding: 1rem 0; position: sticky; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(8px); border-bottom: 1px solid #dee2e6; }
-        .logo { font-size: 1.5em; font-weight: bold; color: #212529; }
-        .nav-links a { color: #495057; text-decoration: none; margin-left: 2rem; font-size: 1em; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: #0d6efd; }
-        .hero h1 { font-size: 3.25rem; line-height: 1.2; }
-        .pricing-card { background-color: #ffffff; border: 1px solid #dee2e6; padding: 35px; border-radius: 15px; text-align: center; display: flex; flex-direction: column; height: 100%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04); }
-        .pricing-card .plan-title { font-size: 1.5em; color: #0d6efd; font-weight: 600; margin-bottom: 15px; }
-        .pricing-card .plan-price { font-size: 3rem; font-weight: 700; color: #212529; margin: 15px 0; line-height: 1; }
-        .pricing-card .plan-price sub { font-size: 0.4em; font-weight: 500; color: #6c757d; }
-        .pricing-card .plan-features { list-style: none; padding: 0; margin: 20px 0 30px 0; text-align: left; flex-grow: 1; color: #495057; }
-        .pricing-card .plan-features li { margin-bottom: 12px; display: flex; align-items: flex-start; }
-        .pricing-card .plan-features li::before { content: '✓'; color: #198754; font-weight: bold; margin-right: 10px; line-height: 1.7; }
-        .plan-features .feature-category { color: #212529; font-weight: 600; padding-top: 15px; }
-        .plan-features .feature-category::before { content: "" !important; margin-right: 0; }
-        .pricing-card .btn { width: 100%; margin-top: auto; }
-        .tabs-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
-        .tab-button { display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 1em; font-weight: 500; color: #495057; background-color: #ffffff; border: 1px solid #ced4da; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
-        .tab-button:hover { background-color: #e9ecef; border-color: #adb5bd; }
-        .tab-button.active { background-color: #0d6efd; color: #ffffff; border-color: #0d6efd; box-shadow: 0 2px 4px rgba(13, 110, 253, 0.2); }
-        .tab-button img { width: 20px; height: 20px; border-radius: 50%; }
-        .tab-panel { display: none; }
-        .tab-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            margin: 0;
+            background-color: #000;
+            color: var(--text-main);
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 1. 背景层：WebGL Canvas */
+        #gl {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; /* 置于底层 */
+        }
+
+        /* 2. 主布局容器 */
+        .container {
+            position: relative; z-index: 10;
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+        }
+
+        /* 3. 玻璃态通用组件 */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            padding: 20px 0;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 40px;
+        }
+        .back-btn {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 20px;
+            border: 1px solid var(--glass-border); border-radius: 50px;
+            color: var(--text-muted); text-decoration: none;
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: rgba(255,255,255,0.1); color: #fff; border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: 2px;
+        }
+
+        /* --- Hero 区域 --- */
+        .hero {
+            text-align: center; padding: 80px 0;
+        }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 3.5rem; font-weight: 700;
+            margin-bottom: 20px; letter-spacing: 2px;
+            background: linear-gradient(to bottom, #fff, #aee);
+            -webkit-background-clip: text; color: transparent;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.4);
+        }
+        .hero p {
+            font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;
+        }
+        
+        /* --- 步骤区域 --- */
+        .steps-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+            margin-bottom: 80px;
+        }
+        .step-card {
+            padding: 30px; text-align: center;
+        }
+        .step-icon {
+            font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;
+            text-shadow: 0 0 15px var(--primary);
+        }
+        .step-card h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: bold; }
+        .step-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- 节点选择区 (Tabs) --- */
+        .selection-title {
+            text-align: center; font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 10px; color: #fff;
+        }
+        .selection-subtitle {
+            text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 0.9rem;
+        }
+
+        .tabs-nav {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
+            margin-bottom: 40px;
+        }
+        .tab-button {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .tab-button:hover {
+            background: rgba(255,255,255,0.1); color: #fff;
+        }
+        .tab-button.active {
+            background: rgba(0, 243, 255, 0.15);
+            border-color: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+        .tab-button img { width: 20px; height: 20px; border-radius: 50%; filter: grayscale(0.5); }
+        .tab-button.active img { filter: grayscale(0); }
+
+        /* --- 定价卡片 --- */
+        .tabs-content { min-height: 400px; }
+        .tab-panel { display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; animation: fadeIn 0.5s ease; }
+        .tab-panel.active { display: grid; }
+
+        .pricing-card {
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .pricing-card:hover {
+            background: var(--glass-hover);
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(188, 19, 254, 0.15);
+        }
+
+        .plan-title {
+            font-size: 1.4rem; color: #fff; font-weight: 700; margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif; letter-spacing: 1px;
+        }
+        .plan-title i { color: var(--primary); margin-left: 10px; font-size: 1rem; }
+        
+        .plan-price {
+            font-family: 'Orbitron'; font-size: 3rem; color: var(--primary); font-weight: 700;
+            margin: 15px 0 25px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+        .plan-price sub { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; }
+
+        .plan-features { list-style: none; margin-bottom: 30px; flex-grow: 1; }
+        .plan-features li {
+            display: flex; justify-content: space-between;
+            margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 8px; font-size: 0.9rem;
+        }
+        .plan-features li span:first-child { color: var(--text-muted); }
+        .plan-features li span:last-child { color: #fff; font-weight: 500; }
+        .category-label { 
+            color: var(--secondary) !important; font-weight: bold; margin-top: 15px; margin-bottom: 5px; 
+            display: block; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* --- 玻璃按钮 --- */
+        .glass-btn {
+            display: block; width: 100%; text-align: center; padding: 15px 0;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white; text-decoration: none;
+            font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px;
+            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            margin-top: auto;
+        }
+        .glass-btn:hover {
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            border-color: var(--primary);
+        }
+
+        /* --- FAQ --- */
+        .faq-section { margin-top: 100px; margin-bottom: 100px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .faq-item { margin-bottom: 15px; }
+        details summary {
+            padding: 20px; cursor: pointer; list-style: none; font-weight: 500; color: #fff;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: 0.3s;
+        }
+        details summary:hover { color: var(--primary); }
+        details[open] summary { border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--primary); }
+        .faq-content { padding: 20px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
+        
+        /* 动画 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .tabs-nav { gap: 8px; }
+            .tab-button { padding: 8px 15px; font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-x-4 md:gap-x-6">
-                 <a href="https://dajian.cyou" class="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors py-2 px-3 bg-gray-100 rounded-lg">
-                    <i class="fas fa-arrow-left"></i>
-                    <span class="hidden sm:inline font-medium">返回主页</span>
+    <!-- 1. WebGL 动态背景 -->
+    <canvas id="gl"></canvas>
+
+    <div class="container">
+        <!-- 导航 -->
+        <nav class="navbar">
+            <a href="https://dajian.cyou" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回主页
+            </a>
+            <div class="logo">NEBULA <span style="color:var(--primary)">NODE</span></div>
+        </nav>
+
+        <!-- Hero -->
+        <header class="hero">
+            <h1>全球节点矩阵</h1>
+            <p>原生 IP 资源池 · 跨境业务专用 · 极光流体加速技术<br>一键扫码连接，无需复杂配置，即刻接入神经网络。</p>
+            
+            <div>
+                <a href="#nodes-selection" class="glass-btn" style="display:inline-block; width:auto; padding: 15px 50px; background:rgba(0, 243, 255, 0.1); border-color:var(--primary);">
+                    立即接入系统
                 </a>
-                <div class="logo">站长节点方案</div>          
-            </div>            
-            <div class="nav-links hidden md:block">
-                <a href="#how-it-works">如何使用</a>
-                <a href="#nodes-selection">选择节点</a>
-                <a href="#faq">常见问题</a>
             </div>
-        </div>
-    </nav>
+        </header>
 
-    <header id="home" class="hero">
-        <div class="container mx-auto px-6 py-24 text-center">
-            <h1 class="font-bold leading-tight">为您的跨境业务提供<br class="md:hidden"> <span class="accent-text">稳定、易用</span>的全球节点</h1>
-            <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">专为TikTok直播、跨境电商和海外业务运营设计。无需繁琐配置，一键扫码即可连接。</p>
-            <div class="mt-8">
-                <a href="#nodes-selection" class="btn text-lg"><i class="fas fa-rocket mr-2"></i> 立即选择节点</a>
+        <!-- 步骤 -->
+        <section class="steps-grid">
+            <div class="glass-panel step-card">
+                <i class="fas fa-globe-americas step-icon"></i>
+                <h3>1. 定位坐标</h3>
+                <p>在下方矩阵中选择您业务所需的国家或地区节点。</p>
             </div>
-        </div>
-    </header>
-    <main>
-        <section id="how-it-works" class="section bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title">三步轻松连接，人人都能上手</h2>
-                <p class="section-subtitle">我们已处理所有复杂技术，您只需简单三步，即可畅享全球网络。</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="p-8">
-                        <div class="text-5xl accent-text mb-6"><i class="fas fa-globe-americas"></i></div>
-                        <h3 class="text-xl font-bold mb-2">1. 选择地区</h3>
-                        <p class="text-gray-600">在下方选择您业务需要的国家或地区节点。</p>
-                    </div>
-                    <div class="p-8">
-                        <div class="text-5xl accent-text mb-6"><i class="fas fa-qrcode"></i></div>
-                        <h3 class="text-xl font-bold mb-2">2. 获取连接</h3>
-                        <p class="text-gray-600">付款后，您将收到专属的二维码或订阅链接。</p>
-                    </div>
-                    <div class="p-8">
-                        <div class="text-5xl accent-text mb-6"><i class="fas fa-mobile-alt"></i></div>
-                        <h3 class="text-xl font-bold mb-2">3. 扫码/导入</h3>
-                        <p class="text-gray-600">打开App (如小火箭)，扫码或导入链接，即可连接！</p>
+            <div class="glass-panel step-card">
+                <i class="fas fa-qrcode step-icon" style="color:var(--secondary); text-shadow: 0 0 15px var(--secondary);"></i>
+                <h3>2. 获取密钥</h3>
+                <p>系统将生成专属的二维码或加密订阅链接。</p>
+            </div>
+            <div class="glass-panel step-card">
+                <i class="fas fa-bolt step-icon"></i>
+                <h3>3. 极速连接</h3>
+                <p>使用客户端扫码导入，即刻建立安全隧道。</p>
+            </div>
+        </section>
+
+        <!-- 节点选择 -->
+        <section id="nodes-selection">
+            <h2 class="selection-title">SELECT NODE</h2>
+            <p class="selection-subtitle">所有节点均为独享原生IP，经过严格测试，确保 99.9% 纯净度。</p>
+
+            <div class="tabs-nav">
+                <button class="tab-button active" data-tab="us"><img src="https://flagcdn.com/w40/us.png" alt="US"> 美国</button>
+                <button class="tab-button" data-tab="gb"><img src="https://flagcdn.com/w40/gb.png" alt="GB"> 英国</button>
+                <button class="tab-button" data-tab="hk"><img src="https://flagcdn.com/w40/hk.png" alt="HK"> 香港</button>
+                <button class="tab-button" data-tab="jp"><img src="https://flagcdn.com/w40/jp.png" alt="JP"> 日本</button>
+                <button class="tab-button" data-tab="tw"><img src="https://flagcdn.com/w40/tw.png" alt="TW"> 台湾</button>
+                <button class="tab-button" data-tab="sg"><img src="https://flagcdn.com/w40/sg.png" alt="SG"> 新加坡</button>
+                <button class="tab-button" data-tab="kr"><img src="https://flagcdn-cn.com/w40/kr.png" alt="KR"> 韩国</button>
+                <button class="tab-button" data-tab="th"><img src="https://flagcdn.com/w40/th.png" alt="TH"> 泰国</button>
+                <button class="tab-button" data-tab="my"><img src="https://flagcdn.com/w40/my.png" alt="MY"> 马来西亚</button>
+                <button class="tab-button" data-tab="vn"><img src="https://flagcdn.com/w40/vn.png" alt="VN"> 越南</button>
+                <button class="tab-button" data-tab="ph"><img src="https://flagcdn.com/w40/ph.png" alt="PH"> 菲律宾</button>
+                <button class="tab-button" data-tab="id"><img src="https://flagcdn.com/w40/id.png" alt="ID"> 印尼</button>
+                <button class="tab-button" data-tab="ae"><img src="https://flagcdn.com/w40/ae.png" alt="AE"> 阿联酋</button>
+                <button class="tab-button" data-tab="ca"><img src="https://flagcdn.com/w40/ca.png" alt="CA"> 加拿大</button>
+                <button class="tab-button" data-tab="de"><img src="https://flagcdn.com/w40/de.png" alt="DE"> 德国</button>
+                <button class="tab-button" data-tab="fr"><img src="https://flagcdn.com/w40/fr.png" alt="FR"> 法国</button>
+                <button class="tab-button" data-tab="es"><img src="https://flagcdn.com/w40/es.png" alt="ES"> 西班牙</button>
+                <button class="tab-button" data-tab="custom"><i class="fas fa-plus-circle"></i> 定制</button>
+            </div>
+
+            <div class="tabs-content">
+                <!-- 内容将由 JS 动态注入，保持极光风格 -->
+                <div id="us" class="tab-panel active"></div>
+                <div id="hk" class="tab-panel"></div>
+                <div id="gb" class="tab-panel"></div>
+                <div id="jp" class="tab-panel"></div>
+                <div id="tw" class="tab-panel"></div>
+                <div id="sg" class="tab-panel"></div>
+                <div id="kr" class="tab-panel"></div>
+                <div id="th" class="tab-panel"></div>
+                <div id="my" class="tab-panel"></div>
+                <div id="vn" class="tab-panel"></div>
+                <div id="ph" class="tab-panel"></div>
+                <div id="id" class="tab-panel"></div>
+                <div id="ae" class="tab-panel"></div>
+                <div id="ca" class="tab-panel"></div>
+                <div id="de" class="tab-panel"></div>
+                <div id="fr" class="tab-panel"></div>
+                <div id="es" class="tab-panel"></div>
+                <div id="custom" class="tab-panel">
+                    <div class="glass-panel pricing-card" style="grid-column: 1 / -1; text-align: center; align-items: center; padding: 50px;">
+                        <i class="fas fa-satellite-dish" style="font-size: 4rem; color: var(--secondary); margin-bottom: 20px;"></i>
+                        <h3 class="plan-title" style="font-size: 2rem;">高级定制服务</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 600px;">
+                            需要其他国家？或 G 口超大带宽？<br>请直接联系指挥官，我们将为您调配专属的星际线路。
+                        </p>
+                        <a href="https://3yuedaohang.com/contact-modal" class="glass-btn" style="width: 200px;">联系定制</a>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- ====== ▼▼▼ 定价模块 (已优化) ▼▼▼ ====== -->
-        <section id="nodes-selection" class="section">
-            <div class="container mx-auto px-6">
-                <h2 class="section-title">选择您的 <span class="accent-text">专属节点</span></h2>
-                <p class="section-subtitle">所有节点均为独享原生IP，经过严格测试，确保高纯净度和稳定性，是TikTok运营的最佳选择。</p>
-                <div class="tabs-nav">
-                    <button class="tab-button active" data-tab="us"><img src="https://flagcdn.com/w160/us.png" alt="美国"><span>美国</span></button>
-                    <button class="tab-button" data-tab="gb"><img src="https://flagcdn.com/w160/gb.png" alt="英国"><span>英国</span></button>
-                    <button class="tab-button" data-tab="hk"><img src="https://flagcdn.com/w160/hk.png" alt="香港"><span>香港</span></button>
-                    <button class="tab-button" data-tab="jp"><img src="https://flagcdn.com/w160/jp.png" alt="日本"><span>日本</span></button>
-                    <button class="tab-button" data-tab="tw"><img src="https://flagcdn.com/w160/tw.png" alt="台湾"><span>台湾</span></button>
-                    <button class="tab-button" data-tab="sg"><img src="https://flagcdn.com/w160/sg.png" alt="新加坡"><span>新加坡</span></button>
-                    <button class="tab-button" data-tab="kr"><img src="https://flagcdn-cn.com/w160/kr.png" alt="韩国"><span>韩国</span></button>
-                    <button class="tab-button" data-tab="th"><img src="https://flagcdn.com/w160/th.png" alt="泰国"><span>泰国</span></button>
-                    <button class="tab-button" data-tab="my"><img src="https://flagcdn.com/w160/my.png" alt="马来西亚"><span>马来西亚</span></button>
-                    <button class="tab-button" data-tab="vn"><img src="https://flagcdn.com/w160/vn.png" alt="越南"><span>越南</span></button>
-                    <button class="tab-button" data-tab="ph"><img src="https://flagcdn.com/w160/ph.png" alt="菲律宾"><span>菲律宾</span></button>
-                    <button class="tab-button" data-tab="id"><img src="https://flagcdn.com/w160/id.png" alt="印尼"><span>印尼</span></button>
-                    <button class="tab-button" data-tab="ae"><img src="https://flagcdn.com/w160/ae.png" alt="阿联酋"><span>阿联酋</span></button>
-                    <button class="tab-button" data-tab="ca"><img src="https://flagcdn.com/w160/ca.png" alt="加拿大"><span>加拿大</span></button>
-                    <button class="tab-button" data-tab="de"><img src="https://flagcdn.com/w160/de.png" alt="德国"><span>德国</span></button>
-                    <button class="tab-button" data-tab="fr"><img src="https://flagcdn.com/w160/fr.png" alt="法国"><span>法国</span></button>
-                    <button class="tab-button" data-tab="es"><img src="https://flagcdn.com/w160/es.png" alt="西班牙"><span>西班牙</span></button>
-                    <button class="tab-button" data-tab="custom"><i class="fas fa-plus-circle"></i><span>其他地区</span></button>
-                </div>
-                <div class="tabs-content">
-                    <div id="us" class="tab-panel active"></div><div id="hk" class="tab-panel"></div><div id="ae" class="tab-panel"></div><div id="ca" class="tab-panel"></div><div id="tw" class="tab-panel"></div><div id="sg" class="tab-panel"></div><div id="gb" class="tab-panel"></div><div id="es" class="tab-panel"></div><div id="fr" class="tab-panel"></div><div id="de" class="tab-panel"></div><div id="jp" class="tab-panel"></div><div id="id" class="tab-panel"></div><div id="ph" class="tab-panel"></div><div id="th" class="tab-panel"></div><div id="my" class="tab-panel"></div><div id="vn" class="tab-panel"></div><div id="kr" class="tab-panel"></div>
-                    <div id="custom" class="tab-panel">
-                        <div class="card max-w-2xl mx-auto text-center p-10 col-span-full">
-                            <i class="fas fa-cogs text-5xl accent-text mb-6"></i>
-                            <h3 class="text-2xl font-bold mb-4">需要其他国家或地区的节点？</h3>
-                            <p class="text-gray-600 mb-8">我们支持全球绝大部分国家和地区的节点定制服务。请直接联系站长，告诉我们您的具体业务需求，我们将为您量身定制专属解决方案。</p>
-                        </div>
+
+        <!-- FAQ -->
+        <section id="faq" class="faq-section">
+            <h2 class="selection-title">FAQ</h2>
+            <p class="selection-subtitle">常见问题解答</p>
+            
+            <div class="glass-panel faq-item">
+                <details>
+                    <summary>什么是“节点”？<i class="fas fa-chevron-down"></i></summary>
+                    <div class="faq-content">
+                        简单来说，“节点”是您进入数字世界的跳板。它为您提供一个纯净的海外 IP 地址，就像在赛博空间中拥有了一个合法的本地身份，是运营 TikTok、跨境电商的基石。
                     </div>
-                </div>
-
-                <!-- 统一行动号召按钮 -->
-                <div class="text-center mt-16">
-                    <p class="text-lg text-gray-600 mb-6">
-                        选好了吗？或需要更详细的方案建议？<br>请立即联系我们，站长将为您提供一对一咨询服务。
-                    </p>
-                    <a href="https://3yuedaohang.com/contact-modal" class="btn text-xl py-4 px-10">
-                        <i class="fas fa-headset mr-2"></i> 立即联系，定制专属节点
-                    </a>
-                </div>
+                </details>
+            </div>
+            <div class="glass-panel faq-item">
+                <details>
+                    <summary>连接复杂吗？<i class="fas fa-chevron-down"></i></summary>
+                    <div class="faq-content">
+                        完全不复杂。我们采用先进的协议封装，您只需使用客户端（如 Shadowrocket）扫描我们提供的二维码，10秒内即可完成神经链接。
+                    </div>
+                </details>
+            </div>
+            <div class="glass-panel faq-item">
+                <details>
+                    <summary>“原生家宽”与“直播专线”的区别？<i class="fas fa-chevron-down"></i></summary>
+                    <div class="faq-content">
+                        <strong style="color:var(--primary)">原生家宽：</strong> 模拟真实家庭住户网络，IP 纯净度极高，适合账号注册、养号、短视频发布。<br><br>
+                        <strong style="color:var(--secondary)">直播专线：</strong> 在原生 IP 基础上进行了线路优化，拥有更高的带宽和稳定性，确保长时间直播不卡顿、不掉线。
+                    </div>
+                </details>
             </div>
         </section>
-        <!-- ====== ▲▲▲ 优化结束 ▲▲▲ ====== -->
 
-        <section id="faq" class="section bg-white">
-            <div class="container mx-auto px-6 max-w-3xl">
-                <h2 class="section-title">常见问题</h2>
-                <div class="space-y-4">
-                    <details class="bg-white p-6 rounded-lg border border-gray-200">
-                        <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">什么是“节点”？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
-                        <p class="mt-4 text-gray-600">简单来说，“节点”就是能让您的手机或电脑拥有一个海外IP地址的服务。当您需要运营TikTok、访问海外网站或进行跨境电商业务时，一个纯净、稳定的当地IP地址是成功的关键，我们的节点正是为此提供保障。</p>
-                    </details>
-                    <details class="bg-white p-6 rounded-lg border border-gray-200">
-                        <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">连接和使用复杂吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
-                        <p class="mt-4 text-gray-600">完全不复杂！您只需在手机或电脑上安装一款支持协议的App（如苹果手机的“小火箭”Shadowrocket）。收到我们给您的二维码后，用App扫一下即可自动配置并连接，整个过程不超过1分钟。</p>
-                    </details>
-                    <details class="bg-white p-6 rounded-lg border border-gray-200">
-                        <summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">“原生家宽”和“直播专线”有什么区别？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary>
-                        <p class="mt-4 text-gray-600"><strong>原生家宽节点：</strong>IP地址是当地家庭宽带的IP，纯净度最高，非常适合注册账号、发视频、养号等日常运营，能最大程度模拟真实用户。<br><strong>高性能直播专线：</strong>在原生IP的基础上，配备了更高的带宽和流量，并对网络线路进行了特别优化，确保长时间直播稳定、不卡顿、不掉线，是专业直播团队的首选。</p>
-                    </details>
-                </div>
-            </div>
-        </section>
-    </main>
+        <footer style="text-align: center; padding: 40px; color: #555; font-size: 0.8rem; font-family: 'Orbitron';">
+            NEBULA SYSTEMS © 2024-2025. ALL RIGHTS RESERVED.
+        </footer>
+    </div>
 
-    <footer class="text-center py-10 bg-gray-200">
-        <div class="container mx-auto px-6">
-            <p class="text-gray-600">Copyright © 2024-2025 站长网络方案. All Rights Reserved.</p>
-        </div>
-    </footer>
-    
+    <!-- WebGL Shader 脚本 (极光流体核心) -->
     <script>
+        const canvas = document.getElementById('gl');
+        const gl = canvas.getContext('webgl');
+
+        if (!gl) { console.error('WebGL not supported'); }
+
+        // 顶点着色器
+        const vertexSource = `
+            attribute vec2 position;
+            void main() {
+                gl_Position = vec4(position, 0.0, 1.0);
+            }
+        `;
+
+        // 片元着色器：极光流体
+        const fragmentSource = `
+            precision highp float;
+            uniform float time;
+            uniform vec2 resolution;
+            uniform vec2 mouse;
+
+            float random (in vec2 _st) {
+                return fract(sin(dot(_st.xy, vec2(12.9898,78.233)))* 43758.5453123);
+            }
+
+            float noise (in vec2 _st) {
+                vec2 i = floor(_st);
+                vec2 f = fract(_st);
+                float a = random(i);
+                float b = random(i + vec2(1.0, 0.0));
+                float c = random(i + vec2(0.0, 1.0));
+                float d = random(i + vec2(1.0, 1.0));
+                vec2 u = f * f * (3.0 - 2.0 * f);
+                return mix(a, b, u.x) + (c - a)* u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+            }
+
+            float fbm ( in vec2 _st) {
+                float v = 0.0;
+                float a = 0.5;
+                vec2 shift = vec2(100.0);
+                mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.50));
+                for (int i = 0; i < 5; ++i) {
+                    v += a * noise(_st);
+                    _st = rot * _st * 2.0 + shift;
+                    a *= 0.5;
+                }
+                return v;
+            }
+
+            void main() {
+                vec2 st = gl_FragCoord.xy / resolution.xy;
+                st.x *= resolution.x/resolution.y;
+
+                vec2 mouseOffset = mouse * 0.4; 
+
+                vec2 q = vec2(0.);
+                q.x = fbm( st + 0.00*time);
+                q.y = fbm( st + vec2(1.0));
+
+                vec2 r = vec2(0.);
+                r.x = fbm( st + 1.0*q + vec2(1.7,9.2)+ 0.15*time + mouseOffset.x);
+                r.y = fbm( st + 1.0*q + vec2(8.3,2.8)+ 0.126*time + mouseOffset.y);
+
+                float f = fbm(st+r);
+
+                // 配色：青色主调，紫色点缀，深空背景
+                vec3 color = mix(vec3(0.1, 0.6, 0.6), // 青色
+                                 vec3(0.2, 0.0, 0.4), // 紫色
+                                 clamp((f*f)*4.0,0.0,1.0));
+
+                color = mix(color,
+                            vec3(0, 0, 0.1), // 深蓝黑背景
+                            clamp(length(q),0.0,1.0));
+
+                color = mix(color,
+                            vec3(0.0, 1.0, 1.0), // 高亮青
+                            clamp(length(r.x),0.0,1.0));
+
+                // 整体亮度控制
+                gl_FragColor = vec4((f*f*f+.6*f*f+.5*f)*color * 0.9, 1.);
+            }
+        `;
+
+        function createShader(gl, type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error(gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            return shader;
+        }
+
+        const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
+        const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
+        const program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        gl.useProgram(program);
+
+        const positionLocation = gl.getAttribLocation(program, "position");
+        const buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(positionLocation);
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+        const timeLocation = gl.getUniformLocation(program, "time");
+        const resolutionLocation = gl.getUniformLocation(program, "resolution");
+        const mouseLocation = gl.getUniformLocation(program, "mouse");
+
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX / window.innerWidth;
+            mouseY = 1.0 - e.clientY / window.innerHeight;
+        });
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function render(time) {
+            gl.uniform1f(timeLocation, time * 0.0003);
+            gl.uniform2f(mouseLocation, mouseX, mouseY);
+            gl.drawArrays(gl.TRIANGLES, 0, 6);
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+
+        // --- JS 生成内容 (适配新风格) ---
         document.addEventListener('DOMContentLoaded', function() {
-            // --- FAQ Arrow Rotation ---
+            
+            // FAQ 箭头旋转
             document.querySelectorAll('details').forEach((detail) => {
                 detail.addEventListener('toggle', () => {
                     const icon = detail.querySelector('summary i');
@@ -214,25 +520,56 @@
             const tabs = document.querySelectorAll('.tab-button');
             const panels = document.querySelectorAll('.tab-panel');
             
-            // --- 移除了每个方案卡片末尾的 a 标签 ---
+            // 生成卡片的辅助函数
+            function createCard(title, price, type, bandwidth, traffic, extraLabel, extraValue) {
+                return `
+                <div class="glass-panel pricing-card">
+                    <div class="plan-title">${title}</div>
+                    <div class="plan-price">¥${price}<sub>/月</sub></div>
+                    <ul class="plan-features">
+                        <span class="category-label">核心参数</span>
+                        <li><span>IP 类型</span> <span>${type}</span></li>
+                        <li><span>网络带宽</span> <span>${bandwidth}</span></li>
+                        <li><span>流量限制</span> <span>${traffic}</span></li>
+                        <span class="category-label">增值服务</span>
+                        <li><span>${extraLabel}</span> <span>${extraValue}</span></li>
+                    </ul>
+                    <a href="https://3yuedaohang.com/contact-modal" class="glass-btn">立即接入</a>
+                </div>`;
+            }
+
             const allTabContent = {
-                us: `<div class="pricing-card"><h3 class="plan-title">美国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">美国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                hk: `<div class="pricing-card"><h3 class="plan-title">香港 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 香港原生独享IP</li><li><strong>TikTok:</strong> 基础运营, 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">香港 · IEPL直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T (2倍率)</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 高性能中转IP</li><li><strong>TikTok:</strong> 直播优化, 数据优秀</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                ae: `<div class="pricing-card"><h3 class="plan-title">阿联酋 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 阿联酋原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 数据良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">阿联酋 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 阿联酋原生独享IP</li><li><strong>TikTok:</strong> 直播优化, 数据极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                ca: `<div class="pricing-card"><h3 class="plan-title">加拿大 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 加拿大原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">加拿大 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 加拿大原生独享IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                tw: `<div class="pricing-card"><h3 class="plan-title">台湾 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> HiNet家宽 / 原生IP</li><li><strong>TikTok:</strong> 直播优化, 高流畅度</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                sg: `<div class="pricing-card"><h3 class="plan-title">新加坡 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 新加坡原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 移动设备直连</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                gb: `<div class="pricing-card"><h3 class="plan-title">英国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">英国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                es: `<div class="pricing-card"><h3 class="plan-title">西班牙 · 直播专线</h3><div class="plan-price">¥180<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 西班牙原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                fr: `<div class="pricing-card"><h3 class="plan-title">法国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 法国原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">法国 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 法国原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 稳定推流</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                de: `<div class="pricing-card"><h3 class="plan-title">德国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">德国 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP / 原生独享IP</li><li><strong>TikTok:</strong> 直播数据表现极佳</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                jp: `<div class="pricing-card"><h3 class="plan-title">日本 · 双ISP宽带</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 双ISP独享IP</li><li><strong>TikTok:</strong> 数据表现良好</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                id: `<div class="pricing-card"><h3 class="plan-title">印尼 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 印尼原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">印尼 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 印尼原生家宽IP</li><li><strong>TikTok:</strong> 直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                ph: `<div class="pricing-card"><h3 class="plan-title">菲律宾 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 菲律宾原生IP</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                th: `<div class="pricing-card"><h3 class="plan-title">泰国 · BGP直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 运营商原生, 双ISP</li><li><strong>TikTok:</strong> 支持泰国TikTok, IP纯净</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                my: `<div class="pricing-card"><h3 class="plan-title">马来西亚 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> TM静态家宽IPV4</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">马来西亚 · 直播专线</h3><div class="plan-price">¥200<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> TM静态家宽IPV4</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                vn: `<div class="pricing-card"><h3 class="plan-title">越南 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 越南原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">越南 · 直播专线</h3><div class="plan-price">¥170<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 越南原生IP</li><li><strong>TikTok:</strong> 专为直播优化</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`,
-                kr: `<div class="pricing-card"><h3 class="plan-title">韩国 · 原生家宽</h3><div class="plan-price">¥99<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 100Mbps</li><li><strong>流量:</strong> 500G</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 韩国原生独享IP</li><li><strong>TikTok:</strong> 发视频/起号, 纯净度高</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div><div class="pricing-card"><h3 class="plan-title">韩国 · 直播专线</h3><div class="plan-price">¥150<sub>/月</sub></div><ul class="plan-features"><li class="feature-category">-- 核心配置 --</li><li><strong>带宽:</strong> 200Mbps</li><li><strong>流量:</strong> 1T</li><li class="feature-category">-- IP与支持 --</li><li><strong>IP类型:</strong> 韩国原生家宽IP</li><li><strong>TikTok:</strong> 直播优化, 三网直连</li><li class="feature-category">-- 服务 --</li><li><strong>连接:</strong> 二维码 / 订阅链接</li><li><strong>支持:</strong> 一对一技术支持</li></ul></div>`
+                us: createCard("美国 · 原生家宽 <i class='fas fa-home'></i>", "99", "双ISP / 原生独享", "100 Mbps", "500 GB", "TikTok", "权重优化") + 
+                    createCard("美国 · 直播专线 <i class='fas fa-video'></i>", "150", "双ISP 直播优化", "200 Mbps", "1 TB", "稳定性", "SLA 99.9%"),
+                
+                hk: createCard("香港 · 原生商业", "99", "原生商业宽带", "50 Mbps", "500 GB", "延迟", "CN < 30ms") + 
+                    createCard("香港 · IEPL 专线", "150", "IEPL 内网中转", "100 Mbps", "1 TB", "稳定性", "晚高峰不丢包"),
+                
+                gb: createCard("英国 · 原生家宽", "99", "原生独享 IP", "100 Mbps", "500 GB", "适用", "电商 / 养号") + 
+                    createCard("英国 · 直播专线", "150", "双ISP 独享", "200 Mbps", "1 TB", "适用", "TikTok 直播"),
+                
+                jp: createCard("日本 · 软银宽带", "99", "双ISP Softbank", "100 Mbps", "500 GB", "适用", "视频 / 游戏"),
+                tw: createCard("台湾 · 直播专线", "200", "HINET 原生", "200 Mbps", "1 TB", "流媒体", "动画疯/NF"),
+                sg: createCard("新加坡 · 直播专线", "200", "原生直播优化", "200 Mbps", "1 TB", "覆盖", "东南亚优选"),
+                kr: createCard("韩国 · 原生家宽", "99", "原生独享 IP", "100 Mbps", "500 GB", "纯净度", "高") +
+                    createCard("韩国 · 直播专线", "150", "CN2/LG 优化", "200 Mbps", "1 TB", "连通性", "三网直连"),
+                th: createCard("泰国 · BGP专线", "170", "双ISP 原生", "200 Mbps", "1 TB", "TikTok", "本土运营"),
+                my: createCard("马来 · 原生家宽", "99", "TM 静态家宽", "100 Mbps", "500 GB", "纯净度", "高") +
+                    createCard("马来 · 直播专线", "200", "TM 静态优化", "200 Mbps", "1 TB", "适用", "直播带货"),
+                vn: createCard("越南 · 原生家宽", "99", "越南原生独享", "100 Mbps", "500 GB", "用途", "养号") +
+                    createCard("越南 · 直播专线", "170", "VNPT 优化", "200 Mbps", "1 TB", "用途", "直播推流"),
+                ph: createCard("菲律宾 · 直播专线", "170", "PLDT 原生", "200 Mbps", "1 TB", "优化", "直播不卡顿"),
+                id: createCard("印尼 · 原生家宽", "99", "Telkomsel", "100 Mbps", "500 GB", "用途", "本土电商") +
+                    createCard("印尼 · 直播专线", "170", "直播优化", "200 Mbps", "1 TB", "用途", "Shopee直播"),
+                ae: createCard("阿联酋 · 原生家宽", "99", "迪拜原生", "100 Mbps", "500 GB", "区域", "中东") +
+                    createCard("阿联酋 · 直播专线", "200", "中东直播优化", "200 Mbps", "1 TB", "区域", "土豪区"),
+                ca: createCard("加拿大 · 原生家宽", "99", "Rogers/Bell", "100 Mbps", "500 GB", "区域", "北美") +
+                    createCard("加拿大 · 直播专线", "200", "北美直播优化", "200 Mbps", "1 TB", "用途", "TikTok"),
+                de: createCard("德国 · 原生家宽", "99", "双ISP 独享", "100 Mbps", "500 GB", "区域", "欧洲") +
+                    createCard("德国 · 直播专线", "170", "欧洲直播优化", "200 Mbps", "1 TB", "稳定性", "高"),
+                fr: createCard("法国 · 原生家宽", "99", "Orange/Free", "100 Mbps", "500 GB", "纯净度", "高") +
+                    createCard("法国 · 直播专线", "170", "欧洲优化", "200 Mbps", "1 TB", "用途", "直播"),
+                es: createCard("西班牙 · 直播专线", "180", "西班牙原生", "200 Mbps", "1 TB", "用途", "直播/视频"),
             };
 
             function activateTab(tabButton) {
@@ -242,6 +579,7 @@
                 panels.forEach(p => p.classList.remove('active'));
                 const targetPanel = document.getElementById(tabId);
                 if (targetPanel) {
+                    // 只有当内容为空时才注入，避免重复渲染
                     if (allTabContent[tabId] && targetPanel.innerHTML.trim() === '') {
                         targetPanel.innerHTML = allTabContent[tabId];
                     }
@@ -249,7 +587,6 @@
                 }
             }
 
-            // Activate initial tab and add listeners
             const initialTab = document.querySelector('.tab-button.active');
             if (initialTab) activateTab(initialTab);
             tabs.forEach(tab => tab.addEventListener('click', () => activateTab(tab)));

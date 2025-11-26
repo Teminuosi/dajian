@@ -243,34 +243,6 @@
         .back-to-home-btn .btn-text { display: none; }
         .back-to-home-btn { padding: 0.6rem 0.8rem; }
     }
-    /* --- iframe 弹窗样式 --- */
-    body.modal-open { overflow: hidden; }
-        .modal-container { 
-            position: fixed; inset: 0; background-color: rgba(13, 17, 23, 0.8); /* 匹配深色主题 */
-            z-index: 2000; display: flex; align-items: center; justify-content: center; 
-            padding: 1rem; opacity: 0; transition: opacity 0.3s ease; visibility: hidden; 
-            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); 
-        }
-        .modal-container.visible { opacity: 1; visibility: visible; }
-        .modal-body { 
-            position: relative; width: 100%; max-width: 900px; 
-            transform: scale(0.95); opacity: 0; 
-            transition: transform 0.3s ease, opacity 0.3s ease; 
-        }
-        .modal-container.visible .modal-body { transform: scale(1); opacity: 1; }
-        .modal-close-btn { 
-            position: absolute; top: -10px; right: -10px; width: 30px; height: 30px; 
-            background-color: #333; color: #fff; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 1.5rem; line-height: 1; cursor: pointer; z-index: 10; 
-            border: 2px solid #555; transition: background-color 0.2s; 
-        }
-        .modal-close-btn:hover { background-color: #e53e3e; }
-        .iframe-wrapper { 
-            width: 100%; height: 600px; background-color: transparent; /* 透明背景 */
-            border-radius: 0.75rem; overflow: hidden; 
-        }
-        .iframe-wrapper iframe { width: 100%; height: 100%; border: 0; border-radius: 0.75rem; }
   </style>
 </head>
 <body>
@@ -351,9 +323,6 @@
                         <li><i class="fas fa-check-circle"></i><div><strong>稳定带机量</strong><br>轻松承载 10 台设备并发运行</div></li>
                         <li><i class="fas fa-check-circle"></i><div><strong>全功能软件</strong><br>包含“魔方”全部核心软件功能</div></li>
                     </ul>
-             
-                    <button class="cta-button contact-trigger">选择方案并咨询</button>
-
                 </div>
 
                 <!-- 专业团队版 - 推荐 -->
@@ -369,8 +338,6 @@
                     <div class="promo-box">
                         限时福利：赠送<span class="highlight">一条独立</span>优化线路
                     </div>
-                    <button class="cta-button contact-trigger">选择方案并咨询</button>
-
                 </div>
 
                 <!-- 企业矩阵版 -->
@@ -385,70 +352,23 @@
                     <div class="promo-box">
                         限时福利：赠送一条<span class="highlight">企业级·低延迟直播专线</span>
                     </div>
-                    <button class="cta-button contact-trigger">选择方案并咨询</button>
                 </div>
             </div>
+
+            <!-- 统一行动号召按钮 -->
+            <div style="text-align: center; margin-top: 64px;">
+                <p class="section-subtitle" style="margin-bottom: 24px; font-size: 1.2em;">
+                    对“魔方”有任何疑问或准备购买？<br>我们的专家会为您推荐最匹配业务规模的型号。
+                </p>
+                <a href="https://3yuedaohang.com/contact-modal" class="cta-button" style="display: inline-block; width: auto; padding: 18px 40px; font-size: 1.2em;">
+                    <i class="fas fa-headset" style="margin-right: 8px;"></i> 立即咨询，定制专属方案
+                </a>
+            </div>
+
         </div>
     </section>
     <!-- ====== ▲▲▲ 优化结束 ▲▲▲ ====== -->
   </main>
 
-   <!-- iframe 弹窗HTML结构 -->
-   <div id="contactModal" class="modal-container">
-        <div class="modal-body">
-            <span id="closeModalBtn" class="modal-close-btn">&times;</span>
-            <div class="iframe-wrapper">
-                <iframe id="contactFrame" src="about:blank"></iframe>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('contactModal');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const contactFrame = document.getElementById('contactFrame');
-            const modalTriggers = document.querySelectorAll('.contact-trigger');
-            const modalUrl = 'https://3yuedaohang.com/contact-modal';
-
-            function openModal() {
-                if (!modal || !contactFrame) return;
-                contactFrame.src = modalUrl;
-                modal.classList.add('visible');
-                document.body.classList.add('modal-open');
-            }
-
-            function closeModal() {
-                if (!modal) return;
-                modal.classList.remove('visible');
-                document.body.classList.remove('modal-open');
-                setTimeout(() => {
-                    contactFrame.src = 'about:blank';
-                }, 300);
-            }
-
-            modalTriggers.forEach(trigger => {
-                trigger.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openModal();
-                });
-            });
-            
-            if (closeModalBtn) {
-                closeModalBtn.addEventListener('click', closeModal);
-            }
-            if (modal) {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeModal();
-                    }
-                });
-            }
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal && modal.classList.contains('visible')) {
-                    closeModal();
-                }
-            });
-        });
-    </script>
 </body>
 </html>

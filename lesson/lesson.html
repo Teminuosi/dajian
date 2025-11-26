@@ -3,200 +3,521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>站长核心课程 | 1对1教您自建跨境网络</title>
-    <meta name="description" content="从零开始，1对1带您搭建专属的、安全可控的跨境网络系统。一次学习，终身受益，彻底告别月费依赖，成为自己网络的主人。">
-    <!-- Font Awesome for Icons -->
+    <title>站长核心课程 | 星际航行指南</title>
+    <!-- 引入字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        html { scroll-behavior: smooth; }
+        /* === 全局基础 === */
+        :root {
+            --primary: #4facfe;   /* 星云蓝 */
+            --secondary: #bc13fe; /* 赛博紫 */
+            --accent: #ff6030;    /* 星核橙 */
+            --glass: rgba(16, 20, 30, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
         body {
-            background-color: #f8fafc;
-            color: #334155;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC', 'Hirino Sans GB', 'Microsoft YaHei', sans-serif;
-            line-height: 1.8;
+            background-color: #000;
+            color: #e0e0e0;
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
         }
-        .container { max-width: 1200px; }
-        h1, h2, h3, h4 { color: #0f172a; font-weight: 700; }
-        .section { padding: 88px 0; }
-        .section-title { text-align: center; font-size: 2.75rem; line-height: 1.2; margin-bottom: 1.5rem; letter-spacing: -1px; }
-        .section-subtitle { text-align: center; font-size: 1.125rem; color: #64748b; max-width: 48rem; margin: 0 auto 4rem auto; }
-        .highlight-text { background: linear-gradient(120deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* 3D 背景层 */
+        #canvas-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; /* 置于底层 */
+        }
+
+        /* 标题字体 */
+        h1, h2, h3, .logo, .plan-price {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* === 玻璃态组件 === */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
         
-        .btn { display: inline-block; padding: 0.8rem 2.25rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid transparent; text-align: center; cursor: pointer; }
-        .btn-primary { background-color: #4338ca; color: #ffffff; box-shadow: 0 4px 15px rgba(67, 56, 202, 0.2); }
-        .btn-primary:hover { background-color: #3730a3; transform: translateY(-3px); box-shadow: 0 7px 20px rgba(67, 56, 202, 0.3); }
-        .btn-secondary { background-color: #ffffff; color: #4338ca; border-color: #e0e7ff; }
-        .btn-secondary:hover { background-color: #f5f3ff; border-color: #c7d2fe; }
-        .btn-ultimate { background: linear-gradient(90deg, #f59e0b, #eab308); color: #ffffff; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3); }
-        .btn-ultimate:hover { transform: translateY(-3px); box-shadow: 0 7px 25px rgba(245, 158, 11, 0.4); }
+        /* 霓虹文字 */
+        .text-glow-blue { text-shadow: 0 0 10px rgba(79, 172, 254, 0.6); color: var(--primary); }
+        .text-glow-orange { text-shadow: 0 0 15px rgba(255, 96, 48, 0.6); color: var(--accent); }
 
-        .navbar { background-color: rgba(255, 255, 255, 0.9); padding: 1rem 0; position: sticky; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); border-bottom: 1px solid #e2e8f0; }
-        .logo { font-size: 1.75em; font-weight: bold; color: #1e293b; }
-        .nav-links a { color: #475569; text-decoration: none; margin-left: 2.5rem; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: #4338ca; }
-        .back-to-home-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            background-color: #f1f5f9;
-            color: #475569;
-            font-weight: 500;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
+        /* === 按钮特效 === */
+        .btn-sci {
+            position: relative; overflow: hidden;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--primary);
+            color: #fff;
+            transition: 0.3s;
+            z-index: 1;
         }
-        .back-to-home-btn:hover {
-            background-color: #e2e8f0;
+        .btn-sci::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.4), transparent);
+            transition: 0.5s; z-index: -1;
         }
-        .hero h1 { font-size: 3.75rem; }
+        .btn-sci:hover {
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
+            transform: translateY(-2px);
+            border-color: #fff;
+        }
+        .btn-sci:hover::before { left: 100%; }
 
-        /* 定价卡片 */
-        .pricing-card { background-color: #ffffff; border-radius: 1rem; border: 1px solid #cbd5e1; padding: 2.5rem; display: flex; flex-direction: column; height: 100%; transition: all 0.3s ease; }
-        .pricing-card.recommended { border-width: 2px; border-color: #4338ca; position: relative; z-index: 10; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1); transform: scale(1.05); }
-        .pricing-card.ultimate-choice { border-width: 2px; border-color: #f59e0b; position: relative; z-index: 10; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1); }
-        .badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); color: white; padding: 0.3rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: bold; }
-        .badge.recommended-badge { background: linear-gradient(90deg, #4f46e5, #7c3aed); }
-        .badge.ultimate-badge { background: linear-gradient(90deg, #f59e0b, #eab308); }
-        .pricing-card .plan-name { font-size: 1.5rem; }
-        .pricing-card .plan-price { font-size: 3.25rem; margin: 1rem 0; }
-        .pricing-card .plan-features { list-style: none; padding: 0; margin-top: 2rem; text-align: left; flex-grow: 1; }
-        .pricing-card .plan-features li { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
-        .pricing-card .plan-features li i { color: #22c55e; margin-top: 5px; }
+        .btn-ultimate {
+            background: linear-gradient(135deg, rgba(255, 96, 48, 0.2), rgba(0,0,0,0));
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-ultimate:hover {
+            box-shadow: 0 0 25px rgba(255, 96, 48, 0.5);
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* === 定价卡片 === */
+        .pricing-card {
+            border-radius: 16px; padding: 2.5rem;
+            display: flex; flex-direction: column; height: 100%;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            background: rgba(25, 30, 45, 0.8);
+        }
         
-        /* 课程目录详情 */
-        details.course-details > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; font-weight: 600; color: #4338ca; }
-        details.course-details > summary::-webkit-details-marker { display: none; }
-        details.course-details > summary .arrow { transition: transform 0.2s; margin-left: 4px; }
-        details[open].course-details > summary .arrow { transform: rotate(180deg); }
-        .course-details-content { background-color: #f8fafc; border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; border: 1px solid #e2e8f0; font-size: 0.875rem; color: #475569; }
-        .course-details-content span { display: block; padding: 2px 0; }
+        /* 推荐卡片 (中间) */
+        .card-recommend {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(79, 172, 254, 0.15);
+        }
+        .card-recommend:hover { box-shadow: 0 0 50px rgba(79, 172, 254, 0.3); }
 
+        /* 终极卡片 (右侧) */
+        .card-ultimate {
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 30px rgba(255, 96, 48, 0.15);
+        }
+        .card-ultimate:hover { box-shadow: 0 0 50px rgba(255, 96, 48, 0.3); }
+
+        .badge {
+            font-family: 'Orbitron'; font-size: 0.75rem; letter-spacing: 1px;
+            padding: 4px 12px; border-radius: 4px; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            text-transform: uppercase;
+            box-shadow: 0 0 10px currentColor;
+        }
+        
+        /* 列表图标颜色 */
+        .feature-icon { color: var(--primary); margin-right: 10px; }
+        .feature-icon-gold { color: var(--accent); margin-right: 10px; }
+
+        /* FAQ */
+        details summary { list-style: none; cursor: pointer; outline: none; }
+        details[open] summary ~ * { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-x-4 md:gap-x-6">
-                <a href="https://dajian.cyou" class="back-to-home-btn"><i class="fas fa-arrow-left"></i> <span class="hidden sm:inline">返回主页</span></a>
-                <div class="logo">核心技术课</div>
+    <!-- 1. 背景：星系引擎 (canvas) -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- 2. 导航栏 -->
+    <nav class="navbar fixed w-full z-50 top-0">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <a href="https://dajian.cyou" class="text-gray-400 hover:text-white transition flex items-center gap-2 text-sm uppercase tracking-widest border border-gray-700 px-3 py-1 rounded hover:border-white">
+                    <i class="fas fa-rocket"></i> 返回母舰
+                </a>
+                <div class="logo text-2xl font-bold text-white tracking-wider">
+                    STAR <span class="text-glow-blue">LESSON</span>
+                </div>
             </div>
-            <div class="nav-links hidden md:block"><a href="#why-learn">为何学习</a> <a href="#path">学习路径</a> <a href="#plans">课程方案</a> <a href="#faq">常见问题</a></div>
+            <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest text-gray-400">
+                <a href="#why-learn" class="hover:text-white hover:text-glow-blue transition">价值</a>
+                <a href="#path" class="hover:text-white hover:text-glow-blue transition">路径</a>
+                <a href="#plans" class="hover:text-white hover:text-glow-blue transition">方案</a>
+                <a href="#faq" class="hover:text-white hover:text-glow-blue transition">答疑</a>
+            </div>
         </div>
     </nav>
 
-    <header id="home" class="hero bg-white"><div class="container mx-auto px-6 py-24 text-center"><h1 class="font-bold leading-tight">掌控您的<span class="highlight-text">跨境网络命脉</span></h1><p class="mt-6 text-xl text-slate-600 max-w-3xl mx-auto">从月月付费的“租客”，到一劳永逸的“房东”。<br>我们通过<strong class="text-slate-900">1对1远程教学</strong>，手把手带您从零构建专属、安全、可控的全球网络系统。</p><div class="mt-10"><a href="#plans" class="btn btn-primary text-lg"><i class="fas fa-graduation-cap mr-2"></i> 开始学习之旅</a></div></div></header>
+    <!-- 3. Hero 区域 -->
+    <header id="home" class="relative min-h-screen flex items-center justify-center text-center px-4 pt-20">
+        <div class="relative z-10 max-w-4xl">
+            <div class="text-glow-blue text-sm tracking-[8px] uppercase mb-4 animate-pulse">System Online</div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                掌控您的 <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">网络命脉</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                从“流量租客”进化为“网络领主”。<br>
+                1对1远程连接，在浩瀚数据星海中构建您的专属安全航道。
+            </p>
+            <a href="#plans" class="btn-sci inline-block py-4 px-10 rounded text-lg font-bold tracking-widest">
+                START MISSION <i class="fas fa-chevron-right ml-2 text-xs"></i>
+            </a>
+        </div>
+    </header>
 
     <main>
-        <section id="why-learn" class="section"><div class="container mx-auto px-6"><h2 class="section-title">一次学习，带来无法估量的价值</h2><p class="section-subtitle">无论您是个人创业者还是企业管理者，掌握这项核心技术都将是您最明智的投资。</p><div class="grid grid-cols-1 md:grid-cols-2 gap-8"><div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm"><h3 class="text-2xl font-bold mb-6 text-center">对 <span class="highlight-text">个人</span> 的价值</h3><div class="space-y-6"><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-coins"></i></div><div><h4 class="font-bold">彻底告别月费</h4><p class="text-slate-600">掌握源头技术，自己动手每月成本仅需一杯奶茶钱，每年节省数千元。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-lightbulb"></i></div><div><h4 class="font-bold">解锁核心技能</h4><p class="text-slate-600">您将真正理解网络底层逻辑，而不仅是做个“会用软件的消费者”。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-briefcase"></i></div><div><h4 class="font-bold">开启副业可能</h4><p class="text-slate-600">学会后，您不仅能自给自足，更能为他人提供服务，创造额外收入。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-user-shield"></i></div><div><h4 class="font-bold">数据绝对安全</h4><p class="text-slate-600">所有数据和流量都在您自己的服务器中流转，隐私和安全得到最高保障。</p></div></div></div></div><div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm"><h3 class="text-2xl font-bold mb-6 text-center">对 <span class="highlight-text">企业/团队</span> 的价值</h3><div class="space-y-6"><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-chart-line"></i></div><div><h4 class="font-bold">大幅降低成本</h4><p class="text-slate-600">为团队提供网络不再需要按人头购买昂贵服务，IT采购成本指数级下降。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-sitemap"></i></div><div><h4 class="font-bold">网络自主可控</h4><p class="text-slate-600">随时按需增减和切换全球节点，业务拓展不受制于任何第三方服务商。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-users"></i></div><div><h4 class="font-bold">赋能团队成长</h4><p class="text-slate-600">让团队核心成员掌握网络技术，提升团队整体技术实力和问题解决能力。</p></div></div><div class="flex items-start gap-4"><div class="text-2xl pt-1 text-indigo-700"><i class="fas fa-shield-alt"></i></div><div><h4 class="font-bold">构建技术壁垒</h4><p class="text-slate-600">稳定、高效、隔离的网络环境是矩阵运营成功的基石，更是核心竞争力。</p></div></div></div></div></div></div></section>
-
-        <section id="path" class="section bg-white"><div class="container mx-auto px-6"><h2 class="section-title">清晰的学习路径，保证您的成功</h2><p class="section-subtitle">我们承诺“当场教会，独立操作”。整个学习过程被设计得清晰、可执行，即使是零基础的小白也能完全掌握。</p><div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center"><div class="p-4"><i class="fas fa-chalkboard-teacher text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">课前预习</h3><p class="text-slate-600">提供入门录播课和图文资料，让您对基本概念有初步了解。</p></div><div class="p-4"><i class="fas fa-desktop text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">1对1实操</h3><p class="text-slate-600">站长通过远程桌面，像坐在您身边一样，手把手带您完成每一步操作。</p></div><div class="p-4"><i class="fas fa-redo-alt text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">复习巩固</h3><p class="text-slate-600">提供全程操作录像和永久更新的课程库，供您随时回顾、查漏补缺。</p></div><div class="p-4"><i class="fas fa-headset text-4xl text-indigo-600 mb-4"></i><h3 class="text-xl font-bold">终身答疑</h3><p class="text-slate-600">毕业后遇到任何相关问题，依然可以随时找到站长获得技术支持。</p></div></div></div></section>
-
-        <!-- ====== ▼▼▼ 定价模块 (已优化) ▼▼▼ ====== -->
-        <section id="plans" class="section">
+        <!-- 价值板块 -->
+        <section id="why-learn" class="py-24 relative">
             <div class="container mx-auto px-6">
-                <h2 class="section-title">选择最适合您的课程方案</h2>
-                <p class="section-subtitle">所有方案均为一次性付费，包含全部教学内容和永久更新的录播课，无任何隐藏费用。</p>
+                <h2 class="text-4xl text-center text-white mb-4">核心价值</h2>
+                <p class="text-center text-gray-400 mb-16 uppercase tracking-widest text-sm">Target Locked: Future Capabilities</p>
                 
-                <!-- 方案对比网格 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 左卡片 -->
+                    <div class="glass-panel p-10 rounded-xl hover:border-blue-500/50 transition duration-500">
+                        <h3 class="text-2xl text-blue-300 mb-8 border-b border-gray-700 pb-4 flex items-center">
+                            <i class="fas fa-user-astronaut mr-3"></i> 个人赋能
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="text-blue-400 text-xl"><i class="fas fa-coins"></i></div>
+                                <div><h4 class="text-white font-bold">告别月费黑洞</h4><p class="text-gray-400 text-sm mt-1">掌握源头技术，成本降低90%，不再做被割的韭菜。</p></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="text-blue-400 text-xl"><i class="fas fa-microchip"></i></div>
+                                <div><h4 class="text-white font-bold">解锁极客技能</h4><p class="text-gray-400 text-sm mt-1">理解网络底层逻辑，而不仅是做一个点击图标的用户。</p></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="text-blue-400 text-xl"><i class="fas fa-shield-alt"></i></div>
+                                <div><h4 class="text-white font-bold">绝对数据主权</h4><p class="text-gray-400 text-sm mt-1">数据在自有服务器流转，隐私安全得到最高级物理保障。</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右卡片 -->
+                    <div class="glass-panel p-10 rounded-xl hover:border-purple-500/50 transition duration-500">
+                        <h3 class="text-2xl text-purple-300 mb-8 border-b border-gray-700 pb-4 flex items-center">
+                            <i class="fas fa-globe mr-3"></i> 矩阵/团队
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="text-purple-400 text-xl"><i class="fas fa-chart-line"></i></div>
+                                <div><h4 class="text-white font-bold">成本指数级下降</h4><p class="text-gray-400 text-sm mt-1">一人技术，全团受益。无需再为每个员工购买昂贵节点。</p></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="text-purple-400 text-xl"><i class="fas fa-network-wired"></i></div>
+                                <div><h4 class="text-white font-bold">业务自主可控</h4><p class="text-gray-400 text-sm mt-1">随时切换全球IP，业务拓展不再受制于第三方服务商。</p></div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="text-purple-400 text-xl"><i class="fas fa-fingerprint"></i></div>
+                                <div><h4 class="text-white font-bold">环境物理隔离</h4><p class="text-gray-400 text-sm mt-1">为Tik Tok/Amazon矩阵构建纯净、独立的IP环境。</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习路径 -->
+        <section id="path" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="glass-panel rounded-2xl p-12 text-center border-t-2 border-blue-500">
+                    <h2 class="text-3xl text-white mb-10">执行路径</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <div class="relative group">
+                            <div class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center text-2xl text-blue-400 mb-4 group-hover:bg-blue-900 group-hover:text-white transition shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3 class="text-white font-bold mb-2">1. 预习接入</h3>
+                            <p class="text-gray-500 text-sm">接收加密文档与基础录播</p>
+                        </div>
+                        <div class="relative group">
+                             <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gray-700 -z-10"></div>
+                            <div class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center text-2xl text-blue-400 mb-4 group-hover:bg-blue-900 group-hover:text-white transition shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <h3 class="text-white font-bold mb-2">2. 远程实操</h3>
+                            <p class="text-gray-500 text-sm">1V1 远程控制，手把手部署</p>
+                        </div>
+                        <div class="relative group">
+                             <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gray-700 -z-10"></div>
+                            <div class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center text-2xl text-blue-400 mb-4 group-hover:bg-blue-900 group-hover:text-white transition shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                                <i class="fas fa-save"></i>
+                            </div>
+                            <h3 class="text-white font-bold mb-2">3. 数据存档</h3>
+                            <p class="text-gray-500 text-sm">交付全套录像与配置备份</p>
+                        </div>
+                        <div class="relative group">
+                            <div class="hidden md:block absolute top-8 -left-1/2 w-full h-0.5 bg-gray-700 -z-10"></div>
+                            <div class="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center text-2xl text-blue-400 mb-4 group-hover:bg-blue-900 group-hover:text-white transition shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <h3 class="text-white font-bold mb-2">4. 终身信标</h3>
+                            <p class="text-gray-500 text-sm">永久技术答疑支持</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 定价方案 -->
+        <section id="plans" class="py-24">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl text-center text-white mb-4">选择您的飞船</h2>
+                <p class="text-center text-gray-400 mb-16 uppercase tracking-widest text-sm">One-time Payment · Lifetime Access</p>
+
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
                     
-                    <!-- 旗舰全能 · 高清录播课 -->
-                    <div class="pricing-card">
-                        <h3 class="plan-name">旗舰全能 · 高清录播课</h3><div class="plan-price">¥699</div><p class="text-slate-500">最受欢迎的自学方案！系统化学习全套网络构建技术，随时随地回顾。</p>
-                        <ul class="plan-features mt-auto">
-                            <li><i class="fas fa-check"></i> <strong>理论精讲：</strong>中转+住宅IP原理</li>
-                            <li><i class="fas fa-check"></i> <strong>实操演示：</strong>VPS选择、脚本安装</li>
-                            <li><i class="fas fa-check"></i> <strong>核心技术：</strong>从零搭建专属节点</li>
-                            <li><i class="fas fa-check"></i> <strong>核心技术：</strong>搭建顶级直播专线</li>
-                            <li><i class="fas fa-check"></i> 独家“神仙线路”寻找秘籍</li>
-                            <li><i class="fas fa-check"></i> 全平台客户端配置与基础加速</li>
-                            <li><i class="fas fa-check"></i> <strong>全套30+节高清录播课(永久更新)</strong></li>
-                            <li><i class="fas fa-check"></i> <div>
-                                <details class="course-details"><summary>高级课程库访问权限 <i class="fas fa-chevron-down arrow"></i></summary>
-                                <div class="course-details-content">
-                                    <span>● 专线搭建 (IEPL/IPLC)</span><span>● 软路由刷机: R2S/X86</span><span>● OpenWrt系统与固件</span><span>● mosDNS防DNS泄露</span><span>● OpenClash终极优化</span><span>● 旁路由极速配置</span><span>● IPv6主/旁路由配置</span><span>● 全屋WIFI6 Mesh漫游</span>
-                                </div></details>
-                            </div></li>
+                    <!-- 基础版 -->
+                    <div class="glass-panel pricing-card border-gray-700">
+                        <h3 class="text-xl text-gray-300">高清录播课</h3>
+                        <div class="plan-price text-4xl text-white my-4">¥699</div>
+                        <p class="text-gray-500 text-sm mb-6">适合自学能力强的探索者。系统化学习全套技术。</p>
+                        <ul class="space-y-4 text-sm text-gray-300 flex-1">
+                            <li><i class="fas fa-check feature-icon"></i> 理论：中转+住宅IP原理</li>
+                            <li><i class="fas fa-check feature-icon"></i> 实操：VPS选购与脚本安装</li>
+                            <li><i class="fas fa-check feature-icon"></i> 核心：从零搭建专属节点</li>
+                            <li><i class="fas fa-check feature-icon"></i> 核心：顶级直播专线优化</li>
+                            <li><i class="fas fa-check feature-icon"></i> 独家“神仙线路”挖掘秘籍</li>
+                            <li><i class="fas fa-check feature-icon"></i> <strong>全套30+节录播 (永久更新)</strong></li>
                         </ul>
+                        <a href="https://3yuedaohang.com/contact-modal" class="btn-sci block text-center py-3 rounded mt-8 text-sm tracking-widest uppercase">Select Plan</a>
                     </div>
 
-                    <!-- 精英会员 · 技术深造 (一对一) -->
-                    <div class="pricing-card recommended">
-                        <div class="badge recommended-badge">1对1教学</div>
-                        <h3 class="plan-name">精英会员 · 技术深造</h3><div class="plan-price">¥999</div><p class="text-slate-500">专为追求极致网络体验与个人品牌打造的学员设计。</p>
-                        <ul class="plan-features mt-auto">
-                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【旗舰全能】全部录播课程</strong></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-indigo-700">三次一对一远程实操教学</strong><br><span class="text-xs text-slate-500 ml-6">包教包会，全程解决您遇到的任何问题</span></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-indigo-700">1V1指导软路由配置与全屋科学上网</strong></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">【福利】免费搭建个人品牌网站</strong></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">【福利】赠送5个高质量TK满月号</strong></li>
-                             <li><i class="fas fa-check"></i> 更多独家资源（无人直播手册等）</li>
+                    <!-- 推荐版 (1对1) -->
+                    <div class="glass-panel pricing-card card-recommend transform scale-105 z-10">
+                        <div class="badge bg-blue-600 text-white shadow-blue-500/50">Captain's Choice</div>
+                        <h3 class="text-xl text-blue-300">精英会员 · 1对1实操</h3>
+                        <div class="plan-price text-5xl text-white my-4 text-glow-blue">¥999</div>
+                        <p class="text-gray-400 text-sm mb-6">包教包会。最快速度掌握核心技术，建立个人品牌。</p>
+                        <ul class="space-y-4 text-sm text-gray-200 flex-1">
+                             <li><i class="fas fa-check feature-icon"></i> <strong>包含【录播课】全部权益</strong></li>
+                             <li class="bg-blue-900/30 p-2 rounded border border-blue-500/30"><i class="fas fa-check feature-icon"></i> <strong>三次 1对1 远程教学</strong></li>
+                             <li><i class="fas fa-check feature-icon"></i> 软路由配置与全屋网络优化</li>
+                             
+                             <li><i class="fas fa-check feature-icon"></i> 赠送5个高质量TK满月号</li>
                         </ul>
+                        <a href="https://3yuedaohang.com/contact-modal" class="btn-sci block text-center py-4 rounded mt-8 font-bold tracking-widest uppercase bg-blue-600/20 border-blue-500 hover:bg-blue-500 hover:text-white">
+                            Join Mission
+                        </a>
                     </div>
 
-                    <!-- 终极合伙人 · 资源全享 (一对一 + 硬件 + AI) -->
-                    <div class="pricing-card ultimate-choice">
-                        <div class="badge ultimate-badge">终极之选 · 最佳价值</div>
-                        <h3 class="plan-name">终极合伙人 · 资源全享</h3><div class="plan-price">¥1999</div><p class="text-slate-500">技术、业务、硬件一步到位，提供最高级别的1对1支持与核心资源。</p>
-                        <ul class="plan-features mt-auto">
-                             <li><i class="fas fa-check"></i> <strong class="text-slate-800">包含【精英会员】全部教学内容及权益</strong></li>
-                             <li><i class="fas fa-check"></i> <strong class="text-amber-600">【硬件赠送】赠送软路由硬件一台 (价值¥999)</strong><br><span class="text-xs text-slate-500 ml-6">用于完整课堂教学，硬件送到家</span></li>
-                             <li>
-                                <i class="fas fa-check"></i>
-                                <div><strong class="text-amber-600">【独家赠送】全套AI付费项目资源</strong>
-                                    <div class="mt-4 p-4 bg-amber-50 rounded-lg border border-amber-200 space-y-4">
-                                        <div class="text-left group">
-                                            <div class="flex justify-between items-center">
-                                                 <h4 class="font-bold text-sm text-slate-800">N8N视频创作母体</h4>
-                                                 <span class="bg-amber-200 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">价值 ¥899</span>
-                                            </div>
-                                            <p class="text-xs text-slate-500 mt-1">永久授权，包含以下热门AI工作流：</p>
-                                            <div class="mt-3 pl-4 space-y-2 border-l-2 border-amber-200">
-                                                 <a href="https://3yuedaohang.com/n8n/n8n" target="_blank" class="flex items-center gap-2 text-left group/item">
-                                                    <i class="fas fa-robot text-amber-500"></i>
-                                                    <div class="text-xs text-slate-600 group-hover/item:text-amber-600">AI视频剪辑神器 (二创)</div>
-                                                 </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <!-- 终极版 -->
+                    <div class="glass-panel pricing-card card-ultimate">
+                        <div class="badge bg-orange-600 text-white shadow-orange-500/50">Ultimate Resource</div>
+                        <h3 class="text-xl text-orange-300">终极合伙人</h3>
+                        <div class="plan-price text-4xl text-white my-4 text-glow-orange">¥1999</div>
+                        <p class="text-gray-400 text-sm mb-6">技术+硬件+AI资源。一步到位的终极解决方案。</p>
+                        <ul class="space-y-4 text-sm text-gray-300 flex-1">
+                             <li><i class="fas fa-check feature-icon-gold"></i> <strong>包含【精英会员】全部权益</strong></li>
+                             <li><i class="fas fa-check feature-icon-gold"></i> 免费搭建个人品牌网站</li>
+                             <li><i class="fas fa-gift feature-icon-gold"></i> <span class="text-orange-200">赠送软路由硬件一台 (寄送)</span></li>
+                             <li class="border-t border-gray-700 pt-4">
+                                <div class="font-bold text-orange-400 mb-2"><i class="fas fa-robot mr-2"></i>AI 核心资源包</div>
+                                <div class="text-xs text-gray-400 pl-6">
+                                    含 N8N 视频自动剪辑母体 (价值¥899)<br>
+                                    永久授权 + 完整工作流
                                 </div>
                             </li>
                         </ul>
+                        <a href="https://3yuedaohang.com/contact-modal" class="btn-ultimate block text-center py-3 rounded mt-8 font-bold tracking-widest uppercase transition-all">
+                            Full Access
+                        </a>
                     </div>
+
                 </div>
 
-                <!-- 统一行动号召按钮 -->
-                <div class="text-center mt-16">
-                    <p class="text-lg text-slate-600 mb-6">对课程有任何疑问或准备报名？请立即联系我们！</p>
-                    <a href="https://3yuedaohang.com/contact-modal" class="btn btn-primary text-xl py-4 px-10">
-                        <i class="fas fa-comments mr-2"></i> 立即咨询，开启学习之旅
+                <!-- 底部呼吁 -->
+                <div class="text-center mt-20">
+                    <a href="https://3yuedaohang.com/contact-modal" class="inline-flex items-center gap-3 text-gray-300 hover:text-white transition group">
+                        <span class="text-2xl"><i class="far fa-comment-dots"></i></span>
+                        <span class="border-b border-gray-600 group-hover:border-white pb-1">有疑问？联系指挥官进行咨询</span>
                     </a>
                 </div>
 
             </div>
         </section>
-        <!-- ====== ▲▲▲ 定价模块结束 ▲▲▲ ====== -->
 
-        <section id="faq" class="section bg-white"><div class="container mx-auto px-6 max-w-3xl"><h2 class="section-title">还有疑问？</h2><div class="space-y-4"><details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">我完全是电脑小白，真的能学会吗？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">完全可以！如果您选择<strong class='text-indigo-700'>一对一套餐</strong>，这正是1对1教学的价值所在。我们不会讲任何复杂理论，而是用最直白的方式，像朋友一样手把手带您操作。我们的承诺是“当场教会”，保证您能独立完成所有搭建和配置工作。</p></details><details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">学习这个和直接买节点有什么区别？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">直接买节点，您是“租客”，每月都要付费，且线路质量、数据安全都掌握在别人手中。学习自建，您是“房东”，一次性投入学习成本，之后便拥有了自主权和控制权，成本极低，安全可控，甚至还能“出租”赚钱。</p></details><details class="bg-slate-50 p-6 rounded-lg border border-slate-200"><summary class="flex justify-between items-center font-semibold text-lg cursor-pointer">课程是一次性的吗？以后有问题怎么办？<i class="fas fa-chevron-down transition-transform duration-300"></i></summary><p class="mt-4 text-slate-600">无论您选择哪个套餐，您都将获得所有课程的录播视频和配套资料的永久访问权，并且课程内容会持续更新。更重要的是，如果您选择<strong class='text-indigo-700'>一对一套餐</strong>，您将获得站长的终身答疑支持，毕业后遇到任何问题都可以随时找到我们。</p></details></div></div></section>
+        <!-- FAQ -->
+        <section id="faq" class="py-20 pb-32">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="text-3xl text-center text-white mb-10">通讯频段 Q&A</h2>
+                <div class="space-y-4">
+                    <div class="glass-panel rounded-lg overflow-hidden">
+                        <details class="group">
+                            <summary class="flex justify-between items-center p-6 cursor-pointer text-gray-200 hover:text-blue-300 transition">
+                                <span class="font-bold">我是电脑小白，真的能学会吗？</span>
+                                <span class="transform group-open:rotate-180 transition duration-300"><i class="fas fa-chevron-down"></i></span>
+                            </summary>
+                            <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">
+                                完全可以。这正是“1对1教学”的价值所在。我们不讲晦涩的代码理论，而是直接远程控制您的屏幕，像朋友一样手把手带您完成点击。我们的承诺是“当场教会”，直到系统成功运行。
+                            </div>
+                        </details>
+                    </div>
+                    <div class="glass-panel rounded-lg overflow-hidden">
+                        <details class="group">
+                            <summary class="flex justify-between items-center p-6 cursor-pointer text-gray-200 hover:text-blue-300 transition">
+                                <span class="font-bold">和直接购买节点有什么区别？</span>
+                                <span class="transform group-open:rotate-180 transition duration-300"><i class="fas fa-chevron-down"></i></span>
+                            </summary>
+                            <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">
+                                直接购买是“租房”，不仅每月付费，而且数据安全和网络质量都在房东手里。学习自建是“盖房”，一次性投入，之后每月维护成本极低（仅需服务器费），而且您拥有绝对的控制权和最高级的安全隐私。
+                            </div>
+                        </details>
+                    </div>
+                    <div class="glass-panel rounded-lg overflow-hidden">
+                        <details class="group">
+                            <summary class="flex justify-between items-center p-6 cursor-pointer text-gray-200 hover:text-blue-300 transition">
+                                <span class="font-bold">以后遇到问题怎么办？</span>
+                                <span class="transform group-open:rotate-180 transition duration-300"><i class="fas fa-chevron-down"></i></span>
+                            </summary>
+                            <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-4">
+                                我们提供终身售后。课程库会持续更新最新的技术，且加入我们的内部社群后，您遇到任何网络波动或技术难题，都可以随时联系站长获取支持。
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="text-center py-10 bg-slate-100"><div class="container mx-auto px-6"><p class="text-slate-500">Copyright © 2024-2025 站长网络方案. All Rights Reserved.</p></div></footer>
+    <footer class="glass-panel border-t border-gray-800 py-8 text-center text-gray-600 text-xs uppercase tracking-widest">
+        <div class="container mx-auto">
+            <p>Copyright © 2024-2025 NEXUS SYSTEM. All Rights Reserved.</p>
+        </div>
+    </footer>
 
+    <!-- Three.js 核心逻辑 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- 课程详情展开功能 ---
-            document.querySelectorAll('details.course-details').forEach((detail) => {
-                detail.addEventListener('toggle', () => {
-                    const icon = detail.querySelector('summary .arrow');
-                    if (icon) {
-                        icon.style.transform = detail.open ? 'rotate(180deg)' : 'rotate(0deg)';
-                    }
-                });
+        // === 星系背景逻辑 ===
+        const canvas = document.getElementById('canvas-bg');
+        const scene = new THREE.Scene();
+        
+        // 1. 摄像机设置 (从俯视调整为稍微平视，适合网页背景)
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = 30;
+        camera.position.y = 10;
+        camera.rotation.x = -0.3;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // 2. 粒子参数
+        const parameters = {
+            count: 40000,     // 稍微减少粒子数以保证移动端性能
+            size: 0.1,
+            radius: 40,
+            branches: 3,
+            spin: 1,
+            randomness: 0.3,
+            randomnessPower: 3,
+            insideColor: '#ff6030', // 橙色核心
+            outsideColor: '#1b3984' // 蓝色外围
+        };
+
+        let geometry = null;
+        let material = null;
+        let points = null;
+
+        const generateGalaxy = () => {
+            geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(parameters.count * 3);
+            const colors = new Float32Array(parameters.count * 3);
+
+            const colorInside = new THREE.Color(parameters.insideColor);
+            const colorOutside = new THREE.Color(parameters.outsideColor);
+
+            for(let i = 0; i < parameters.count; i++) {
+                const i3 = i * 3;
+                const radius = Math.random() * parameters.radius;
+                const spinAngle = radius * parameters.spin;
+                const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2;
+
+                const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+                const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+                const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
+
+                positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+                positions[i3 + 1] = randomY; // 扁平一点
+                positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+                const mixedColor = colorInside.clone();
+                mixedColor.lerp(colorOutside, radius / parameters.radius);
+
+                colors[i3] = mixedColor.r;
+                colors[i3 + 1] = mixedColor.g;
+                colors[i3 + 2] = mixedColor.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            // 使用 AdditiveBlending 让粒子叠加发光
+            material = new THREE.PointsMaterial({
+                size: parameters.size,
+                sizeAttenuation: true,
+                depthWrite: false,
+                blending: THREE.AdditiveBlending,
+                vertexColors: true
             });
+
+            points = new THREE.Points(geometry, material);
+            scene.add(points);
+        };
+
+        generateGalaxy();
+
+        // 3. 背景辅助星空
+        const bgGeo = new THREE.BufferGeometry();
+        const bgCount = 2000;
+        const bgPos = new Float32Array(bgCount * 3);
+        for(let i=0; i<bgCount*3; i++) bgPos[i] = (Math.random() - 0.5) * 150;
+        bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPos, 3));
+        const bgMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.3 });
+        scene.add(new THREE.Points(bgGeo, bgMat));
+
+        // 4. 动画循环
+        const clock = new THREE.Clock();
+        const tick = () => {
+            const elapsedTime = clock.getElapsedTime();
+            
+            // 缓慢旋转星系
+            if(points) points.rotation.y = elapsedTime * 0.05;
+            
+            // 缓慢浮动摄像机
+            camera.position.y = 10 + Math.sin(elapsedTime * 0.2) * 2;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(tick);
+        };
+        tick();
+
+        // 自适应窗口
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
 </body>
